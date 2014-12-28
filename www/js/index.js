@@ -27,6 +27,13 @@ var app = {
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
+		document.addEventListener('pause', this.onPause, false);
+		document.addEventListener('resume', this.onResume, false);
+		document.addEventListener('backbutton', this.onBackButton, false);
+		document.addEventListener('menubutton', this.onMenuButton, false);
+		// Events added by org.apache.cordova.network-information:
+		document.addEventListener('online', this.onOnline, false);
+		document.addEventListener('offline', this.onOffline, false);
     },
     // deviceready Event Handler
     //
@@ -35,6 +42,18 @@ var app = {
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
     },
+    onPause: function() {
+    },
+    onResume: function() {
+    },
+    onBackButton: function() {
+    },
+    onMenuButton: function() {
+    },	
+    onOnline: function() {
+    },	
+    onOffline: function() {
+    },		
     // Update DOM on a Received Event
     receivedEvent: function(id) {
         var parentElement = document.getElementById(id);
