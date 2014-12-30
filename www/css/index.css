@@ -1,115 +1,108 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
-* {
-    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+﻿/*SOL CSS DEFINICE*/
+
+.center-wrapper {
+    text-align: center !important;
 }
 
-body {
-    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
-    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
-    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-    background-color:#E4E4E4;
-    background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-webkit-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-ms-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-webkit-gradient(
-        linear,
-        left top,
-        left bottom,
-        color-stop(0, #A7A7A7),
-        color-stop(0.51, #E4E4E4)
-    );
-    background-attachment:fixed;
-    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
-    font-size:12px;
-    height:100%;
-    margin:0px;
-    padding:0px;
-    text-transform:uppercase;
-    width:100%;
+    .center-wrapper * {
+        margin: auto auto !important;
+    }
+
+.sol-sidebar .ui-panel-inner {
+    padding-top: 0 !important;
 }
 
-/* Portrait layout (default) */
-.app {
-    background:url(../img/logo.png) no-repeat center top; /* 170px x 200px */
-    position:absolute;             /* position in the center of the screen */
-    left:50%;
-    top:50%;
-    height:50px;                   /* text area height */
-    width:225px;                   /* text area width */
-    text-align:center;
-    padding:180px 0px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
-    margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
-                                   /* offset horizontal: half of text area width */
+.sol-subheader {
+    text-align: center;
+    margin-top: -5px;
+    margin-bottom: 6px;
+    font-size: smaller;
+    font-weight: normal;
 }
 
-/* Landscape layout (with min-width) */
-@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
-    .app {
-        background-position:left center;
-        padding:75px 0px 75px 170px;  /* padding-top + padding-bottom + text area = image height */
-        margin:-90px 0px 0px -198px;  /* offset vertical: half of image height */
-                                      /* offset horizontal: half of image width and text area width */
+/* column toggle nefungovalo - proto skryjeme */
+a[href='#dochazka-table-popup'] {
+    display: none;
+}
+
+/* column toggle nefungovalo - proto skryjeme */
+a[href='#hodnoceni-table-popup'] {
+    display: none;
+}
+
+input[type=number]:invalid {
+     /*background-color: red !important;*/
+}
+
+
+/*.error {
+    color:red;
+}*/
+
+/*label.error {
+    float: none; 
+    color: red; 
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 1.4;
+    margin-top: 0.5em;
+    width: 100%;
+    display: block;
+    margin-left: 22%;
+}*/
+
+
+label.error {
+    color: red;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 1.4;
+    margin-top: 0.5em;
+    width: 100%;
+    float: none;
+}
+ 
+@media screen and (orientation: portrait){
+    label.error {
+         margin-left: 0; display: block;
     }
 }
-
-h1 {
-    font-size:24px;
-    font-weight:normal;
-    margin:0px;
-    overflow:visible;
-    padding:0px;
-    text-align:center;
-}
-
-.event {
-    border-radius:4px;
-    -webkit-border-radius:4px;
-    color:#FFFFFF;
-    font-size:12px;
-    margin:0px 30px;
-    padding:2px 0px;
-}
-
-.event.listening {
-    background-color:#333333;
-    display:block;
-}
-
-.event.received {
-    background-color:#4B946A;
-    display:none;
-}
-
-@keyframes fade {
-    from { opacity: 1.0; }
-    50% { opacity: 0.4; }
-    to { opacity: 1.0; }
+ 
+@media screen and (orientation: landscape){
+    label.error { 
+        display: inline-block; 
+        /*margin-left: 22%;*/ 
+    }
 }
  
-@-webkit-keyframes fade {
-    from { opacity: 1.0; }
-    50% { opacity: 0.4; }
-    to { opacity: 1.0; }
+em { color: red; font-weight: bold; padding-right: .25em; } 
+
+/*
+.ng-pristine { border:1px solid Gold; }
+.ng-dirty.ng-valid { border:1px solid Green; }
+.ng-dirty.ng-valid ~ span.ok { color:green; display:inline; }
+.ng-dirty.ng-invalid { border:1px solid Red; }
+.ng-dirty.ng-invalid ~ span.ko { color:red; display:inline; }
+*/
+
+
+
+/*.ui-btn-active 
+{ 
+    color: #2F3E46 !important; 
+    background: none !important; 
+    background-color: #eee !important; 
+    text-shadow: 0 1px 0 #ffffff ;
+    border: 0;
+}*/
+
+
+
+.ui-panel-wrapper {
+  background-color: #ECECEC;
 }
- 
-.blink {
-    animation:fade 3000ms infinite;
-    -webkit-animation:fade 3000ms infinite;
+
+.ui-header {
+    background-color: #00b3c8;
 }
+

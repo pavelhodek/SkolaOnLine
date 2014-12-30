@@ -1,46 +1,883 @@
-<!DOCTYPE html>
-<!--
-    Copyright (c) 2012-2014 Adobe Systems Incorporated. All rights reserved.
-
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
+﻿<!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="msapplication-tap-highlight" content="no" />
-        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>Hello World</title>
-    </head>
-    <body>
-        <div class="app">
-            <h1>PhoneGap</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
+
+<head lang="cs">
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <!--<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />-->
+
+    <link rel="stylesheet" href="lib/jquery.mobile-1.4.3/jquery.mobile-1.4.3.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="css/app.css" />
+
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+
+    <title>Škola OnLine</title>
+
+    <!--JQUERY-->
+    <script type="text/javascript" src="lib/jquery-2.1.1.min.js"></script>
+
+    <!--JQUERY MOBILE-->
+    <script src="lib/jquery.mobile-1.4.3/jquery.mobile-1.4.3.min.js"></script>
+
+    <!--CORDOVA-->
+    <script type="text/javascript" src="cordova.js"></script>
+
+    <!--UTILS-->
+    <script src="lib/lodash-2.4.1/lodash.min.js"></script>
+    <script src="lib/base64.js"></script>
+    <script src="js/helpers/date-helper.js"></script>
+
+    <!--JQUERY VALIDATION-->
+    <script src="lib/jquery-validation-1.13.1/jquery.validate.min.js"></script>
+
+    <!--ANGULAR-->
+    <script src="lib/angular-1.2.20/angular.js"></script>
+    <script src="lib/angular-1.2.20/angular-resource.min.js"></script>
+    <script src="lib/angular-1.2.20/i18n/angular-locale_cs.js"></script>
+
+
+    <!--APP-->
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/jqm-config.js"></script>
+
+    <!--SERVICES-->
+    <script src="js/services/TridyService.js"></script>
+    <script src="js/services/ObdobiDneService.js"></script>
+    <script src="js/services/ObdobiRokuService.js"></script>
+    <script src="js/services/PredmetyService.js"></script>
+    <script src="js/services/DruhyHodnoceniService.js"></script>
+    <script src="js/services/NastaveniService.js"></script>
+    <script src="js/services/AuthorizationService.js"></script>
+    <script src="js/services/SelectedDateService.js"></script>
+    <script src="js/services/RozvrhService.js"></script>
+    <script src="js/services/ZapisHodnoceniService.js"></script>
+    <script src="js/services/ZapisDochazkyService.js"></script>
+    <script src="js/services/SkolniRokyService.js"></script>
+    <script src="js/services/UdalostService.js"></script>
+    <script src="js/services/StupniceHodnoceniService.js"></script>
+    <script src="js/services/ZapisProbiranehoUcivaService.js"></script>
+    <script src="js/services/ParametryService.js"></script>
+
+    <!--CONTROLLERS-->
+    <script src="js/controllers/IndexCtrl.js"></script>
+    <script src="js/controllers/StudentIndexCtrl.js"></script>
+    <script src="js/controllers/LoginCtrl.js"></script>
+    <script src="js/controllers/LogoutCtrl.js"></script>
+    <script src="js/controllers/NastaveniCtrl.js"></script>
+    <script src="js/controllers/ZapisProbiranehoUcivaCtrl.js"></script>
+    <script src="js/controllers/RozvrhCtrl.js"></script>
+    <script src="js/controllers/RozvrhStudentCtrl.js"></script>
+    <script src="js/controllers/SkolniRokyCtrl.js"></script>
+    <script src="js/controllers/ZapisDochazkyCtrl.js"></script>
+    <script src="js/controllers/ZapisHodnoceniCtrl.js"></script>
+    <script src="js/controllers/HodnoceniVypisStudentCtrl.js"></script>
+    
+
+</head>
+<body ng-app="sol">
+
+
+
+
+    <!--INDEX-->
+    <section id="index" data-role="page" data-fullscreen="true" ng-controller="IndexCtrl">
+        <!--HEADER-->
+        <header id="header" data-role="header" data-theme="a" data-position="fixed">
+            <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
+            <h1>Škola OnLine</h1>
+        </header>
+
+        <!--CONTENT-->
+        <div class="content" data-role="content">
+            <!--Nastavení, přihlášení, výpis rozvrhu, zadávání docházky a další funkce jsou přístupné z menu v záhlaví.-->
+
+            <div id="deviceProperties"></div>
+            
         </div>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript">
-            app.initialize();
+    </section>
+
+
+    
+    <!--INDEXSTUDENT-->
+    <section id="indexStudent" data-role="page" data-fullscreen="true" ng-controller="StudentIndexCtrl">
+        <!--HEADER-->
+        <header id="header" data-role="header" data-theme="a" data-position="fixed">
+            <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
+            <div style="text-align: center; background-color: #00b3c8;"><img src="img/header_logo.png" alt="logo Škola OnLine" /></div>
+            <!--<div style="text-align: center">...nejrozšířenější webový školní informační systém</div>-->
+            <!--<h1>Škola OnLine</h1>-->
+        </header>
+
+        <!--CONTENT-->
+        <div class="content" data-role="content">
+            {{data.userInfo}}
+
+            <button onclick="$.mobile.changePage('#rozvrhStudent')" data-iconpos="top" data-icon="calendar" class="ui-nodisc-icon ui-alt-icon ui-btn-inline">Rozvrh</button>
+            <button onclick="$.mobile.changePage('#hodnoceniVypisStudent')" data-iconpos="top" data-icon="edit" class="ui-nodisc-icon ui-alt-icon ui-btn-inline">Známky</button>
+            <button onclick="$.mobile.changePage('#absenceVypisStudent')" data-iconpos="top" data-icon="forbidden" class="ui-nodisc-icon ui-alt-icon ui-btn-inline">Absence</button>
+
+        </div>
+    </section>
+
+
+    <!--NASTAVENI-->
+    <section id="nastaveni" data-role="page" ng-controller="NastaveniCtrl">
+
+        <!--HEADER-->
+        <header data-role="header" data-position="fixed">
+            <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
+            <h1>Nastavení</h1>
+            <button class="ui-btn-right" data-icon="check" data-iconpos="left" data-theme="b" ng-click="save()">Uložit</button>
+        </header>
+
+        <!--CONTENT-->
+        <div class="content" data-role="content">
+            <div data-role="popup" id="nastaveniNotifier"></div>
+
+            <div class="ui-field-contain">
+                <label for="apiURL">URL adresa pro komunikaci:</label>
+                <input type="url" id="apiURL" ng-model="apiURL" data-clear-btn="true" />
+            </div>
+            <!--<div class="ui-field-contain">
+                    <label><input type="checkbox" id="remember" ng-model="remember" />Nabízet v rozvrhu sobotu / neděli</label>
+                </div>
+            -->
+            
+        </div>
+    </section>
+
+
+
+
+
+    <!--LOGIN-->
+    <section id="login" data-role="page" ng-controller="LoginCtrl">
+
+        <!--HEADER-->
+        <header data-role="header">
+            <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
+            <h1>Přihlášení do aplikace</h1>
+        </header>
+
+        <!--CONTENT-->
+        <div id="loginContent" class="content" data-role="content">
+            <div data-role="popup" id="loginNotifier"></div>
+
+            <!--<h4>Přihlašovací údaje do Školy OnLine:</h4>-->
+            <div style="text-align: center; background-color: #00b3c8;"><img src="img/header_logo.png" alt="logo Škola OnLine" /></div>
+
+            <input type="text" name="username" id="username" ng-model="data.username" placeholder="Uživatelské jméno" maxlength="50" data-clear-btn="true" />
+            <input type="password" id="password" ng-model="data.password" placeholder="Heslo" maxlength="50" data-clear-btn="true" />
+            <label><input type="checkbox" id="remember" ng-model="data.remember" />Uložit profil</label>
+
+            <input id="submitLogin" type="submit" ng-click="login()" value="Přihlásit" data-role="button" data-inline="false" data-theme="b" />
+            
+            <hr />
+            <h4>Uložené profily:</h4>
+            <ul id="login-userProfiles" data-role="listview" class="ui-listview-inset">
+                <li ng-repeat="profile in data.userProfiles">
+                    <a href="#" ng-click="loginProfile(profile, $index, $event)">
+                        {{profile.username}}
+                    </a>
+                    <a ng-click="deleteProfile(profile, $index, $event)"
+                       class="ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-delete ui-btn-icon-notext"
+                       title="Menu">Smazat</a>
+                </li>
+            </ul>
+            
+
+        </div>
+
+    </section>
+
+
+
+
+
+
+
+
+    <!--LOGOUT-->
+    <section id="logout" data-role="page" ng-controller="LogoutCtrl">
+        <!--HEADER-->
+        <header data-role="header">
+            <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
+            <!--<h1>Odhlášení z aplikace</h1>-->
+        </header>
+
+        <button id="logoutButton" style="display: none" ng-click="logout()"></button>
+
+        <script>
+            $("#logout").on("pageshow", function (e) {
+                $("#logoutButton").click();
+            });
         </script>
-    </body>
+    </section>
+
+
+
+    
+    
+    
+    <!--ROZVRH - UCITEL -->
+    <section id="rozvrh" data-role="page" ng-controller="RozvrhCtrl">
+
+        <div data-role="popup" id="popupInfo" data-theme="a" style="min-width:210px; max-width: 400px">
+            <p><strong>Detail hodiny</strong></p>
+            <p>Zde může být celá řada dalších informací prakticky libovolně formátovaných, včetně formulářových prvků či tabulek.</p>
+        </div>
+
+
+        <div data-role="popup" id="popupMenu" data-theme="a">
+            <ul data-role="listview" data-inset="true" style="min-width:210px;">
+                <li><a href="#" ng-click="navigateTo('#probirane-ucivo')">Zadat probírané učivo</a></li>
+                <li><a href="#" ng-click="navigateTo('#dochazka')">Zadat docházku</a></li>
+                <li><a href="#" ng-click="navigateTo('#hodnoceni')">Nové hodnocení</a></li>
+
+            </ul>
+        </div>
+
+
+        <!--HEADER-->
+        <header id="rozvrh-header" data-role="header" data-theme="a" data-position="fixed">
+            <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
+            <h1>Rozvrh</h1>
+
+            <nav data-role="navbar" class="ui-bar-a">
+                <ul>
+                    <li><a ng-click="decrementSelectedDate()" class=" ui-btn ui-btn-inline ui-alt-icon ui-nodisc-icon" data-icon="arrow-l"></a></li>
+                    <li>
+                        <!--<div class="center-wrapper"><div id="selectedDate" ng-click="pickDate()">{{selectedDate | date:dateFormat }}</div></div>-->
+                        <a ng-click="pickDate()" class="ui-btn ui-nodisc-icon ui-alt-icon" style="padding: 12px 0">{{selectedDate | date:dateFormat }}</a>
+                    </li>
+                    <li><a ng-click="incrementSelectedDate()" class="ui-nodisc-icon ui-alt-icon" data-icon="arrow-r"></a></li>
+                </ul>
+            </nav>
+        </header>
+
+
+        <!--CONTENT-->
+        <div class="content" data-role="content">
+            <div data-role="popup" id="rozvrhNotifier"></div>
+
+            <ul id="rozvrh-table" data-role="listview">
+                <li ng-repeat="udalost in data">
+                    <a ng-click="showPopupMenu($event, udalost)">
+                        <div style="display:table-cell">
+                            <div style="text-align:center">
+                                {{obdobiDneNazev(udalost)}}
+                            </div>
+                            <p>{{udalost.CAS_OD | date:timeFormat}} - {{udalost.CAS_DO | date:timeFormat}}</p>
+                        </div>
+                        <div style="display:table-cell; padding-left: 20px">
+                            {{udalost.NAZEV}}
+                            <p>
+                                {{zdrojeInfo(udalost)}}
+                            </p>
+                        </div>
+                    </a>
+                    <!--<a ng-click="showPopupInfo($event, udalost, udalost.showPopupInfo)"
+                           class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-info ui-btn-icon-notext"
+                           title="Detail hodiny">Detail hodiny</a>-->
+                </li>
+            </ul>
+        </div>
+
+
+        <!--FOOTER-->
+        <footer data-role="footer" data-theme="a" data-position="fixed">
+            <h6 style="padding: 2px">K aktuálně probíhající hodině zadat:</h6>
+            <nav data-role="navbar">
+                <ul>
+                    <li><a ng-click="zapsatProbiraneUcivo('#probirane-ucivo', data)" data-role="button" data-theme="a">Učivo</a></li>
+                    <li><a ng-click="zapsatDochazku('#dochazka', data)" data-role="button" data-theme="a">Docházku</a></li>
+                    <li><a ng-click="zapsatHodnoceni('#hodnoceni', data)" data-role="button" data-theme="a">Hodnocení</a></li>
+                </ul>
+            </nav>
+        </footer>
+
+    </section>
+
+
+
+
+    <!--ROZVRH - STUDENT-->
+    <section id="rozvrhStudent" data-role="page" ng-controller="RozvrhStudentCtrl">
+
+        <div data-role="popup" id="rozvrhStudentPopupInfo" data-theme="a" style="min-width:210px; max-width: 400px">
+            <p><strong>Detail hodiny</strong></p>
+            <p>Zde může být celá řada dalších informací prakticky libovolně formátovaných, včetně formulářových prvků či tabulek.</p>
+        </div>
+
+        <!--HEADER-->
+        <header id="rozvrhStudent-header" data-role="header" data-theme="a" data-position="fixed">
+            <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
+            <h1>Rozvrh</h1>
+
+            <nav data-role="navbar" class="ui-bar-a">
+                <ul>
+                    <li><a ng-click="decrementSelectedDate()" class=" ui-btn ui-btn-inline ui-alt-icon ui-nodisc-icon" data-icon="arrow-l"></a></li>
+                    <li>
+                        <!--<div class="center-wrapper"><div id="selectedDate" ng-click="pickDate()">{{selectedDate | date:dateFormat }}</div></div>-->
+                        <a ng-click="pickDate()" class="ui-btn ui-nodisc-icon ui-alt-icon" style="padding: 12px 0" data-icon="false">{{selectedDate | date:dateFormat }}</a>
+                    </li>
+                    <li><a ng-click="incrementSelectedDate()" class="ui-nodisc-icon ui-alt-icon" data-icon="arrow-r"></a></li>
+                </ul>
+            </nav>
+        </header>
+
+
+        <!--CONTENT-->
+        <div class="content" data-role="content">
+            <div data-role="popup" id="rozvrhStudentNotifier"></div>
+
+            <ul id="rozvrhStudent-table" data-role="listview">
+                <li ng-repeat="udalost in data" data-icon="false">
+                    <a>
+                        <div style="display:table-cell">
+                            <div style="text-align:center">
+                                {{obdobiDneNazev(udalost)}}
+                            </div>
+                            <p>{{udalost.CAS_OD | date:timeFormat}} - {{udalost.CAS_DO | date:timeFormat}}</p>
+                        </div>
+                        <div style="display:table-cell; padding-left: 20px">
+                            {{udalost.NAZEV}}
+                            <p>
+                                {{zdrojeInfo(udalost)}}
+                            </p>
+                        </div>
+                    </a>
+                    <!--<a ng-click="showPopupInfo($event, udalost, udalost.showPopupInfo)"
+                class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-info ui-btn-icon-notext"
+                title="Detail hodiny">Detail hodiny</a>-->
+                </li>
+            </ul>
+        </div>
+
+    </section>
+
+
+    <!--HODNOCENI - STUDENT-->
+    <section id="hodnoceniVypisStudent" data-role="page" ng-controller="HodnoceniVypisStudentCtrl">
+
+        <!--HEADER-->
+        <header id="hodnoceniVypisStudent-header" data-role="header" data-theme="a" data-position="fixed">
+            <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
+            <h1>Známky</h1>
+        </header>
+
+
+        <!--CONTENT-->
+        <div class="content" data-role="content">
+            <div data-role="popup" id="hodnoceniVypisStudentNotifier"></div>
+
+            <ul id="hodnoceniVypisStudent-table" data-role="listview">
+                <li ng-repeat="udalost in data" data-icon="false">
+                    <a>
+                        <div style="display:table-cell">
+                            <div style="text-align:center">
+                                {{obdobiDneNazev(udalost)}}
+                            </div>
+                            <p>{{udalost.CAS_OD | date:timeFormat}} - {{udalost.CAS_DO | date:timeFormat}}</p>
+                        </div>
+                        <div style="display:table-cell; padding-left: 20px">
+                            {{udalost.NAZEV}}
+                            <p>
+                                {{zdrojeInfo(udalost)}}
+                            </p>
+                        </div>
+                    </a>
+                    <!--<a ng-click="showPopupInfo($event, udalost, udalost.showPopupInfo)"
+                   class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-info ui-btn-icon-notext"
+                   title="Detail hodiny">Detail hodiny</a>-->
+                </li>
+            </ul>
+            
+            <div data-role="popup" id="hodnoceniVypisStudentObdobiPopup" class="ui-content" data-theme="a" data-overlay-theme="a">
+                Změna období výpisu
+                <hr />
+                <fieldset data-role="controlgroup" data-mini="false">
+                    <label ng-repeat="stupen in data.StupniceHodnoceni">
+                        <input type="radio"
+                               name="hodnoceni-vyber"
+                               id="hodnoceni-vyber-{{$index + 1}}"
+                               ng-model="$parent.vybranaZnamka"
+                               ng-change="nastavHodnoceni('{{stupen.HODNOTA}}')"
+                               value="{{stupen.HODNOTA}}">{{stupenHodnoceniText(stupen.HODNOTA)}}
+                    </label>
+                </fieldset>
+                <hr />
+                <label><input type="checkbox" id="hodnoceniNastavitVsem" ng-model="hodnoceniNastavitVsem" data-mini="false" />nastavit všem</label>
+            </div>            
+            
+
+        </div>
+        
+        <!--FOOTER-->
+        <footer data-role="footer" data-theme="a" data-position="fixed">
+            <table style="width: 100%; text-align: center;">
+                <tr>
+                    <td><a data-role="button" ng-click="zmenitObdobiVypisu()">Změnit období výpisu</a></td>
+                </tr>
+            </table>
+        </footer>        
+        
+        
+
+    </section>
+
+
+
+
+
+
+    <!--DOCHAZKA-->
+    <section id="dochazka" data-role="page" ng-controller="ZapisDochazkyCtrl">
+
+        <!--HEADER-->
+        <header data-role="header" data-position="fixed">
+            <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
+            <h1>Evidence docházky</h1>
+            <p class="sol-subheader">{{popisHodiny}}</p>
+        </header>
+
+        <!--CONTENT-->
+        <div class="content" data-role="content">
+            <div data-role="popup" id="dochazkaNotifier"></div>
+
+            <table id="dochazka-table" data-role="table" data-mode="columntoggle" class="ui-responsive table-stripe table-bordered ">
+                <thead>
+                    <tr>
+                        <th class="ui-table-priority-3">Třída</th>
+                        <th class="ui-table-priority-4">ČVTV</th>
+                        <th>Příjmení a jméno</th>
+                        <th ng-repeat="obdobi in data.ObdobiDne">{{obdobi.NAZEV}}. hod</th>
+                        <th class="ui-table-priority-3">Důvod absence</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="student in data.Studenti">
+                        <td class="ui-table-priority-3">{{ student.TRIDA_NAZEV }}</td>
+                        <td class="ui-table-priority-4">{{ student.CVTV }}</td>
+                        <td>{{ nazevStudenta(student) }}</td>
+
+                        <td ng-repeat="obdobi in data.ObdobiDne">
+                            <button class="ui-btn ui-mini ui-btn-inline" ng-click="prepniAbsenci(student.DOCHAZKA, $index, $parent.$index)"> {{ student.DOCHAZKA[$index] }} </button>
+                        </td>
+
+                        <td class="ui-table-priority-3"><input type="text" ng-model="student.POZNAMKA" ng-change="editacePoznamky($index)" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!--FOOTER-->
+        <footer data-role="footer" data-theme="a" data-position="fixed">
+            <table style="width: 100%; text-align: center;">
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><a data-role="button" ng-click="prednastavitDlePredchozi()">Nastavit dle předchozí</a></td>
+                    <td style="width: 50%">&nbsp;</td>
+                    <td><a data-role="button" ng-click="ulozit()">Uložit</a></td>
+                    <td style="width: 50%">&nbsp;</td>
+                    <td><a data-role="button" ng-click="zpet()">Zpět</a></td>
+                    <td>&nbsp;</td>
+                </tr>
+            </table>
+        </footer>
+
+    </section>
+
+
+
+
+
+
+
+
+    <!--HODNOCENI-->
+    <section id="hodnoceni" data-role="page" ng-controller="ZapisHodnoceniCtrl">
+        <form id="hodnoceniForm" name="hodnoceniForm" novalidate>
+
+            <!--HEADER-->
+            <header data-role="header" data-position="fixed">
+                <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
+                <h1>Zápis hodnocení</h1>
+                <p class="sol-subheader">{{popisHodiny}}</p>
+            </header>
+
+            <!--CONTENT-->
+            <div class="content" data-role="content">
+                <div data-role="popup" id="hodnoceniNotifier"></div>
+
+                <div class="ui-field-contain">
+                    <label for="hodnoceniPololeti">Započítávat do</label>
+                    <select name="hodnoceniPololeti" id="hodnoceniPololeti" data-native-menu="true"
+                            ng-options="item.OBDOBI_ID as item.NAZEV for item in data.ObdobiRoku"
+                            ng-model="data.Hodnoceni.OBDOBI_ID_P"></select>
+                </div>
+
+                <div class="ui-field-contain">
+                    <label for="hodnoceniDruh">
+                        <em>*</em>
+                        Druh hodnocení
+                        <label class="error" ng-show="(hodnoceniForm.hodnoceniDruh.$dirty || submitted) && hodnoceniForm.hodnoceniDruh.$error.required">(povinné pole)</label>
+                    </label>
+                    <select name="hodnoceniDruh" id="hodnoceniDruh" data-native-menu="true" required
+                            ng-options="item.DRUH_UDALOSTI_ID as nazevDruhuHodnoceni(item) for item in data.DruhyHodnoceni"
+                            ng-model="data.Hodnoceni.DRUH_UDALOSTI_ID">
+                        <option value=""></option>
+                    </select>
+                </div>
+
+                <div class="ui-field-contain">
+                    <label for="hodnoceniTema">
+                        <em>*</em>
+                        Téma
+                        <label class="error" ng-show="(hodnoceniForm.hodnoceniTema.$dirty || submitted) && hodnoceniForm.hodnoceniTema.$error.required">
+                            (povinné pole)
+                        </label>
+                    </label>
+                    <input id="hodnoceniTema" name="hodnoceniTema" type="text" ng-model="data.Hodnoceni.NAZEV" data-clear-btn="true" required ng-maxlength="100" />
+
+                </div>
+                <div class="ui-field-contain">
+                    <label>Komentář</label>
+                    <textarea rows="6" name="textarea" id="textarea" ng-model="data.Hodnoceni.POPIS" maxlength="2000"></textarea>
+                </div>
+
+                <!--
+                    <style>
+                    .controlgroup-textinput {
+                        padding-top: .22em;
+                        padding-bottom: .22em;
+                    }
+
+                    #hodnoceni-tema-container {
+                        width: 100% !important;
+                    }
+
+                    #hodnoceni-tema-container > div > div {
+                        width: 100% !important;
+                    }
+
+                    #hodnoceni-tema-container > div > div > div {
+                        width: -moz-calc(100% - 82px) !important;
+                        width: -webkit-calc(100% - 82px) !important;
+                        width: calc(100% - 82px) !important;
+                    }
+                </style>
+
+
+                    <div class="ui-field-contain" style="width: 100%" id="hodnoceni-tema-container">
+                        <label>xxx</label>
+
+                        <div data-role="controlgroup" data-type="horizontal">
+                            <input id="textbox-button" data-wrapper-class="controlgroup-textinput ui-btn" type="text">
+                            <button>...</button>
+                        </div>
+                    </div>
+                    -->
+
+                <hr />
+
+                <fieldset ng-show="isHodnoceniDruhVysledkuVyber" data-role="controlgroup" data-type="horizontal">
+                    <label>
+                        <input type="radio"
+                               name="hodnoceniDruhVysledku"
+                               id="hodnoceniDruhVysledkuZnamka"
+                               ng-model="druhVysledku"
+                               ng-change="nastavDruhVysledku('Z')"
+                               value="Z">Známky
+                    </label>
+                    <label>
+                        <input type="radio"
+                               name="hodnoceniDruhVysledku"
+                               id="hodnoceniDruhVysledkuProcenta"
+                               ng-model="druhVysledku"
+                               ng-change="nastavDruhVysledku('P')"
+                               value="P">Procenta
+                    </label>
+                </fieldset>
+
+                <table id="hodnoceni-table" data-role="table" data-mode="columntoggle" class="ui-responsive table-stripe table-bordered ">
+                    <thead>
+                        <tr>
+                            <th class="ui-table-priority-3">Třída</th>
+                            <th class="ui-table-priority-4">ČVTV</th>
+                            <th>Příjmení a jméno</th>
+                            <th ng-show='isHodnoceniZnamkami || druhVysledku == "Z"'>Známka</th>
+                            <th ng-show='isHodnoceniProcenty || druhVysledku == "P"'>Procenta</th>
+                            <th class="ui-table-priority-3">Slovní hodnocení</th>
+                        </tr>
+                    </thead>
+                    <tbody id="znamky-table-body">
+                        <tr ng-repeat="student in data.Studenti">
+                            <td class="ui-table-priority-3">{{ student.TRIDA_NAZEV }}</td>
+                            <td class="ui-table-priority-4">{{ student.CVTV }}</td>
+                            <td>{{ nazevStudenta(student) }}</td>
+
+                            <td ng-show='isHodnoceniZnamkami || druhVysledku == "Z"'>
+                                <button class="ui-btn ui-mini ui-btn-inline"
+                                        ng-click="prepniHodnoceni(student, $index, $event)">
+                                    {{ student.VYSLEDEK_ZNAMKA }}
+                                </button>
+                            </td>
+                            <td ng-show='isHodnoceniProcenty || druhVysledku == "P"'>
+                                <ng-form name="hodnoceniProcentaForm">
+                                    <input type="number" pattern="\d*" min="0" max="100" step="1" size="4" name="procenta" ng-model="student.VYSLEDEK_PROCENTA" />
+                                    <label class="error" ng-show="(hodnoceniForm.hodnoceniTema.$dirty || submitted) && (hodnoceniProcentaForm.procenta.$error.number || hodnoceniProcentaForm.procenta.$error.max || hodnoceniProcentaForm.procenta.$error.min) ">
+                                        <!--{{hodnoceniProcentaForm.procenta.$error}}-->
+                                        neplatná hodnota
+                                    </label>
+                                </ng-form>
+                            </td>
+                            <td class="ui-table-priority-3"><input type="text" ng-model="student.VYSLEDEK_TEXT" /></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div data-role="popup" id="hodnoceniVyberPopup" class="ui-content" data-theme="a" data-overlay-theme="a">
+                    Výběr hodnocení
+                    <hr />
+                    <fieldset data-role="controlgroup" data-mini="false">
+                        <label ng-repeat="stupen in data.StupniceHodnoceni">
+                            <input type="radio"
+                                   name="hodnoceni-vyber"
+                                   id="hodnoceni-vyber-{{$index + 1}}"
+                                   ng-model="$parent.vybranaZnamka"
+                                   ng-change="nastavHodnoceni('{{stupen.HODNOTA}}')"
+                                   value="{{stupen.HODNOTA}}">{{stupenHodnoceniText(stupen.HODNOTA)}}
+                        </label>
+                    </fieldset>
+                    <hr />
+                    <label><input type="checkbox" id="hodnoceniNastavitVsem" ng-model="hodnoceniNastavitVsem" data-mini="false" />nastavit všem</label>
+                </div>
+
+            </div>
+
+            <!--FOOTER-->
+            <footer data-role="footer" data-theme="a" data-position="fixed">
+                <table style="width: 100%; text-align: center;">
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>
+                            <a data-role="button" ng-click="ulozit()">Uložit</a>
+                        </td>
+                        <td style="width: 50%">&nbsp;</td>
+                        <td><a data-role="button" ng-click="ulozitAPodobne()">Uložit a nové</a></td>
+                        <td style="width: 50%">&nbsp;</td>
+                        <td><a data-role="button" ng-click="zpet()">Zpět</a></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                </table>
+            </footer>
+        </form>
+
+        <script>
+            //$("hodnoceniForm").validate({
+            //    messages: {
+            //        "hodnoceniTema": "Téma je povinné.",
+            //        hodnoceniDruh: {
+            //            required: "Druh je povinný."
+            //        }
+            //    },
+            //    focusInvalid: false
+            //});
+
+
+            //$("#hodnoceniForm").validate({
+            //    submitHandler: function (form, x) {
+            //        $log.info("submit + validate");
+            //        $log.debug(form);
+            //        $log.debug(x);
+            //    },
+            //        messages: {
+            //            "hodnoceniTema": "Téma je povinné.",
+            //            hodnoceniDruh: {
+            //                required: "Druh je povinný."
+            //            }
+            //        }
+            //});
+        </script>
+
+    </section>
+
+
+
+
+
+
+
+
+    <!--PROBIRANE-UCIVO-->
+    <section id="probirane-ucivo" data-role="page" ng-controller="ZapisProbiranehoUcivaCtrl">
+        <form id="probiraneUcivoForm" name="probiraneUcivoForm" novalidate>
+
+            <!--HEADER-->
+            <header data-role="header" data-position="fixed">
+                <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
+                <h1>Probírané učivo</h1>
+                <p class="sol-subheader">{{popisHodiny}}</p>
+            </header>
+
+            <!--CONTENT-->
+            <div class="content" data-role="content">
+                <div data-role="popup" id="probiraneUcivoNotifier"></div>
+
+                <div class="ui-field-contain">
+                    <label for="probiraneUcivoTrida">Třída</label>
+
+                    <select name="probiraneUcivoTrida" id="probiraneUcivoTrida" data-native-menu="true" ng-change="probiraneUcivoTridaChanged()"
+                            ng-options="item.TRIDA_ID as item.TRIDA_NAZEV for item in data.Tridy"
+                            ng-model="selectedTrida"></select>
+                    <input name="seznamTrid" id="seznamTrid" type="text" ng-disabled="true" ng-model="seznamTrid" />
+                </div>
+
+                <!--počet tříd: {{pocetTrid}}; počet hodin: {{pocetHodin}}-->
+                <!--<div ng-repeat="ucivo in data.ProbiraneUcivo | filter:{ SKUPINA_ID: selectedTrida } | limitTo:limitToTrida">-->
+
+                <div ng-repeat="ucivo in data.ProbiraneUcivoView">
+                    <div ng-show="zapsatHodinyZvlast && pocetHodin > 1">Období dne: {{ucivo.OBDOBI_DNE_NAZEV}}</div>
+                    <div class="ui-field-contain">
+                        <label for="cisloHodiny">Číslo hodiny</label>
+                        <input name="cisloHodiny" id="cisloHodiny" type="number" pattern="\d*" min="0" max="9999" step="1" size="4" ng-model="ucivo.POCET_ODUCENYCH_HODIN">
+                        <label class="error" ng-show="(probiraneUcivoForm.cisloHodiny.$dirty || submitted) && (probiraneUcivoForm.cisloHodiny.$error.number || probiraneUcivoForm.cisloHodiny.$error.max || probiraneUcivoForm.cisloHodiny.$error.min) ">
+                            {{probiraneUcivoForm.procenta.$error}}
+                            neplatná hodnota
+                        </label>
+                    </div>
+
+                    <div class="ui-field-contain">
+                        <label for="probiraneUcivo">Probírané učivo</label>
+                        <input name="probiraneUcivo" id="probiraneUcivo" type="text" ng-model="ucivo.PROBRANE_UCIVO">
+                    </div>
+
+                    <div class="ui-field-contain">
+                        <label for="poznamka">Poznámka</label>
+                        <textarea name="poznamka" id="poznamka" rows="2" ng-model="ucivo.POZNAMKA"></textarea>
+                    </div>
+                </div>
+                <label><input type="checkbox" name="zapsatVsemTridam" id="zapsatVsemTridam" ng-model="zapsatVsemTridam" ng-change="zapsatVsemTridamChanged()" />Číslo hodiny a učivo zapsat všem třídám v úvazku</label>
+                <label><input type="checkbox" name="zapsatHodinyZvlast" id="zapsatHodinyZvlast" ng-model="zapsatHodinyZvlast" ng-change="zapsatHodinyZvlastChanged()" />Zapsat každou hodinu zvlášť</label>
+            </div>
+
+
+            <!--FOOTER-->
+            <footer data-role="footer" data-theme="a" data-position="fixed">
+                <table style="width: 100%; text-align: center;">
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td><a data-role="button" ng-click="ulozit()">Uložit</a></td>
+                        <td style="width: 50%">&nbsp;</td>
+                        <td><a data-role="button" ng-click="ulozitAZadatDochazku()">Uložit a zadat docházku</a></td>
+                        <td style="width: 50%">&nbsp;</td>
+                        <td><a data-role="button" ng-click="zpet()">Zpět</a></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                </table>
+            </footer>
+        </form>
+
+    </section>
+
+
+
+
+
+
+
+    <!--NAPOVEDA-->
+    <section id="napoveda" data-role="page">
+
+        <!--HEADER-->
+        <header data-role="header" data-position="fixed">
+            <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
+            <h1>Nápověda</h1>
+        </header>
+
+        <!--CONTENT-->
+        <div class="content" data-role="content">
+            <h1>NÁPOVĚDA</h1>
+        </div>
+    </section>
+
+
+
+
+
+
+
+    <!--O-APLIKACI-->
+    <section id="o-aplikaci" data-role="page">
+
+        <!--HEADER-->
+        <header data-role="header" data-position="fixed">
+            <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
+            <h1>O aplikaci</h1>
+        </header>
+
+        <!--CONTENT-->
+        <div class="content" data-role="content">
+            <h1>O APLIKACI</h1>
+        </div>
+
+    </section>
+
+
+
+
+
+
+
+    <!--SKOLNI-ROK-->
+    <section id="skolni-rok" data-role="page" ng-controller="SkolniRokyCtrl">
+
+        <!--HEADER-->
+        <header data-role="header" data-position="fixed">
+            <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
+            <h1>Škoní rok</h1>
+            <button class="ui-btn-right" data-icon="check" data-iconpos="left" data-theme="b">Uložit</button>
+        </header>
+
+        <!--CONTENT-->
+        <div class="content" data-role="content">
+            <h4 class="list-inset">Školní roky</h4>
+            ({{statusCode}} : {{statusMessage}})
+
+            <ul id="skolni-roky-list" data-role="listview" class="ui-listview-inset">
+                <li class="item item-radio" ng-repeat="rok in skolniRoky">
+                    {{rok.OBDOBI_ID}} - {{rok.NAZEV}}
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <!--FOOTER-->
+        <footer data-role="footer"><h1></h1></footer>
+    </section>
+
+
+
+
+    <script src="http://debug.build.phonegap.com/target/target-script-min.js#solmobile"></script>
+
+    <script type="text/javascript">
+        app.initialize();
+
+        window.onerror = function (x) {
+            alert("nastala chyba");
+            alert(x);
+        }
+    </script>
+
+
+</body>
 </html>

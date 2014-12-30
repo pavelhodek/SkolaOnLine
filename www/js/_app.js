@@ -3,7 +3,7 @@
     angular.module('sol.controllers', []);
     angular.module('sol.services', []);
 
-
+    
     var sol = angular.module("sol");
 
     sol.config([
@@ -20,61 +20,67 @@
 var deviceReadyDeferred = $.Deferred();
 var jqmReadyDeferred = $.Deferred();
 
-
-
 var app = {
-    // Application Constructor
-    initialize: function() {
+
+    // APPLICATION CONSTRUCTOR
+    initialize: function () {
         this.bindEvents();
     },
-    // Bind Event Listeners
+
+    // BIND EVENT LISTENERS
     //
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-        document.addEventListener('pause', this.onPause, false);
-        document.addEventListener('resume', this.onResume, false);
-        document.addEventListener('backbutton', this.onBackButton, false);
-        document.addEventListener('menubutton', this.onMenuButton, false);
-        // Events added by org.apache.cordova.network-information:
-        document.addEventListener('online', this.onOnline, false);
-        document.addEventListener('offline', this.onOffline, false);
+    bindEvents: function () {
+        document.addEventListener("deviceReady", this.onDeviceReady, false);
+
+        $(document).on("mobileinit", function () {
+            jqmReadyDeferred.resolve();
+        });
+
+        $.when(deviceReadyDeferred, jqmReadyDeferred).then(this.doWhenAllFrameworksLoaded);
     },
-    // deviceready Event Handler
+
+    // DEVICEREADY EVENT HANDLER
     //
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
+    onDeviceReady: function () {
+        deviceReadyDeferred.resolve();
+
         app.receivedEvent('deviceready');
 
-        document.addEventListener("menubutton", this.onMenuKeyDown, false);
+        document.addEventListener("menubutton", app.onMenuKeyDown, false);
+
+        //var element = document.getElementById('deviceProperties');
+        //if (element) {
+        //    element.innerHTML = 'Device Name: ' + device.name + '<br />' +
+        //                        'Device Cordova: ' + device.cordova + '<br />' +
+        //                        'Device Platform: ' + device.platform + '<br />' +
+        //                        'Device UUID: ' + device.uuid + '<br />' +
+        //                        'Device Version: ' + device.version + '<br />' + 
+        //                        'Internet Connection: ' + navigator.connection.type;
+
+        //}
+
     },
+
     onMenuKeyDown: function () {
         $('#solSidePanel').panel("toggle");
     },
-    onPause: function() {
-    },
-    onResume: function() {
-    },
-    onBackButton: function() {
-    },
-    onMenuButton: function() {
-    },	
-    onOnline: function() {
-    },	
-    onOffline: function() {
-    },		
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
 
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
+    // UPDATE DOM ON A RECEIVED EVENT
+    receivedEvent: function (id) {
 
-        console.log('Received Event: ' + id);
+        //log('Received Event: ' + id);
+    },
+
+    doWhenAllFrameworksLoaded: function () {
+        // READY
+
+        $(document).on('online', function () {
+            //alert("ONLINE");
+        });
     },
 
     isUserLoggedIn: false,
@@ -82,6 +88,7 @@ var app = {
     isUserRoleExternal: false
 
 };
+
 
 
 
@@ -130,7 +137,7 @@ function getSidePanel() {
 
     /*
     <li data-icon="calendar"><a href="#rozvrh" >Rozvrh</a></li> \
-
+        
         <li data-icon="user"><a href="#login" >Přihlášení</a></li> \
         <li data-icon="delete" ><a href="#logout" >Odhlášení</a></li> \
         */
@@ -172,3 +179,6 @@ jQuery(function ($) {
         }, 0);
     });
 });
+
+
+
