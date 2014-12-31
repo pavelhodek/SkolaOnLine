@@ -138,6 +138,8 @@
             };
 
             $scope.navigateTo = function (pageIdToChange) {
+              $.mobile.changePage(pageIdToChange);
+/*
                 $.mobile.pageContainer.pagecontainer('change', pageIdToChange, {
                     transition: 'none', // 
                     reload: true,
@@ -145,7 +147,7 @@
                     reverse: false,
                     showLoadMsg: true
                 });
-
+*/
                 $scope.reset();
             }
 
