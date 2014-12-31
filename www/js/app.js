@@ -37,13 +37,13 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
 
-        //document.addEventListener('pause', this.onPause, false);
-        //document.addEventListener('resume', this.onResume, false);
-        document.addEventListener('backbutton', this.onBackButton, false);
-        document.addEventListener('menubutton', this.onMenuButton, false);
+        document.addEventListener('pause', app.onPause, false);
+        document.addEventListener('resume', app.onResume, false);
+        document.addEventListener('backbutton', app.onBackButton, false);
+        document.addEventListener('menubutton', app.onMenuButton, false);
         // Events added by org.apache.cordova.network-information:
-        //document.addEventListener('online', this.onOnline, false);
-        //document.addEventListener('offline', this.onOffline, false);
+        document.addEventListener('online', app.onOnline, false);
+        document.addEventListener('offline', app.onOffline, false);
     },
     onPause: function() {
     },
