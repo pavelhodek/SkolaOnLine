@@ -40,9 +40,9 @@
     <script src="libs/jquery-validation-1.13.1/jquery.validate.min.js"></script>
 
     <!--ANGULAR-->
+    <script src="libs/angular-1.2.20/angular.js"></script>
     <script src="libs/angular-1.2.20/angular-resource.min.js"></script>
     <script src="libs/angular-1.2.20/i18n/angular-locale_cs.js"></script>
-    <script src="libs/angular-1.2.20/angular.js"></script>
 
 
     <!--APP-->
@@ -332,7 +332,9 @@
                     <li><a ng-click="decrementSelectedDate()" class=" ui-btn ui-btn-inline ui-alt-icon ui-nodisc-icon" data-icon="arrow-l"></a></li>
                     <li>
                         <!--<div class="center-wrapper"><div id="selectedDate" ng-click="pickDate()">{{selectedDate | date:dateFormat }}</div></div>-->
-                        <a ng-click="pickDate()" class="ui-btn ui-nodisc-icon ui-alt-icon" style="padding: 12px 0" data-icon="false">{{selectedDate | date:dateFormat }}</a>
+                        <a ng-click="pickDate()"
+                        class="ui-btn ui-nodisc-icon ui-alt-icon"
+                        style="padding: 12px 0">{{selectedDateString}}</a>
                     </li>
                     <li><a ng-click="incrementSelectedDate()" class="ui-nodisc-icon ui-alt-icon" data-icon="arrow-r"></a></li>
                 </ul>

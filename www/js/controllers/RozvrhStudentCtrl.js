@@ -1,4 +1,4 @@
-﻿; (function () {
+; (function () {
     "use strict";
     angular.module('sol.controllers')
 
@@ -18,6 +18,7 @@
             $scope.dateFormat = NastaveniService.dateFormat;
 
             $scope.selectedDate = SelectedDateService.getSelectedDate();
+            $scope.selectedDateString = $scope.selectedDate.locale("cs").format("dddd D.M.YYYY");
 
             $scope.reset = function () {
                 $scope.data = {};
@@ -194,6 +195,7 @@
                 //$log.info('decrementSelectedDate');
                 SelectedDateService.decrementSelectedDate();
                 $scope.selectedDate = SelectedDateService.getSelectedDate();
+                $scope.selectedDateString = $scope.selectedDate.locale("cs").format("dddd D.M.YYYY");
 
                 $scope.data = {};
 
@@ -204,6 +206,7 @@
                 //$log.info('incrementSelectedDate');
                 SelectedDateService.incrementSelectedDate();
                 $scope.selectedDate = SelectedDateService.getSelectedDate();
+                $scope.selectedDateString = $scope.selectedDate.locale("cs").format("dddd D.M.YYYY");
 
                 $scope.data = {};
 

@@ -29,13 +29,7 @@ var app = {
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
-        document.addEventListener('pause', this.onPause, false);
-        document.addEventListener('resume', this.onResume, false);
-        document.addEventListener('backbutton', this.onBackButton, false);
-        document.addEventListener('menubutton', this.onMenuButton, false);
-        // Events added by org.apache.cordova.network-information:
-        document.addEventListener('online', this.onOnline, false);
-        document.addEventListener('offline', this.onOffline, false);
+
     },
     // deviceready Event Handler
     //
@@ -43,10 +37,13 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
 
-        document.addEventListener("menubutton", this.onMenuKeyDown, false);
-    },
-    onMenuKeyDown: function () {
-        $('#solSidePanel').panel("toggle");
+        //document.addEventListener('pause', this.onPause, false);
+        //document.addEventListener('resume', this.onResume, false);
+        document.addEventListener('backbutton', this.onBackButton, false);
+        document.addEventListener('menubutton', this.onMenuButton, false);
+        // Events added by org.apache.cordova.network-information:
+        //document.addEventListener('online', this.onOnline, false);
+        //document.addEventListener('offline', this.onOffline, false);
     },
     onPause: function() {
     },
@@ -55,6 +52,7 @@ var app = {
     onBackButton: function() {
     },
     onMenuButton: function() {
+      $('#solSidePanel').panel("toggle");
     },	
     onOnline: function() {
     },	
