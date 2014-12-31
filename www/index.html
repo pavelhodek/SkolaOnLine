@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head lang="cs">
@@ -9,7 +9,7 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <!--<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />-->
 
-    <link rel="stylesheet" href="lib/jquery.mobile-1.4.3/jquery.mobile-1.4.3.min.css" />
+    <link rel="stylesheet" href="libs/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css" />
 
     <link rel="stylesheet" type="text/css" href="css/app.css" />
 
@@ -18,27 +18,31 @@
 
     <title>Škola OnLine</title>
 
+
+    <!--MOMENT-->
+    <script type="text/javascript" src="libs/moment-with-locales.min.js"></script>
+
     <!--JQUERY-->
-    <script type="text/javascript" src="lib/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="libs/jquery-2.1.1.min.js"></script>
 
     <!--JQUERY MOBILE-->
-    <script src="lib/jquery.mobile-1.4.3/jquery.mobile-1.4.3.min.js"></script>
+    <script src="libs/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
 
     <!--CORDOVA-->
     <script type="text/javascript" src="cordova.js"></script>
 
     <!--UTILS-->
-    <script src="lib/lodash-2.4.1/lodash.min.js"></script>
-    <script src="lib/base64.js"></script>
-    <script src="js/helpers/date-helper.js"></script>
+    <script src="libs/lodash-2.4.1/lodash.min.js"></script>
+    <script src="libs/base64.js"></script>
+    <!-- <script src="js/helpers/date-helper.js"></script> -->
 
     <!--JQUERY VALIDATION-->
-    <script src="lib/jquery-validation-1.13.1/jquery.validate.min.js"></script>
+    <script src="libs/jquery-validation-1.13.1/jquery.validate.min.js"></script>
 
     <!--ANGULAR-->
-    <script src="lib/angular-1.2.20/angular.js"></script>
-    <script src="lib/angular-1.2.20/angular-resource.min.js"></script>
-    <script src="lib/angular-1.2.20/i18n/angular-locale_cs.js"></script>
+    <script src="libs/angular-1.2.20/angular-resource.min.js"></script>
+    <script src="libs/angular-1.2.20/i18n/angular-locale_cs.js"></script>
+    <script src="libs/angular-1.2.20/angular.js"></script>
 
 
     <!--APP-->
@@ -87,7 +91,7 @@
     <!--INDEX-->
     <section id="index" data-role="page" data-fullscreen="true" ng-controller="IndexCtrl">
         <!--HEADER-->
-        <header id="header" data-role="header" data-theme="a" data-position="fixed">
+        <header data-role="header" data-theme="a" data-position="fixed">
             <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
             <h1>Škola OnLine</h1>
         </header>
@@ -106,7 +110,7 @@
     <!--INDEXSTUDENT-->
     <section id="indexStudent" data-role="page" data-fullscreen="true" ng-controller="StudentIndexCtrl">
         <!--HEADER-->
-        <header id="header" data-role="header" data-theme="a" data-position="fixed">
+        <header data-role="header" data-theme="a" data-position="fixed">
             <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
             <div style="text-align: center; background-color: #00b3c8;"><img src="img/header_logo.png" alt="logo Škola OnLine" /></div>
             <!--<div style="text-align: center">...nejrozšířenější webový školní informační systém</div>-->
@@ -253,7 +257,11 @@
                     <li><a ng-click="decrementSelectedDate()" class=" ui-btn ui-btn-inline ui-alt-icon ui-nodisc-icon" data-icon="arrow-l"></a></li>
                     <li>
                         <!--<div class="center-wrapper"><div id="selectedDate" ng-click="pickDate()">{{selectedDate | date:dateFormat }}</div></div>-->
-                        <a ng-click="pickDate()" class="ui-btn ui-nodisc-icon ui-alt-icon" style="padding: 12px 0">{{selectedDate | date:dateFormat }}</a>
+                        <a ng-click="pickDate()"
+                          class="ui-btn ui-nodisc-icon ui-alt-icon"
+                          style="padding: 12px 0">
+                          {{selectedDateString}}
+                        </a>
                     </li>
                     <li><a ng-click="incrementSelectedDate()" class="ui-nodisc-icon ui-alt-icon" data-icon="arrow-r"></a></li>
                 </ul>
@@ -402,18 +410,16 @@
                 Změna období výpisu
                 <hr />
                 <fieldset data-role="controlgroup" data-mini="false">
-                    <label ng-repeat="stupen in data.StupniceHodnoceni">
+                    <label ng-repeat="obdobi in data.ObdobiFilter">
                         <input type="radio"
-                               name="hodnoceni-vyber"
-                               id="hodnoceni-vyber-{{$index + 1}}"
-                               ng-model="$parent.vybranaZnamka"
-                               ng-change="nastavHodnoceni('{{stupen.HODNOTA}}')"
-                               value="{{stupen.HODNOTA}}">{{stupenHodnoceniText(stupen.HODNOTA)}}
+                               name="hodnoceniVypisStudentObdobi"
+                               id="hodnoceniVypisStudentObdobi-{{$index + 1}}"
+                               ng-model="$parent.vybraneObdobi"
+                               ng-change="nastavObdobi('{{obdobi.HODNOTA}}')"
+                               value="{{obdobi.HODNOTA}}">{{stupenHodnoceniText(obdobi.HODNOTA)}}
                     </label>
                 </fieldset>
-                <hr />
-                <label><input type="checkbox" id="hodnoceniNastavitVsem" ng-model="hodnoceniNastavitVsem" data-mini="false" />nastavit všem</label>
-            </div>            
+            </div>
             
 
         </div>
@@ -866,14 +872,14 @@
 
 
 
-
+    <!--DEBUG-->
     <script src="http://debug.build.phonegap.com/target/target-script-min.js#solmobile"></script>
 
     <script type="text/javascript">
         app.initialize();
 
         window.onerror = function (x) {
-            alert("nastala chyba");
+            //alert("nastala chyba");
             alert(x);
         }
     </script>

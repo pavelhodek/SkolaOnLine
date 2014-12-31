@@ -1,8 +1,8 @@
-﻿; (function () {
+; (function () {
     "use strict";
     var module = angular.module('sol.services');
 
-    module.factory('SkolniRokyService', ['$http', '$q', '$log', '$resource', 'NastaveniService', 'AuthorizationService', function ($http, $q, $log, $resource, NastaveniService, AuthorizationService) {
+    module.factory('SkolniRokyService', ['$http', '$q', '$log', 'NastaveniService', 'AuthorizationService', function ($http, $q, $log, NastaveniService, AuthorizationService) {
         //$log.debug('SkolniRokyService');
 
         //var url = AuthorizationService.getApiUrl() + 'SkolniRoky';

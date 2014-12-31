@@ -1,8 +1,8 @@
-﻿; (function () {
+; (function () {
     "use strict";
     var module = angular.module('sol.services');
 
-    module.factory('RozvrhService', ['$http', '$q', '$log', 'NastaveniService', 'AuthorizationService', function ($http, $q, $log, NastaveniService, AuthorizationService) {
+    module.factory('RozvrhService', ['$http', '$q', '$log', 'NastaveniService', 'AuthorizationService', 'SelectedDateService', function ($http, $q, $log, NastaveniService, AuthorizationService, SelectedDateService) {
         //$log.debug('RozvrhService');
 
         var me = {};
@@ -14,7 +14,7 @@
         me.getByDatum = function (date) {
             //$log.debug('RozvrhService - getByDatum');
 
-            var url = AuthorizationService.getApiUrl() + 'RozvrhoveUdalosti' + '/' + dateToIsoString(date);
+            var url = AuthorizationService.getApiUrl() + 'RozvrhoveUdalosti' + '/' + date.format("YYYY-MM-DD");
 
             $http.defaults.headers.common.Authorization = AuthorizationService.getAuthorizationHeader();
 

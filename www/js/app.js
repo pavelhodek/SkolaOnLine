@@ -1,5 +1,6 @@
 (function () {
-    angular.module('sol', ['ngResource', 'sol.controllers', 'sol.services']);
+    //angular.module('sol', ['ngResource', 'sol.controllers', 'sol.services']);
+    angular.module('sol', ['sol.controllers', 'sol.services']);
     angular.module('sol.controllers', []);
     angular.module('sol.services', []);
 
@@ -156,7 +157,7 @@ solSidePanel += '\
 
 //$(document).one('pagebeforecreate', function () {
 $(document).on('pagebeforeshow', function () {
-    console.log("PAGEBEFORESHOW");
+    //console.log("PAGEBEFORESHOW");
     $("#solSidePanel").remove();
 
     $.mobile.pageContainer.prepend(getSidePanel());

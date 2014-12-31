@@ -1,4 +1,4 @@
-﻿; (function () {
+; (function () {
     "use strict";
     angular.module('sol.controllers')
 
@@ -18,6 +18,7 @@
             $scope.dateFormat = NastaveniService.dateFormat;
 
             $scope.selectedDate = SelectedDateService.getSelectedDate();
+            $scope.selectedDateString = $scope.selectedDate.locale("cs").format("dddd D.M.YYYY");
 
         $scope.reset = function() {
             $scope.data = {};
@@ -253,6 +254,7 @@
                 //$log.info('decrementSelectedDate');
                 SelectedDateService.decrementSelectedDate();
                 $scope.selectedDate = SelectedDateService.getSelectedDate();
+                $scope.selectedDateString = $scope.selectedDate.locale("cs").format("dddd D.M.YYYY");
 
                 $scope.data = {};
 
@@ -264,13 +266,17 @@
 
             }
 
+
+
             $scope.incrementSelectedDate = function () {
                 //$log.info('incrementSelectedDate');
                 SelectedDateService.incrementSelectedDate();
                 $scope.selectedDate = SelectedDateService.getSelectedDate();
+                $scope.selectedDateString = $scope.selectedDate.locale("cs").format("dddd D.M.YYYY");
 
                 $scope.data = {};
 
+                /*
                 setTimeout(function () {
                     var table = angular.element('#rozvrh-table');
                     table.listview('refresh');
@@ -278,6 +284,7 @@
                     //angular.element('[type="text"]', '#hodnoceni-table').textinput();
                     //angular.element('[type="text"]', table).textinput();
                 }, 0);
+                */
 
                 $scope.loadData();
 
