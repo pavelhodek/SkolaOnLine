@@ -66,6 +66,7 @@
     <script src="js/services/StupniceHodnoceniService.js"></script>
     <script src="js/services/ZapisProbiranehoUcivaService.js"></script>
     <script src="js/services/ParametryService.js"></script>
+    <script src="js/services/HodnoceniVypisStudentService.js"></script>
 
     <!--CONTROLLERS-->
     <script src="js/controllers/IndexCtrl.js"></script>
@@ -378,33 +379,65 @@
         <!--HEADER-->
         <header id="hodnoceniVypisStudent-header" data-role="header" data-theme="a" data-position="fixed">
             <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
-            <h1>Známky</h1>
+            <h1>Hodnocení</h1>
+            <p class="sol-subheader">{{popisObdobi}}</p>
         </header>
+
+
 
 
         <!--CONTENT-->
         <div class="content" data-role="content">
             <div data-role="popup" id="hodnoceniVypisStudentNotifier"></div>
 
+
+            <!--<ul data-role="listview">
+                <li data-role="list-divider" data-iconpos="right" data-inset="false">
+                    <h3>Matematika (MAT)</h3>
+                    <span class="ui-li-count">12</span>
+                    </li>
+
+                        <li><a href="#">Condor</a></li>
+                        <li><a href="#">Eagle</a></li>
+                        <li><a href="#">Sparrow</a></li>
+
+            </ul>
+
+            <ul data-role="listview">
+                <li data-role="collapsible" data-iconpos="left" data-inset="false">
+                    <h3>
+                        
+                        Matematika (MAT) <span class="ui-li-aside">poslední: 22.12.2014</span>
+                        <span class="ui-li-count">počet: 4</span>
+                    </h3>
+
+                    <ul data-role="listview">
+                        <li><a href="#">Condor</a></li>
+                        <li><a href="#">Eagle</a></li>
+                        <li><a href="#">Sparrow</a></li>
+                    </ul>
+                </li>
+
+            </ul>-->
+
+
             <ul id="hodnoceniVypisStudent-table" data-role="listview">
-                <li ng-repeat="udalost in data" data-icon="false">
+                <li ng-repeat="hodnoceni in data" data-icon="false">
                     <a>
+                        <div style="display:table-cell; vertical-align: middle; width: 26px">
+                            {{hodnoceni.VYSLEDEK}}
+                        </div>
                         <div style="display:table-cell">
-                            <div style="text-align:center">
-                                {{obdobiDneNazev(udalost)}}
-                            </div>
-                            <p>{{udalost.CAS_OD | date:timeFormat}} - {{udalost.CAS_DO | date:timeFormat}}</p>
+                            {{hodnoceni.NAZEV}}
+                            <p>druh hodnocení</p>
                         </div>
-                        <div style="display:table-cell; padding-left: 20px">
-                            {{udalost.NAZEV}}
-                            <p>
-                                {{zdrojeInfo(udalost)}}
-                            </p>
+                        <div class="ui-li-aside">
+                            <p>{{hodnoceni.DATUM | date:dateFormat}}</p>
                         </div>
+                        <span class="ui-li-count">
+                            xxx
+                        </span>
                     </a>
-                    <!--<a ng-click="showPopupInfo($event, udalost, udalost.showPopupInfo)"
-                   class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-info ui-btn-icon-notext"
-                   title="Detail hodiny">Detail hodiny</a>-->
                 </li>
             </ul>
             
@@ -416,41 +449,41 @@
                         <input type="radio"
                                name="hodnoceniVypisStudentObdobi"
                                id="hodnoceniVypisStudentObdobi-den"
-                               ng-model="hodnoceniVypisStudentObdobi"
-                               ng-change="nastavObdobi('D')"
+                               ng-model="selectedObdobiVypisu"
+                               ng-change="nastavObdobiVypisu('D')"
                                value="D">Dnes
                     </label>
                     <label>
                         <input type="radio"
                                name="hodnoceniVypisStudentObdobi"
                                id="hodnoceniVypisStudentObdobi-tyden"
-                               ng-model="hodnoceniVypisStudentObdobi"
-                               ng-change="nastavObdobi('W')"
+                               ng-model="selectedObdobiVypisu"
+                               ng-change="nastavObdobiVypisu('W')"
                                value="W">Poslední týden
                     </label>
                     <label>
                         <input type="radio"
                                name="hodnoceniVypisStudentObdobi"
                                id="hodnoceniVypisStudentObdobi-mesic"
-                               ng-model="hodnoceniVypisStudentObdobi"
-                               ng-change="nastavObdobi('M')"
-                               value="W">Poslední měsíc
+                               ng-model="selectedObdobiVypisu"
+                               ng-change="nastavObdobiVypisu('M')"
+                               value="M">Poslední měsíc
                     </label>
                     <label>
                         <input type="radio"
                                name="hodnoceniVypisStudentObdobi"
                                id="hodnoceniVypisStudentObdobi-3mesic"
-                               ng-model="hodnoceniVypisStudentObdobi"
-                               ng-change="nastavObdobi('3M')"
-                               value="W">Poslední 3 měsíce
+                               ng-model="selectedObdobiVypisu"
+                               ng-change="nastavObdobiVypisu('3M')"
+                               value="3M">Poslední 3 měsíce
                     </label>
                     <label>
                         <input type="radio"
                                name="hodnoceniVypisStudentObdobi"
                                id="hodnoceniVypisStudentObdobi-semestr"
-                               ng-model="hodnoceniVypisStudentObdobi"
-                               ng-change="nastavObdobi('S')"
-                               value="W">Celé pololetí
+                               ng-model="selectedObdobiVypisu"
+                               ng-change="nastavObdobiVypisu('S')"
+                               value="S">Celé pololetí
                     </label>
                 </fieldset>
             </div>
@@ -462,7 +495,7 @@
         <footer data-role="footer" data-theme="a" data-position="fixed">
             <table style="width: 100%; text-align: center;">
                 <tr>
-                    <td><a data-role="button" ng-click="zmenitObdobiVypisu()">Změnit období výpisu</a></td>
+                    <td><a data-role="button" ng-click="vyberObdobiVypisu()">Změnit období výpisu</a></td>
                 </tr>
             </table>
         </footer>        

@@ -12,7 +12,7 @@
         me.selectedUdalostPoradi = null;
         me.selectedDatum = null;
 
-        me.getAllOfCurrentSemester = function (date) {
+        me.getAllOfCurrentSemester = function () {
             //$log.debug('RozvrhService - getByDatum');
 
             var url = AuthorizationService.getApiUrl() + 'VypisHodnoceniStudent';

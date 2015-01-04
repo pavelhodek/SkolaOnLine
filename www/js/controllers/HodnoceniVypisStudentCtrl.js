@@ -26,8 +26,24 @@
                 $scope.loadData();
             };
 
+            function setSelectedObdobi(selectedValue) {
+                $scope.selectedObdobiVypisu = selectedValue;
+
+                if ($scope.selectedObdobiVypisu == "D")
+                    $scope.popisObdobi = "den";
+                else if ($scope.selectedObdobiVypisu == "W")
+                    $scope.popisObdobi = "týden";
+                else if ($scope.selectedObdobiVypisu == "M")
+                    $scope.popisObdobi = "měsíc";
+                else if ($scope.selectedObdobiVypisu == "3M")
+                    $scope.popisObdobi = "3 měsíce";
+                else if ($scope.selectedObdobiVypisu == "S")
+                    $scope.popisObdobi = "pololetí";
+            }
 
             $scope.loadData = function () {
+                
+                setSelectedObdobi("D");
 
                 if (navigator.network && navigator.network.connection.type === Connection.NONE) {
                     navigator.notification.alert(
@@ -57,7 +73,7 @@
 
                         if (result.Status.Code != "OK") {
                             $scope.data = null;
-                            $("#rozvrhNotifier").html(result.Status.Message).popup("open");
+                            $("#hodnoceniVypisStudentNotifier").html(result.Status.Message).popup("open");
                         } else {
                             $scope.data = result.Data.Hodnoceni;
 
@@ -101,21 +117,6 @@
                 $scope.reset();
             }
 
-            $scope.showPopupMenu = function (event, udalost, x) {
-                //$log.info('popupMenu');
-                //$log.debug(event);
-                //$log.debug(udalost.UDALOST_ID, udalost.PORADI);
-                //$log.debug(x);
-
-                RozvrhService.selectedUdalostID = udalost.UDALOST_ID;
-                RozvrhService.selectedUdalostPoradi = udalost.PORADI;
-                RozvrhService.selectedDatum = udalost.DATUM;
-
-                $('#popupMenu').popup('open', {
-                    transition: 'pop'
-                });
-            }
-
 
             $scope.decrementSelectedDate = function () {
                 //$log.info('decrementSelectedDate');
@@ -147,10 +148,21 @@
             };
 
 
-            $scope.decrementSelectedDate = function() {
+            $scope.vyberObdobiVypisu = function () {
+                $log.info("vyberObdobiVypisu");
+                $("#hodnoceniVypisStudentObdobiPopup").popup("open");
+
+                setTimeout(function () {
+                    $("input[type='radio']").checkboxradio();
+                    $("input[type='radio']").checkboxradio("refresh");
+                }, 0);
 
             };
 
+            $scope.nastavObdobiVypisu = function (selectedValue) {
+                setSelectedObdobi(selectedValue);
+                $("#hodnoceniVypisStudentObdobiPopup").popup("close");
+            }
 
         });
 
