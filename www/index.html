@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 <head lang="cs">
@@ -412,13 +412,45 @@
                 Změna období výpisu
                 <hr />
                 <fieldset data-role="controlgroup" data-mini="false">
-                    <label ng-repeat="obdobi in data.ObdobiFilter">
+                    <label>
                         <input type="radio"
                                name="hodnoceniVypisStudentObdobi"
-                               id="hodnoceniVypisStudentObdobi-{{$index + 1}}"
-                               ng-model="$parent.vybraneObdobi"
-                               ng-change="nastavObdobi('{{obdobi.HODNOTA}}')"
-                               value="{{obdobi.HODNOTA}}">{{stupenHodnoceniText(obdobi.HODNOTA)}}
+                               id="hodnoceniVypisStudentObdobi-den"
+                               ng-model="hodnoceniVypisStudentObdobi"
+                               ng-change="nastavObdobi('D')"
+                               value="D">Dnes
+                    </label>
+                    <label>
+                        <input type="radio"
+                               name="hodnoceniVypisStudentObdobi"
+                               id="hodnoceniVypisStudentObdobi-tyden"
+                               ng-model="hodnoceniVypisStudentObdobi"
+                               ng-change="nastavObdobi('W')"
+                               value="W">Poslední týden
+                    </label>
+                    <label>
+                        <input type="radio"
+                               name="hodnoceniVypisStudentObdobi"
+                               id="hodnoceniVypisStudentObdobi-mesic"
+                               ng-model="hodnoceniVypisStudentObdobi"
+                               ng-change="nastavObdobi('M')"
+                               value="W">Poslední měsíc
+                    </label>
+                    <label>
+                        <input type="radio"
+                               name="hodnoceniVypisStudentObdobi"
+                               id="hodnoceniVypisStudentObdobi-3mesic"
+                               ng-model="hodnoceniVypisStudentObdobi"
+                               ng-change="nastavObdobi('3M')"
+                               value="W">Poslední 3 měsíce
+                    </label>
+                    <label>
+                        <input type="radio"
+                               name="hodnoceniVypisStudentObdobi"
+                               id="hodnoceniVypisStudentObdobi-semestr"
+                               ng-model="hodnoceniVypisStudentObdobi"
+                               ng-change="nastavObdobi('S')"
+                               value="W">Celé pololetí
                     </label>
                 </fieldset>
             </div>

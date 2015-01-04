@@ -2,7 +2,8 @@
     "use strict";
     angular.module('sol.controllers')
 
-        .controller('HodnoceniVypisStudentCtrl', function ($scope, $rootScope, $log, NastaveniService, SelectedDateService, RozvrhService) {
+        .controller('HodnoceniVypisStudentCtrl',
+        function ($scope, $rootScope, $log, NastaveniService, SelectedDateService, HodnoceniVypisStudentService) {
             //$log.debug('HodnoceniVypisStudent');
 
             angular.element(document)
@@ -14,63 +15,15 @@
                     $scope.init();
                 });
 
-            $scope.timeFormat = NastaveniService.timeFormat;
-            $scope.dateFormat = NastaveniService.dateFormat;
-
-            $scope.selectedDate = SelectedDateService.getSelectedDate();
+            $scope.selectedDateFrom = moment();
+            $scope.selectedDateTo = moment();
 
             $scope.reset = function () {
                 $scope.data = {};
             };
 
             $scope.init = function () {
-                //$scope.loadData();
-            };
-
-
-            $scope.obdobiDneNazev = function (udalost) {
-                if (udalost.OBDOBI_DNE_OD_NAZEV == udalost.OBDOBI_DNE_DO_NAZEV)
-                    return udalost.OBDOBI_DNE_OD_NAZEV;
-                else
-                    return udalost.OBDOBI_DNE_OD_NAZEV + ' - ' + udalost.OBDOBI_DNE_DO_NAZEV;
-            };
-
-            $scope.zdrojeInfo = function (udalost) {
-                var nazvySkupin = [];
-
-                var skupiny = udalost.SKUPINY_UDALOSTI;
-
-                for (var i = 0, len = skupiny.length; i < len; i++) {
-                    var skupina = skupiny[i];
-                    if (skupina.PRIZNAK_DRUH_SKUPINY == 'T')
-                        nazvySkupin.push(skupina.TRIDA_NAZEV);
-                    else if (skupina.PRIZNAK_DRUH_SKUPINY == 'S')
-                        nazvySkupin.push(skupina.TRIDA_NAZEV + ' ' + skupina.SKUPINA_NAZEV);
-                    else
-                        nazvySkupin.push(skupina.TRIDA_NAZEV + ' (seminář)');
-                }
-
-
-                var nazvyMistnosti = [];
-
-                var mistnosti = udalost.MISTNOSTI_UDALOSTI;
-
-                for (var i = 0, len = mistnosti.length; i < len; i++) {
-                    var mistnost = mistnosti[i];
-                    nazvyMistnosti.push(mistnost.NAZEV);
-                }
-
-                var result = '';
-                if (nazvySkupin.length > 0)
-                    result = nazvySkupin.join(" + ");
-
-                if (nazvySkupin.length > 0 && nazvyMistnosti.length > 0)
-                    result += ', ';
-
-                if (nazvyMistnosti.length > 0)
-                    result += nazvyMistnosti.join(" + ");
-
-                return result;
+                $scope.loadData();
             };
 
 
@@ -94,7 +47,7 @@
                     html: ""
                 });
 
-                var data = RozvrhService.getByDatum($scope.selectedDate);
+                var data = HodnoceniVypisStudentService.getAllOfCurrentSemester();
 
                 data
                     .success(function (result, status, headers, config) {
@@ -106,13 +59,13 @@
                             $scope.data = null;
                             $("#rozvrhNotifier").html(result.Status.Message).popup("open");
                         } else {
-                            $scope.data = result.Data.UDALOSTI;
+                            $scope.data = result.Data.Hodnoceni;
 
                             $scope.isDataLoaded = true;
                         }
 
                         setTimeout(function () {
-                            var table = angular.element('#rozvrhStudent-table');
+                            var table = angular.element('#hodnoceniVypisStudent-table');
                             table.listview('refresh');
 
                             //angular.element('[type="text"]', '#hodnoceni-table').textinput();
@@ -159,35 +112,9 @@
                 RozvrhService.selectedDatum = udalost.DATUM;
 
                 $('#popupMenu').popup('open', {
-                    transition: 'pop',
-                    positionTo: "origin",
-                    //x: event.clientX,
-                    //y: event.clientY
-
-                    x: event.pageX,
-                    y: event.pageY
-
+                    transition: 'pop'
                 });
             }
-
-
-            $scope.showPopupInfo = function (event, id, x) {
-                //$log.info('popupInfo');
-                //$log.debug(event);
-                //$log.debug(id);
-                //$log.debug(x);
-
-
-                $('#popupInfo').popup('open', {
-                    transition: 'pop',
-                    positionTo: "origin",
-                    //x: event.clientX,
-                    //y: event.clientY
-
-                    x: event.pageX,
-                    y: event.pageY
-                });
-            };
 
 
             $scope.decrementSelectedDate = function () {
@@ -217,7 +144,13 @@
 
                 $scope.loadData();
 
-            }
+            };
+
+
+            $scope.decrementSelectedDate = function() {
+
+            };
+
 
         });
 
