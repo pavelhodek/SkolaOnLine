@@ -390,6 +390,55 @@
         <div class="content" data-role="content">
             <div data-role="popup" id="hodnoceniVypisStudentNotifier"></div>
 
+            <!--<ul data-role="listview">
+                <li data-role="collapsible" data-iconpos="left" data-inset="false">
+                    <h3>
+
+                        Matematika (MAT) <span class="ui-li-aside">poslední: 22.12.2014</span>
+                        <span class="ui-li-count">počet: 4</span>
+                    </h3>
+
+                    <ul data-role="listview">
+                        <li><a href="#">Condor</a></li>
+                        <li><a href="#">Eagle</a></li>
+                        <li><a href="#">Sparrow</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+            <hr />-->
+
+            <ul class="hodnoceniVypisStudentList" data-role="listview">
+                <li data-role="collapsible" data-iconpos="left" data-inset="false" ng-repeat="predmet in predmety">
+                    <h3>
+
+                        {{predmet.NAZEV}} ({{predmet.ZKRATKA}})
+                        <span class="ui-li-aside" style="font-size:12px; font-weight: normal">poslední: {{predmet.POSLEDNI_HODNOCENI | date:dateFormat}}</span>
+                        <span class="ui-li-count">{{predmet.POCET_HODNOCENI}}</span>
+                    </h3>
+
+                    <ul class="hodnoceniVypisStudentSubList" data-role="listview">
+                        <li ng-repeat="hodnoceni in predmet.HODNOCENI" data-icon="false">
+                            <a>
+                                <div style="display:table-cell; vertical-align: middle; width: 26px">
+                                    {{hodnoceni.VYSLEDEK}}
+                                </div>
+                                <div style="display:table-cell">
+                                    {{hodnoceni.NAZEV}}
+                                    <p>{{hodnoceni.DRUH_HODNOCENI}} ({{hodnoceni.VAHA}})</p>
+                                </div>
+                                <span class="ui-li-aside">
+                                    <p>{{hodnoceni.DATUM | date:dateFormat}}</p>
+                                </span>
+                                <!--<span class="ui-li-count">
+                                    xxx
+                                </span>-->
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
 
             <!--<ul data-role="listview">
                 <li data-role="list-divider" data-iconpos="right" data-inset="false">
@@ -422,7 +471,7 @@
 
 
             <ul id="hodnoceniVypisStudent-table" data-role="listview">
-                <li ng-repeat="hodnoceni in data" data-icon="false">
+                <li ng-repeat="hodnoceni in dataX" data-icon="false">
                     <a>
                         <div style="display:table-cell; vertical-align: middle; width: 26px">
                             {{hodnoceni.VYSLEDEK}}
