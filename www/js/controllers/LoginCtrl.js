@@ -90,12 +90,14 @@
                                 //AuthorizationService.setCurrentUser(username, password, apiUrl);
                                 // {"username":"ada","password":"welcome12","apiUrl":"http://sol.cca.cz/SOLWebApi/api/"}
                                 var kategorie = success.data.Data.KATEGORIE_ID_CSV;
+                                var id = success.data.Data.OSOBA_ID;
 
                                 var currentUser = {
                                     username: username,
                                     password: password,
                                     apiUrl: apiUrl,
-                                    kategorie: kategorie
+                                    kategorie: kategorie,
+                                    id: id
                                 };
                                 AuthorizationService.setCurrentUser(currentUser);
 

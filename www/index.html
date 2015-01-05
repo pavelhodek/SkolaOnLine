@@ -67,6 +67,8 @@
     <script src="js/services/ZapisProbiranehoUcivaService.js"></script>
     <script src="js/services/ParametryService.js"></script>
     <script src="js/services/HodnoceniVypisStudentService.js"></script>
+    <script src="js/services/ZastupceOsobyService.js"></script>
+    
 
     <!--CONTROLLERS-->
     <script src="js/controllers/IndexCtrl.js"></script>
@@ -108,19 +110,30 @@
 
 
     
-    <!--INDEXSTUDENT-->
+    <!--INDEX - STUDENT-->
     <section id="indexStudent" data-role="page" data-fullscreen="true" ng-controller="StudentIndexCtrl">
         <!--HEADER-->
         <header data-role="header" data-theme="a" data-position="fixed">
             <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
-            <div style="text-align: center; background-color: #00b3c8;"><img src="img/header_logo.png" alt="logo Škola OnLine" /></div>
+            <div style="text-align: center; background-color: #00b3c8;"><img src="img/sol-logo.png" alt="logo Škola OnLine" /></div>
             <!--<div style="text-align: center">...nejrozšířenější webový školní informační systém</div>-->
             <!--<h1>Škola OnLine</h1>-->
         </header>
 
         <!--CONTENT-->
         <div class="content" data-role="content">
-            {{data.userInfo}}
+            <!--Přihlášený uživatel: {{data.userInfo}}-->
+
+            <div ng-show="pocetStudentu > 1">
+                <select name="student" id="student" data-native-menu="true"
+                        ng-options="item.OSOBA_ID as item.JMENO for item in data.Studenti"
+                        ng-model="shared.STUDENT_ID"></select>
+            </div>
+
+            <!--{{shared.STUDENT_ID}}-->
+
+            <!--<button ng-click="inc()">inc</button>
+            counter: {{counter}}-->
 
             <button onclick="$.mobile.changePage('#rozvrhStudent')" data-iconpos="top" data-icon="calendar" class="ui-nodisc-icon ui-alt-icon ui-btn-inline">Rozvrh</button>
             <button onclick="$.mobile.changePage('#hodnoceniVypisStudent')" data-iconpos="top" data-icon="edit" class="ui-nodisc-icon ui-alt-icon ui-btn-inline">Známky</button>
@@ -164,17 +177,17 @@
     <section id="login" data-role="page" ng-controller="LoginCtrl">
 
         <!--HEADER-->
-        <header data-role="header">
+        <header data-role="header" data>
             <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
             <h1>Přihlášení do aplikace</h1>
         </header>
 
         <!--CONTENT-->
-        <div id="loginContent" class="content" data-role="content">
+        <div id="loginContent" class="content" data-role="content" style="padding-top: 0">
             <div data-role="popup" id="loginNotifier"></div>
 
             <!--<h4>Přihlašovací údaje do Školy OnLine:</h4>-->
-            <div style="text-align: center; background-color: #00b3c8;"><img src="img/header_logo.png" alt="logo Škola OnLine" /></div>
+            <div style="text-align: center;"><img src="img/sol-logo-big.jpg" alt="logo Škola OnLine" /></div>
 
             <input type="text" name="username" id="username" ng-model="data.username" placeholder="Uživatelské jméno" maxlength="50" data-clear-btn="true" />
             <input type="password" id="password" ng-model="data.password" placeholder="Heslo" maxlength="50" data-clear-btn="true" />
@@ -272,6 +285,7 @@
 
         <!--CONTENT-->
         <div class="content" data-role="content">
+            
             <div data-role="popup" id="rozvrhNotifier"></div>
 
             <ul id="rozvrh-table" data-role="listview">
@@ -346,6 +360,8 @@
         <!--CONTENT-->
         <div class="content" data-role="content">
             <div data-role="popup" id="rozvrhStudentNotifier"></div>
+
+            <!--{{shared.STUDENT_ID}}-->
 
             <ul id="rozvrhStudent-table" data-role="listview">
                 <li ng-repeat="udalost in data" data-icon="false">
@@ -562,7 +578,7 @@
     <section id="dochazka" data-role="page" ng-controller="ZapisDochazkyCtrl">
 
         <!--HEADER-->
-        <header data-role="header" data-position="fixed">
+        <header data-role="header" data-theme="a" data-position="fixed">
             <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
             <h1>Evidence docházky</h1>
             <p class="sol-subheader">{{popisHodiny}}</p>

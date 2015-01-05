@@ -2,7 +2,7 @@
     "use strict";
     var module = angular.module('sol.services');
 
-    module.factory('AuthorizationService', ['$http', '$q', '$log', '$rootScope', 'NastaveniService', function ($http, $q, $log, $rootScope, NastaveniService) {
+    module.factory('AuthorizationService', ['$http', '$q', '$log', '$rootScope', '$cacheFactory', 'NastaveniService', function ($http, $q, $log, $rootScope, $cacheFactory, NastaveniService) {
         var me = {};
 
         me.getApiUrl = function() {
@@ -181,6 +181,9 @@
             app.isUserRoleInternal = false;
             app.isUserRoleExternal = false;
 
+            var $httpDefaultCache = $cacheFactory.get('$http');
+            $httpDefaultCache.removeAll();
+
         };
 
         me.checkAuthorizationIsValid = function(apiUrl, username, password) {
@@ -257,7 +260,7 @@
             //setAuthorizationHeader();
         };
 
-
+        /*
         me.storeLogin = function(username, password, apiUrl) {
             //$log.info("STORE LOGIN");
             //localStorage.setItem("login.username", username);
@@ -266,7 +269,7 @@
             var currentUser = {
                 "username": username,
                 "password": password,
-                "apiUrl": apiUrl
+                "apiUrl": apiUrl,
             };
 
             localStorage.setItem("currentUser", JSON.stringify(currentUser));
@@ -285,7 +288,7 @@
             //alert(foundProfile);
             //setAuthorizationHeader();
         };
-
+        */
 
 
         return me;

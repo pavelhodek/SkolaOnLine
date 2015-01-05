@@ -21,6 +21,17 @@
             return $http.get(url);
         };
 
+        me.getByDatumAndOsobaId = function (date, osobaID) {
+            //$log.debug('RozvrhService - getByDatum');
+
+            var url = AuthorizationService.getApiUrl() + 'RozvrhoveUdalosti' + '/' + date.format("YYYY-MM-DD") + '/' + osobaID;
+
+            $http.defaults.headers.common.Authorization = AuthorizationService.getAuthorizationHeader();
+
+            return $http.get(url);
+        };
+
+
         return me;
     }]);
 })();

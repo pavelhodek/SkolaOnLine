@@ -17,12 +17,12 @@
         //var defaultApiUrl = "https://aplikace.skolaonline.cz/SOLWebApi/api/";
 
         me.defaultApiUrls = [];
-        me.defaultApiUrls[0] = "https://aplikace.skolaonline.cz/SOLWebApi/api/";
+        //me.defaultApiUrls[me.defaultApiUrls.length] = { id: "sol", url: "https://aplikace.skolaonline.cz/SOLWebApi/api/" }
+        //me.defaultApiUrls[me.defaultApiUrls.length] = { id: "cca", url: "http://sol.cca.cz/SOLWebApi/api/" }
+        //me.defaultApiUrls[me.defaultApiUrls.length] = { id: "localhost", url: "http://localhost/SOLWebApi/api/" }
+
         //me.defaultApiUrls[1] = "http://sol.cca.cz/SOLWebApi/api/";
-        //me.defaultApiUrls[1] = "http://localhost/SOLWebApi/api/";
-
-
-
+        me.defaultApiUrls[me.defaultApiUrls.length] = "http://localhost/SOLWebApi/api/";
 
         //me.getApiUrl = function () {
         //    var currentUser = $rootScope.currentUser || {};
