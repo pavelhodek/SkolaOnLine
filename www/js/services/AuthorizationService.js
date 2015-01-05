@@ -81,7 +81,11 @@
                 //if (context.foundUrl.length > 0) {
                 if (foundUrl.length > 0) {
                     //deferred.resolve(context.foundUrl[0]);
-                    deferred.resolve(foundUrl[0]);
+                    //deferred.resolve(foundUrl[0]);
+
+                    // TODO: zde je potřeba nechat uživatele vybrat URL (uživatelský název)
+
+                    deferred.resolve(foundUrl[foundUrl.length - 1]);
                 } else {
                     deferred.reject("nic");
                 }

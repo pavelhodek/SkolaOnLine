@@ -18,7 +18,7 @@
 
         me.defaultApiUrls = [];
         me.defaultApiUrls[0] = "https://aplikace.skolaonline.cz/SOLWebApi/api/";
-        me.defaultApiUrls[1] = "http://sol.cca.cz/SOLWebApi/api/";
+        //me.defaultApiUrls[1] = "http://sol.cca.cz/SOLWebApi/api/";
         //me.defaultApiUrls[1] = "http://localhost/SOLWebApi/api/";
 
 
