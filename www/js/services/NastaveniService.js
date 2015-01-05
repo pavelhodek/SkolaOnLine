@@ -22,7 +22,8 @@
         //me.defaultApiUrls[me.defaultApiUrls.length] = { id: "localhost", url: "http://localhost/SOLWebApi/api/" }
 
         //me.defaultApiUrls[1] = "http://sol.cca.cz/SOLWebApi/api/";
-        me.defaultApiUrls[me.defaultApiUrls.length] = "http://localhost/SOLWebApi/api/";
+        //me.defaultApiUrls[me.defaultApiUrls.length] = "http://localhost/SOLWebApi/api/";
+        me.defaultApiUrls[me.defaultApiUrls.length] = "https://aplikace.skolaonline.cz/SOLWebApi/api/";
 
         //me.getApiUrl = function () {
         //    var currentUser = $rootScope.currentUser || {};
