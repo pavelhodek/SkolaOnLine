@@ -116,9 +116,9 @@ em { color: red; font-weight: bold; padding-right: .25em; }
     border: 0;
 }*/
 
-* {
+/** {
     text-shadow: 0 0 0 !important;
-}
+}*/
 
 .ui-panel-wrapper {
   background-color: #ECECEC;
@@ -135,8 +135,4 @@ em { color: red; font-weight: bold; padding-right: .25em; }
 
 .ui-panel-wrapper {
     background-color: #ddf8f8 !important; /*#ccffFF !important;    */
-}
-
-.ui-content {
-    
 }

@@ -36,15 +36,15 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        navigator.splashscreen.show();
+        //navigator.splashscreen.show();
 
-        document.addEventListener('pause', app.onPause, false);
-        document.addEventListener('resume', app.onResume, false);
-        document.addEventListener('backbutton', app.onBackButton, false);
+        //document.addEventListener('pause', app.onPause, false);
+        //document.addEventListener('resume', app.onResume, false);
+        //document.addEventListener('backbutton', app.onBackButton, false);
         document.addEventListener('menubutton', app.onMenuButton, false);
         // Events added by org.apache.cordova.network-information:
-        document.addEventListener('online', app.onOnline, false);
-        document.addEventListener('offline', app.onOffline, false);
+        //document.addEventListener('online', app.onOnline, false);
+        //document.addEventListener('offline', app.onOffline, false);
     },
     onPause: function() {
     },
