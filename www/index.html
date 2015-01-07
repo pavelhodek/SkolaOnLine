@@ -18,6 +18,8 @@
 
     <title>Škola OnLine</title>
 
+    <!--CORDOVA-->
+    <script type="text/javascript" src="cordova.js"></script>
 
     <!--MOMENT-->
     <script type="text/javascript" src="libs/moment.2.8.4.cs.min.js"></script>
@@ -27,9 +29,6 @@
 
     <!--JQUERY MOBILE-->
     <script src="libs/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
-
-    <!--CORDOVA-->
-    <script type="text/javascript" src="cordova.js"></script>
 
     <!--UTILS-->
     <script src="libs/lodash-2.4.1/lodash.min.js"></script>
@@ -64,7 +63,7 @@
     <script src="js/services/ParametryService.js"></script>
     <script src="js/services/HodnoceniVypisStudentService.js"></script>
     <script src="js/services/ZastupceOsobyService.js"></script>
-    
+
 
     <!--CONTROLLERS-->
     <script src="js/controllers/IndexCtrl.js"></script>
@@ -79,7 +78,6 @@
     <script src="js/controllers/ZapisDochazkyCtrl.js"></script>
     <script src="js/controllers/ZapisHodnoceniCtrl.js"></script>
     <script src="js/controllers/HodnoceniVypisStudentCtrl.js"></script>
-    
 
 </head>
 <body ng-app="sol">
@@ -1001,13 +999,12 @@
 
 
     <!--DEBUG-->
-    <script src="http://debug.build.phonegap.com/target/target-script-min.js#solmobile"></script>
+    <!--<script src="http://debug.build.phonegap.com/target/target-script-min.js#solmobile"></script>-->
 
     <script type="text/javascript">
         app.initialize();
 
         window.onerror = function (x) {
-            //alert("nastala chyba");
             alert(x);
         }
     </script>
