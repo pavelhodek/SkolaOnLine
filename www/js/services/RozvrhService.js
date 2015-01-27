@@ -24,7 +24,13 @@
         me.getByDatumAndOsobaId = function (date, osobaID) {
             //$log.debug('RozvrhService - getByDatum');
 
-            var url = AuthorizationService.getApiUrl() + 'RozvrhoveUdalosti' + '/' + date.format("YYYY-MM-DD") + '/' + osobaID;
+
+            if (osobaID) {
+                var url = AuthorizationService.getApiUrl() + 'RozvrhoveUdalosti' + '/' + date.format("YYYY-MM-DD") + '/' + osobaID;
+            } else {
+                var url = AuthorizationService.getApiUrl() + 'RozvrhoveUdalosti' + '/' + date.format("YYYY-MM-DD") + '/';
+            }
+
 
             $http.defaults.headers.common.Authorization = AuthorizationService.getAuthorizationHeader();
 

@@ -23,6 +23,7 @@
 
         //me.defaultApiUrls[1] = "http://sol.cca.cz/SOLWebApi/api/";
         //me.defaultApiUrls[me.defaultApiUrls.length] = "http://localhost/SOLWebApi/api/";
+        //me.defaultApiUrls[me.defaultApiUrls.length] = "http://sol.cca.cz/SOLWebApi/api/";
         me.defaultApiUrls[me.defaultApiUrls.length] = "https://aplikace.skolaonline.cz/SOLWebApi/api/";
 
         //me.getApiUrl = function () {

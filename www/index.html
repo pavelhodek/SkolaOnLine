@@ -45,6 +45,10 @@
     <script type="text/javascript" src="js/jqm-config.js"></script>
 
     <!--SERVICES-->
+    <!--<script src="js/services/AuthorizationService.js"></script>
+    <script src="js/services/NastaveniService.js"></script>
+    <script src="js/services/ZastupceOsobyService.js"></script>-->
+
     <script src="js/services/TridyService.js"></script>
     <script src="js/services/ObdobiDneService.js"></script>
     <script src="js/services/ObdobiRokuService.js"></script>
@@ -66,6 +70,13 @@
 
 
     <!--CONTROLLERS-->
+    <!--<script src="js/controllers/IndexCtrl.js"></script>
+    <script src="js/controllers/StudentIndexCtrl.js"></script>
+    <script src="js/controllers/NastaveniCtrl.js"></script>
+    <script src="js/controllers/LoginCtrl.js"></script>
+    <script src="js/controllers/LogoutCtrl.js"></script>
+    <script src="js/controllers/RozvrhCtrl.js"></script>-->
+    
     <script src="js/controllers/IndexCtrl.js"></script>
     <script src="js/controllers/StudentIndexCtrl.js"></script>
     <script src="js/controllers/LoginCtrl.js"></script>
@@ -82,9 +93,6 @@
 </head>
 <body ng-app="sol">
 
-
-
-
     <!--INDEX-->
     <section id="index" data-role="page" data-fullscreen="true" ng-controller="IndexCtrl">
         <!--HEADER-->
@@ -98,12 +106,12 @@
             <!--Nastavení, přihlášení, výpis rozvrhu, zadávání docházky a další funkce jsou přístupné z menu v záhlaví.-->
 
             <div id="deviceProperties"></div>
-            
+
         </div>
     </section>
 
 
-    
+
     <!--INDEX - STUDENT-->
     <section id="indexStudent" data-role="page" data-fullscreen="true" ng-controller="StudentIndexCtrl">
         <!--HEADER-->
@@ -125,7 +133,6 @@
             </div>
 
             <!--{{shared.STUDENT_ID}}-->
-
             <!--<button ng-click="inc()">inc</button>
             counter: {{counter}}-->
 
@@ -159,7 +166,7 @@
                     <label><input type="checkbox" id="remember" ng-model="remember" />Nabízet v rozvrhu sobotu / neděli</label>
                 </div>
             -->
-            
+
         </div>
     </section>
 
@@ -188,7 +195,7 @@
             <label><input type="checkbox" id="remember" ng-model="data.remember" />Uložit profil</label>
 
             <input id="submitLogin" type="submit" ng-click="login()" value="Přihlásit" data-role="button" data-inline="false" data-theme="b" />
-            
+
             <hr />
             <h4>Uložené profily:</h4>
             <ul id="login-userProfiles" data-role="listview" class="ui-listview-inset">
@@ -201,7 +208,7 @@
                        title="Menu">Smazat</a>
                 </li>
             </ul>
-            
+
 
         </div>
 
@@ -233,9 +240,9 @@
 
 
 
-    
-    
-    
+
+
+
     <!--ROZVRH - UCITEL -->
     <section id="rozvrh" data-role="page" ng-controller="RozvrhCtrl">
 
@@ -266,9 +273,9 @@
                     <li>
                         <!--<div class="center-wrapper"><div id="selectedDate" ng-click="pickDate()">{{selectedDate | date:dateFormat }}</div></div>-->
                         <a ng-click="pickDate()"
-                          class="ui-btn ui-nodisc-icon ui-alt-icon"
-                          style="padding: 12px 0">
-                          {{selectedDateString}}
+                           class="ui-btn ui-nodisc-icon ui-alt-icon"
+                           style="padding: 12px 0">
+                            {{selectedDateString}}
                         </a>
                     </li>
                     <li><a ng-click="incrementSelectedDate()" class="ui-nodisc-icon ui-alt-icon" data-icon="arrow-r"></a></li>
@@ -279,7 +286,7 @@
 
         <!--CONTENT-->
         <div class="content" data-role="content">
-            
+
             <div data-role="popup" id="rozvrhNotifier"></div>
 
             <ul id="rozvrh-table" data-role="listview">
@@ -342,8 +349,8 @@
                     <li>
                         <!--<div class="center-wrapper"><div id="selectedDate" ng-click="pickDate()">{{selectedDate | date:dateFormat }}</div></div>-->
                         <a ng-click="pickDate()"
-                        class="ui-btn ui-nodisc-icon ui-alt-icon"
-                        style="padding: 12px 0">{{selectedDateString}}</a>
+                           class="ui-btn ui-nodisc-icon ui-alt-icon"
+                           style="padding: 12px 0">{{selectedDateString}}</a>
                     </li>
                     <li><a ng-click="incrementSelectedDate()" class="ui-nodisc-icon ui-alt-icon" data-icon="arrow-r"></a></li>
                 </ul>
@@ -374,8 +381,8 @@
                         </div>
                     </a>
                     <!--<a ng-click="showPopupInfo($event, udalost, udalost.showPopupInfo)"
-                class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-info ui-btn-icon-notext"
-                title="Detail hodiny">Detail hodiny</a>-->
+                    class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-info ui-btn-icon-notext"
+                    title="Detail hodiny">Detail hodiny</a>-->
                 </li>
             </ul>
         </div>
@@ -465,7 +472,7 @@
             <ul data-role="listview">
                 <li data-role="collapsible" data-iconpos="left" data-inset="false">
                     <h3>
-                        
+
                         Matematika (MAT) <span class="ui-li-aside">poslední: 22.12.2014</span>
                         <span class="ui-li-count">počet: 4</span>
                     </h3>
@@ -499,7 +506,7 @@
                     </a>
                 </li>
             </ul>
-            
+
             <div data-role="popup" id="hodnoceniVypisStudentObdobiPopup" class="ui-content" data-theme="a" data-overlay-theme="a">
                 Změna období výpisu
                 <hr />
@@ -546,10 +553,10 @@
                     </label>
                 </fieldset>
             </div>
-            
+
 
         </div>
-        
+
         <!--FOOTER-->
         <footer data-role="footer" data-theme="a" data-position="fixed">
             <table style="width: 100%; text-align: center;">
@@ -557,9 +564,9 @@
                     <td><a data-role="button" ng-click="vyberObdobiVypisu()">Změnit období výpisu</a></td>
                 </tr>
             </table>
-        </footer>        
-        
-        
+        </footer>
+
+
 
     </section>
 
@@ -613,8 +620,8 @@
             <table style="width: 100%; text-align: center;">
                 <tr>
                     <td>&nbsp;</td>
-                    <td><a data-role="button" ng-click="prednastavitDlePredchozi()">Nastavit dle předchozí</a></td>
-                    <td style="width: 50%">&nbsp;</td>
+                    <!--<td><a data-role="button" ng-click="prednastavitDlePredchozi()">Nastavit dle předchozí</a></td>
+                    <td style="width: 50%">&nbsp;</td>-->
                     <td><a data-role="button" ng-click="ulozit()">Uložit</a></td>
                     <td style="width: 50%">&nbsp;</td>
                     <td><a data-role="button" ng-click="zpet()">Zpět</a></td>
@@ -891,7 +898,7 @@
                     </div>
 
                     <div class="ui-field-contain">
-                        <label for="poznamka">Poznámka</label>
+                        <label for="poznamka">Poznámky k učivu</label>
                         <textarea name="poznamka" id="poznamka" rows="2" ng-model="ucivo.POZNAMKA"></textarea>
                     </div>
                 </div>
@@ -998,11 +1005,12 @@
 
 
 
+
     <!--DEBUG-->
-    <!--<script src="http://debug.build.phonegap.com/target/target-script-min.js#solmobile"></script>-->
+    <script src="http://debug.build.phonegap.com/target/target-script-min.js#solmobile"></script>
 
     <script type="text/javascript">
-        app.initialize();
+        if (typeof(app) !== "undefined") app.initialize();
 
         window.onerror = function (x) {
             alert(x);
