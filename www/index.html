@@ -195,20 +195,21 @@
             <label><input type="checkbox" id="remember" ng-model="data.remember" />Uložit profil</label>
 
             <input id="submitLogin" type="submit" ng-click="login()" value="Přihlásit" data-role="button" data-inline="false" data-theme="b" />
-
-            <hr />
-            <h4>Uložené profily:</h4>
-            <ul id="login-userProfiles" data-role="listview" class="ui-listview-inset">
-                <li ng-repeat="profile in data.userProfiles">
-                    <a href="#" ng-click="loginProfile(profile, $index, $event)">
-                        {{profile.username}}
-                    </a>
-                    <a ng-click="deleteProfile(profile, $index, $event)"
-                       class="ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-delete ui-btn-icon-notext"
-                       title="Menu">Smazat</a>
-                </li>
-            </ul>
-
+            
+            <div ng-show='data.userProfiles.length > 0'>
+                <hr />
+                <h4>Uložené profily:</h4>
+                <ul id="login-userProfiles" data-role="listview" class="ui-listview-inset">
+                    <li ng-repeat="profile in data.userProfiles">
+                        <a href="#" ng-click="loginProfile(profile, $index, $event)">
+                            {{profile.username}}
+                        </a>
+                        <a ng-click="deleteProfile(profile, $index, $event)"
+                           class="ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-delete ui-btn-icon-notext"
+                           title="Menu">Smazat</a>
+                    </li>
+                </ul>
+            </div>
 
         </div>
 
@@ -1007,7 +1008,7 @@
 
 
     <!--DEBUG-->
-    <script src="http://debug.build.phonegap.com/target/target-script-min.js#solmobile"></script>
+    <!--<script src="http://debug.build.phonegap.com/target/target-script-min.js#solmobile"></script>-->
 
     <script type="text/javascript">
         if (typeof(app) !== "undefined") app.initialize();
