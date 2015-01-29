@@ -100,15 +100,23 @@ function getSidePanel() {
 
         // student nebo rodic
         if (app.isUserRoleExternal) {
-            solSidePanel += '<li data-icon="home" class="ui-nodisc-icon ui-alt-icon"><a href="#indexStudent" >Domů</a></li>';
-            solSidePanel += '<li data-icon="calendar" class="ui-nodisc-icon ui-alt-icon"><a href="#rozvrhStudent" >Rozvrh</a></li>';
-            solSidePanel += '<li data-icon="edit" class="ui-nodisc-icon ui-alt-icon"><a href="#hodnoceniVypisStudent" >Známky</a></li>';
-            solSidePanel += '<li data-icon="edit" class="ui-nodisc-icon ui-alt-icon"><a href="#absenceVypisStudent" >Absence</a></li>';
+            //solSidePanel += '<li data-icon="home" class="ui-nodisc-icon ui-alt-icon"><a href="#indexStudent" >Domů</a></li>';
+            //solSidePanel += '<li data-icon="calendar" class="ui-nodisc-icon ui-alt-icon"><a href="#rozvrhStudent" >Rozvrh</a></li>';
+            //solSidePanel += '<li data-icon="edit" class="ui-nodisc-icon ui-alt-icon"><a href="#hodnoceniVypisStudent" >Známky</a></li>';
+
+            solSidePanel += '<li data-icon="home" class="ui-nodisc-icon ui-alt-icon"><a href="javascript:void(0)" onclick="navigateToPageId(\'indexStudent\')" >Domů</a></li>';
+            solSidePanel += '<li data-icon="calendar" class="ui-nodisc-icon ui-alt-icon"><a href="javascript:void(0)" onclick="navigateToPageId(\'rozvrhStudent\')" >Rozvrh</a></li>';
+            solSidePanel += '<li data-icon="edit" class="ui-nodisc-icon ui-alt-icon"><a href="javascript:void(0)" onclick="navigateToPageId(\'hodnoceniVypisStudent\')" >Známky</a></li>';
+
+            //solSidePanel += '<li data-icon="edit" class="ui-nodisc-icon ui-alt-icon"><a href="#absenceVypisStudent" >Absence</a></li>';
         }
 
-        solSidePanel += '<li data-role="list-divider"></li> <li data-icon="delete" class="ui-nodisc-icon ui-alt-icon"><a href="#logout" >Odhlásit</a></li>';
+        //solSidePanel += '<li data-role="list-divider"></li> <li data-icon="delete" class="ui-nodisc-icon ui-alt-icon"><a href="#logout" >Odhlásit</a></li>';
+        solSidePanel += '<li data-role="list-divider"></li> <li data-icon="delete" class="ui-nodisc-icon ui-alt-icon"><a href="javascript:void(0)" onclick="navigateToPageId(\'logout\')" >Odhlásit</a></li>';
     } else {
-        solSidePanel += '<li data-icon="user" class="ui-nodisc-icon ui-alt-icon"><a href="#login" >Přihlásit</a></li>';
+        //solSidePanel += '<li data-icon="user" class="ui-nodisc-icon ui-alt-icon"><a href="#login" >Přihlásit</a></li>';
+
+        solSidePanel += '<li data-icon="user" class="ui-nodisc-icon ui-alt-icon"><a href="javascript:void(0)" onclick="navigateToPageId(\'login\')" >Přihlásit</a></li>';
     }
 
     /*
@@ -130,6 +138,20 @@ solSidePanel += '\
 
     return solSidePanel;
 
+}
+
+
+function navigateToPageId(pageId) {
+    var currentPageId = $.mobile.activePage.attr('id');
+    if (currentPageId === pageId) {
+        var $sidePanel = $(".sol-sidebar");
+        var isPanelOpen = $sidePanel.hasClass("ui-panel-open");
+        if (isPanelOpen) {
+            $sidePanel.panel("toggle");
+        }
+    } else {
+        $.mobile.changePage("#" + pageId);
+    }
 }
 
 
