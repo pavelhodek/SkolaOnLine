@@ -34,14 +34,19 @@
 
 
 
+      <!--
     <preference name="SplashScreen" value="splash" />
+    <preference name="SplashScreenDelay" value="20000" />
+    <preference name="splash-screen-duration" value="20000" />
+    <preference name="auto-hide-splash-screen" value="false" />
+    -->
 
-    <!-- Do not auto hide splash on iOS -->
+    <preference name="ShowSplashScreenSpinner" value="true" />
     <preference name="AutoHideSplashScreen" value="false" />
-    <!-- Do not auto hide splash on Android -->
-    <preference name="SplashScreenDelay" value="2000"/>
-    <preference name="splash-screen-duration" value="2000" />
+    <preference name="FadeSplashScreen" value="true" />
 
+    <preference name="SplashScreen" value="screen" />
+    <preference name="SplashScreenDelay" value="2000" />
 
 
     <!--
@@ -49,6 +54,13 @@
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="1000" />
      -->
+
+
+    <feature name="SplashScreen">
+        <param name="ios-package" value="CDVSplashScreen"/>
+        <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen"/>
+        <param name="onload" value="true"/>
+    </feature>
 
 
     <!-- PLUGINS -->

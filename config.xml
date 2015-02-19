@@ -52,19 +52,19 @@
     <preference name="SplashScreenDelay" value="1000" />
      -->
 
-
-    <!-- PLUGINS -->
-    <gap:plugin name="org.apache.cordova.console" />
-    <gap:plugin name="org.apache.cordova.dialogs" />
-    <gap:plugin name="org.apache.cordova.network-information" />
-    <gap:plugin name="org.apache.cordova.splashscreen" />
-
     <feature name="SplashScreen">
         <param name="ios-package" value="CDVSplashScreen"/>
         <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen"/>
         <param name="onload" value="true"/>
     </feature>
 
+
+
+    <!-- PLUGINS -->
+    <gap:plugin name="org.apache.cordova.console" />
+    <gap:plugin name="org.apache.cordova.dialogs" />
+    <gap:plugin name="org.apache.cordova.network-information" />
+    <gap:plugin name="org.apache.cordova.splashscreen" />
 
 
     <!--
