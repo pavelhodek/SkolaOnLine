@@ -37,6 +37,19 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         //navigator.splashscreen.show();
+        //navigator.splashscreen.hide();
+
+        cordova.exec(null, null, "SplashScreen", "hide", []);
+
+        /*
+        cordova.exec(null, null, "SplashScreen", "show", []);
+        setTimeout(function() {
+            //navigator.splashscreen.hide();
+            cordova.exec(null, null, "SplashScreen", "hide", []);
+        }, 4000);
+        */
+
+
 
         //document.addEventListener('pause', app.onPause, false);
         //document.addEventListener('resume', app.onResume, false);
