@@ -38,8 +38,7 @@ var app = {
     onDeviceReady: function() {
         //navigator.splashscreen.show();
         //navigator.splashscreen.hide();
-
-        cordova.exec(null, null, "SplashScreen", "hide", []);
+        if (typeof cordova !== "undefined") cordova.exec(null, null, "SplashScreen", "hide", []);
 
         /*
         cordova.exec(null, null, "SplashScreen", "show", []);
@@ -115,11 +114,11 @@ function getSidePanel() {
         if (app.isUserRoleExternal) {
             //solSidePanel += '<li data-icon="home" class="ui-nodisc-icon ui-alt-icon"><a href="#indexStudent" >Domů</a></li>';
             //solSidePanel += '<li data-icon="calendar" class="ui-nodisc-icon ui-alt-icon"><a href="#rozvrhStudent" >Rozvrh</a></li>';
-            //solSidePanel += '<li data-icon="edit" class="ui-nodisc-icon ui-alt-icon"><a href="#hodnoceniVypisStudent" >Známky</a></li>';
+            //solSidePanel += '<li data-icon="edit" class="ui-nodisc-icon ui-alt-icon"><a href="#hodnoceniVypisStudent" >Hodnocení</a></li>';
 
             solSidePanel += '<li data-icon="home" class="ui-nodisc-icon ui-alt-icon"><a href="javascript:void(0)" onclick="navigateToPageId(\'indexStudent\')" >Domů</a></li>';
             solSidePanel += '<li data-icon="calendar" class="ui-nodisc-icon ui-alt-icon"><a href="javascript:void(0)" onclick="navigateToPageId(\'rozvrhStudent\')" >Rozvrh</a></li>';
-            solSidePanel += '<li data-icon="edit" class="ui-nodisc-icon ui-alt-icon"><a href="javascript:void(0)" onclick="navigateToPageId(\'hodnoceniVypisStudent\')" >Známky</a></li>';
+            solSidePanel += '<li data-icon="edit" class="ui-nodisc-icon ui-alt-icon"><a href="javascript:void(0)" onclick="navigateToPageId(\'hodnoceniVypisStudent\')" >Hodnocení</a></li>';
 
             //solSidePanel += '<li data-icon="edit" class="ui-nodisc-icon ui-alt-icon"><a href="#absenceVypisStudent" >Absence</a></li>';
         }

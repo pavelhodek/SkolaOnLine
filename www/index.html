@@ -90,6 +90,21 @@
     <script src="js/controllers/ZapisHodnoceniCtrl.js"></script>
     <script src="js/controllers/HodnoceniVypisStudentCtrl.js"></script>
 
+    <style>
+        
+.ui-collapsible-heading-collapsed > .ui-collapsible-heading-toggle{
+    background-color: rgb(210, 220, 230) !important;
+    
+}
+
+.ui-collapsible-heading-toggle{
+    background-color: rgb(210, 220, 230) !important;
+}
+
+    </style>
+    
+    
+
 </head>
 <body ng-app="sol">
 
@@ -192,9 +207,8 @@
 
             <input type="text" name="username" id="username" ng-model="data.username" placeholder="Uživatelské jméno" maxlength="50" data-clear-btn="true" />
             <input type="password" id="password" ng-model="data.password" placeholder="Heslo" maxlength="50" data-clear-btn="true" />
-            <label><input type="checkbox" id="remember" ng-model="data.remember" />Uložit profil</label>
-
             <input id="submitLogin" type="submit" ng-click="login()" value="Přihlásit" data-role="button" data-inline="false" data-theme="b" />
+            <label><input type="checkbox" id="remember" ng-model="data.remember" />Uložit profil</label>
             
             <div ng-show='data.userProfiles.length > 0'>
                 <hr />
@@ -409,45 +423,51 @@
             <div data-role="popup" id="hodnoceniVypisStudentNotifier"></div>
 
             <!--<ul data-role="listview">
-                <li data-role="collapsible" data-iconpos="left" data-inset="false">
-                    <h3>
+                    <li data-role="collapsible" data-iconpos="left" data-inset="false">
+                        <h3>
 
-                        Matematika (MAT) <span class="ui-li-aside">poslední: 22.12.2014</span>
-                        <span class="ui-li-count">počet: 4</span>
-                    </h3>
+                            Matematika (MAT) <span class="ui-li-aside">poslední: 22.12.2014</span>
+                            <span class="ui-li-count">počet: 4</span>
+                        </h3>
 
-                    <ul data-role="listview">
-                        <li><a href="#">Condor</a></li>
-                        <li><a href="#">Eagle</a></li>
-                        <li><a href="#">Sparrow</a></li>
-                    </ul>
-                </li>
+                        <ul data-role="listview">
+                            <li><a href="#">Condor</a></li>
+                            <li><a href="#">Eagle</a></li>
+                            <li><a href="#">Sparrow</a></li>
+                        </ul>
+                    </li>
 
-            </ul>
-            <hr />-->
-
+                </ul>
+                <hr />-->
+            
             <ul class="hodnoceniVypisStudentList" data-role="listview">
                 <li data-role="collapsible" data-iconpos="left" data-inset="false" ng-repeat="predmet in predmety">
                     <h3>
-
                         {{predmet.NAZEV}} ({{predmet.ZKRATKA}})
-                        <span class="ui-li-aside" style="font-size:12px; font-weight: normal">poslední: {{predmet.POSLEDNI_HODNOCENI | date:dateFormat}}</span>
-                        <span class="ui-li-count">{{predmet.POCET_HODNOCENI}}</span>
+                        <div>
+                            <span class="ui-li-desc " style="font-size:12px; font-weight: normal">Počet: {{predmet.POCET_HODNOCENI}}</span>
+                            <span class="ui-li-desc " style="font-size:12px; font-weight: normal; float: right">Poslední: {{predmet.POSLEDNI_HODNOCENI | date:dateFormat}}</span>
+
+                        </div>
+
+                        <!--<span class="ui-li-aside" style="font-size:12px; font-weight: normal">poslední: {{predmet.POSLEDNI_HODNOCENI | date:dateFormat}}</span>-->
+                        <!--<span class="ui-li-count">{{predmet.POCET_HODNOCENI}}</span>-->
                     </h3>
 
                     <ul class="hodnoceniVypisStudentSubList" data-role="listview">
                         <li ng-repeat="hodnoceni in predmet.HODNOCENI" data-icon="false">
                             <a>
-                                <div style="display:table-cell; vertical-align: middle; width: 26px">
+                                <div style="display:table-cell; vertical-align: middle; width: 30px; font-size: 24px; float: left">
                                     {{hodnoceni.VYSLEDEK}}
                                 </div>
-                                <div style="display:table-cell">
+                                <div style="margin-left: 30px">
                                     {{hodnoceni.NAZEV}}
-                                    <p>{{hodnoceni.DRUH_HODNOCENI}} ({{hodnoceni.VAHA}})</p>
+                                    <div>
+                                        <span class="ui-li-desc" style=" font-size:12px; font-weight: normal">{{hodnoceni.DRUH_HODNOCENI}} ({{hodnoceni.VAHA}})</span>
+                                        <span class="ui-li-desc" style=" font-size:12px; font-weight: normal; float: right">{{hodnoceni.DATUM | date:dateFormat}}</span>                                        
+                                    </div>
+
                                 </div>
-                                <span class="ui-li-aside">
-                                    <p>{{hodnoceni.DATUM | date:dateFormat}}</p>
-                                </span>
                                 <!--<span class="ui-li-count">
                                     xxx
                                 </span>-->
@@ -512,6 +532,16 @@
                 Změna období výpisu
                 <hr />
                 <fieldset data-role="controlgroup" data-mini="false">
+                    <!--<label ng-repeat="obdobi in sledovaneObdobi">
+                        <input type="radio"
+                               name="hodnoceniVypisStudentObdobi"
+                               id="hodnoceniVypisStudentObdobi-{{obdobi.ID}}"
+                               ng-model="selectedObdobiVypisu"
+                               ng-change="nastavObdobiVypisu('{{obdobi.ID}}')"
+                               onclick="console.log('x')"
+                               >{{obdobi.Title}}
+                    </label>-->                    
+                    
                     <label>
                         <input type="radio"
                                name="hodnoceniVypisStudentObdobi"

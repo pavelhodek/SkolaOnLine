@@ -1,4 +1,4 @@
-﻿; (function () {
+; (function () {
     "use strict";
     angular.module('sol.controllers')
 
@@ -15,11 +15,16 @@
 
                 //var credentials = AuthorizationService.getStoredCredentials();
                 var currentUser = AuthorizationService.getCurrentUser();
+                $log.info("currentUser", currentUser);
+
                 if (currentUser != null) {
-                    var result = AuthorizationService.checkAuthorizationIsValid();
+
+                    var result = AuthorizationService.checkAuthorizationIsValid(currentUser.apiUrl, currentUser.username, currentUser.password);
 
                     result.success(function (data, status, headers, config) {
                         if (data.Data) {
+                            $log.info(data);
+                            var jeInterniRole = (currentUser.kategorie.split(',').filter(function(a) { return (a =="KAT_STUDENT" || a == "KAT_RODIC")}).length == 0);
 
                             app.isUserRoleInternal = jeInterniRole;
                             app.isUserRoleExternal = !jeInterniRole;

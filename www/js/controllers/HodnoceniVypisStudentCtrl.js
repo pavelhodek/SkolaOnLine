@@ -18,51 +18,120 @@
 
             $scope.reset = function () {
                 $scope.data = {};
-                var now = moment();
-                $scope.selectedDateFrom = now.startOf('isoweek');
-                $scope.selectedDateTo = now.endOf('isoweek');
+                //var now = moment();
+                //$scope.selectedDateFrom = now.clone().startOf('isoweek');
+                //$scope.selectedDateTo = now.clone().endOf('isoweek');
             };
 
             $scope.init = function () {
+
+                var now = moment().locale("cs");
+                $scope.sledovaneObdobi = [
+                    {
+                        ID: "D", Title: "Dnes",
+                        Description: now.clone().format('D. M.'),
+                        DateFrom: now.clone().startOf('day'),
+                        DateTo: now.clone().endOf('day'),
+                    },
+                    {
+                        ID: "W", Title: "Poslední týden",
+                        Description: "od " + now.clone().startOf('isoweek').format('D. M.') + ' do ' + now.clone().format('D. M.'),
+                        DateFrom: now.clone().startOf('isoweek'),
+                        DateTo: now.clone(),
+                    },
+                    {
+                        ID: "M", Title: "Poslední měsíc",
+                        Description: "od " + now.clone().startOf('month').format('D. M.') + ' do ' + now.clone().format('D. M.'),
+                        DateFrom: now.clone().startOf('month'),
+                        DateTo: now.clone(),
+                    },
+                    {
+                        ID: "3M", Title: "Poslední 3 měsíce",
+                        Description: "od " + now.clone().startOf('month').add(-2, "M").format('D. M.') + ' do ' + now.clone().format('D. M.'),
+                        DateFrom: now.clone().startOf('month').add(-2, "M"),
+                        DateTo: now.clone(),
+                    },
+                    {
+                        ID: "S", Title: "Celé pololetí",
+                        Description: "za celé pololetí",
+                        DateFrom: moment("1900-01-01"),
+                        DateTo: now.clone(),
+                    }
+                ];
+
+                $scope.sledovaneObdobiSelected = null;
+
+
                 setSelectedObdobi("W");
-                $scope.loadData();
+                $scope.loadData(true);
             };
 
-            function setSelectedObdobi(selectedValue) {
-                $scope.selectedObdobiVypisu = selectedValue;
-                var now = moment().locale("cs");
 
-                if ($scope.selectedObdobiVypisu == "D") {
-                    $scope.popisObdobi = "den";
-                    $scope.selectedDateFrom = now.startOf('day');
-                    $scope.selectedDateTo = now.endOf('day');
-                } else if ($scope.selectedObdobiVypisu == "W") {
-                    $scope.selectedDateFrom = now.startOf('isoweek');
-                    $scope.selectedDateTo = now.endOf('isoweek');
+            function setSelectedObdobiByDatum(datum) {
+                //$scope.selectedObdobiVypisu = selectedValue;
 
-                    $scope.popisObdobi = "týden";
-                } else if ($scope.selectedObdobiVypisu == "M") {
-                    $scope.selectedDateFrom = now.startOf('month');
-                    $scope.selectedDateTo = now.endOf('month');
-                    $scope.popisObdobi = "měsíc";
-                } else if ($scope.selectedObdobiVypisu == "3M") {
-                    $scope.selectedDateFrom = now.startOf('month').add(-2, "M");
-                    $scope.selectedDateTo = now.endOf('month');
-                    $scope.popisObdobi = "3 měsíce";
-                } else if ($scope.selectedObdobiVypisu == "S") {
-                    $scope.popisObdobi = "pololetí";
-                    $scope.selectedDateFrom = moment("1900-01-01");
-                    $scope.selectedDateTo = moment("3000-01-01");
+                var obdobi = _($scope.sledovaneObdobi).find(function (x) {
+                    return x.ID == selectedValue;
+                });
+
+                if (obdobi) {
+                    $scope.selectedDateFrom = obdobi.DateFrom;
+                    $scope.selectedDateTo = obdobi.DateTo;
+                    $scope.popisObdobi = obdobi.Description;
                 }
             }
 
-            $scope.loadData = function () {
-                
-                
+
+            function setSelectedObdobi(selectedValue) {
+                $scope.selectedObdobiVypisu = selectedValue;
+
+
+                var obdobi = _($scope.sledovaneObdobi).find(function (x) {
+                    return x.ID == selectedValue;
+                });
+
+                if (obdobi) {
+                    $scope.selectedDateFrom = obdobi.DateFrom;
+                    $scope.selectedDateTo = obdobi.DateTo;
+                    $scope.popisObdobi = obdobi.Description;
+                }
+
+
+                //var now = moment().locale("cs");
+
+                //if ($scope.selectedObdobiVypisu == "D") {
+                //    $scope.selectedDateFrom = now.clone().startOf('day');
+                //    $scope.selectedDateTo = now.clone().endOf('day');
+                //    $scope.popisObdobi = $scope.selectedDateFrom.format('D. M.');
+
+                //} else if ($scope.selectedObdobiVypisu == "W") {
+                //    $scope.selectedDateFrom = now.clone().startOf('isoweek'); // isoweek
+                //    $scope.selectedDateTo = now.clone(); //now.clone().endOf('isoweek'); // isoweek
+                //    $scope.popisObdobi = "od " + $scope.selectedDateFrom.format('D. M.') + ' do ' + $scope.selectedDateTo.format('D. M.');
+
+                //} else if ($scope.selectedObdobiVypisu == "M") {
+                //    $scope.selectedDateFrom = now.clone().startOf('month');
+                //    $scope.selectedDateTo = now.clone(); //now.clone().endOf('month');
+                //    $scope.popisObdobi = "od " + $scope.selectedDateFrom.format('D. M.') + ' do ' + $scope.selectedDateTo.format('D. M.');
+
+                //} else if ($scope.selectedObdobiVypisu == "3M") {
+                //    $scope.selectedDateFrom = now.clone().startOf('month').add(-2, "M");
+                //    $scope.selectedDateTo = now.clone(); //now.clone().endOf('month');
+                //    $scope.popisObdobi = "od " + $scope.selectedDateFrom.format('D. M.') + ' do ' + $scope.selectedDateTo.format('D. M.');
+
+                //} else if ($scope.selectedObdobiVypisu == "S") {
+                //    $scope.selectedDateFrom = moment("1900-01-01");
+                //    $scope.selectedDateTo = now.clone();
+                //    $scope.popisObdobi = "za celé pololetí";
+                //}
+
+            }
+
+            $scope.loadData = function (isInitialLoad) {
 
                 if (navigator.network && navigator.network.connection.type === Connection.NONE) {
                     navigator.notification.alert(
-                          'Vaše zařízení není připojeno k Interentu. Data nemohou být přijata.',
+                          'Vaše zařízení není připojeno k Internetu. Data nemohou být přijata.',
                           function () { },
                           'Chybí připojení'
                         );
@@ -78,158 +147,138 @@
                     html: ""
                 });
 
-                var hodnoceni = HodnoceniVypisStudentService.getAllOfCurrentSemester();
+                var studentID = null;
+                if ($rootScope.shared) {
+                    studentID = $rootScope.shared.STUDENT_ID;
+                }
+
+                var hodnoceni = HodnoceniVypisStudentService.getAllOfCurrentSemester(studentID);
                 var druhyHodnoceni = DruhyHodnoceniService.all();
                 var predmety = PredmetyService.all();
 
-            // pockam na vsechny promise
-            $q.all([hodnoceni, druhyHodnoceni, predmety]).then(function (results) {
-                //$log.log("ZapisHodnoceniCtrl - all resloved");
+                // pockam na vsechny promise
+                $q.all([hodnoceni, druhyHodnoceni, predmety]).then(function (results) {
+                    //$log.log("ZapisHodnoceniCtrl - all resloved");
 
-                var hodnoceni = results[0].data.Data;
-                var druhyHodnoceni = results[1].data.Data;
-                var predmety = results[2].data.Data;
-                $log.log(druhyHodnoceni);
+                    var hodnoceni = results[0].data.Data;
+                    var druhyHodnoceni = results[1].data.Data;
+                    var predmety = results[2].data.Data;
+                    $log.log(druhyHodnoceni);
 
-                var data = {};
+                    var data = {};
 
-                data.Predmety = _(predmety)
-                    //.map(function (x) { return { TRIDA_ID: x.TRIDA_ID, TRIDA_NAZEV: x.TRIDA_NAZEV, TRIDA_PORADI_ZOBRAZENI: x.TRIDA_PORADI_ZOBRAZENI }; })
-                    //.uniq(function (x) { return x.TRIDA_ID; })
-                    .sortBy(function (x) { return x.NAZEV; })
-                    .sortBy(function (x) { return x.PORADI_ZOBRAZENI; }).value();
+                    data.Predmety = _(predmety)
+                        //.map(function (x) { return { TRIDA_ID: x.TRIDA_ID, TRIDA_NAZEV: x.TRIDA_NAZEV, TRIDA_PORADI_ZOBRAZENI: x.TRIDA_PORADI_ZOBRAZENI }; })
+                        //.uniq(function (x) { return x.TRIDA_ID; })
+                        .sortBy(function (x) { return x.NAZEV; })
+                        .sortBy(function (x) { return x.PORADI_ZOBRAZENI; }).value();
 
-                data.Hodnoceni = _(hodnoceni.Hodnoceni)
-                                    //.map(function (x) { return { TRIDA_ID: x.TRIDA_ID, TRIDA_NAZEV: x.TRIDA_NAZEV, TRIDA_PORADI_ZOBRAZENI: x.TRIDA_PORADI_ZOBRAZENI }; })
-                                    //.uniq(function (x) { return x.TRIDA_ID; })
-                                    .sortBy(function (x) { return x.OBDOBI_DNE_ID; })
-                                    .sortBy(function (x) { return x.DATUM; }).reverse().value();
+                    data.Hodnoceni = _(hodnoceni.Hodnoceni)
+                                        //.map(function (x) { return { TRIDA_ID: x.TRIDA_ID, TRIDA_NAZEV: x.TRIDA_NAZEV, TRIDA_PORADI_ZOBRAZENI: x.TRIDA_PORADI_ZOBRAZENI }; })
+                                        //.uniq(function (x) { return x.TRIDA_ID; })
+                                        .sortBy(function (x) { return x.OBDOBI_DNE_ID; })
+                                        .sortBy(function (x) { return x.DATUM; }).reverse().value();
 
-                _(data.Hodnoceni).forEach(function (hodn, i, x) {
-                    //$log.log(hodn.NAZEV, i, x);
-                    //if (i == 5) return false; // break
+                    // pokud je nejnovejsi hodnoceni imo sledovane obdobi, pak uprav sledovane obdobi
+                    if (isInitialLoad && data.Hodnoceni.length > 0) {
 
-                    if (moment(hodn.DATUM) < $scope.selectedDateFrom) {
-                        return false;
+                        var datum = moment(data.Hodnoceni[0].DATUM);
+                        $log.log(datum, $scope.selectedDateFrom);
+
+                        if (datum < $scope.selectedDateFrom) {
+                            $log.log('KOREKCE SLEDOVANEHO OBDOBI');
+                            var obdobi = _($scope.sledovaneObdobi).find(function (x) { return x.DateFrom <= datum; });
+                            if (obdobi) {
+                                setSelectedObdobi(obdobi.ID);
+                            }
+                        }
                     }
+                
+                        
+                    _(data.Hodnoceni).forEach(function (hodn, i, x) {
+                        //$log.log(hodn.NAZEV, i, x);
+                        //if (i == 5) return false; // break
 
-                    var predmet = _(data.Predmety).find(function (p) {
-                        return p.REALIZACE_ID == hodn.REALIZACE_ID
-                    });
-
-                    var druhHodnoceni = _(druhyHodnoceni).find(function (p) {
-                        return p.DRUH_UDALOSTI_ID == hodn.DRUH_UDALOSTI_ID
-                    });
-
-                    if (predmet) {
-                        if (!predmet.HODNOCENI) {
-                            predmet.HODNOCENI = [];
-                            predmet.POCET_HODNOCENI = 0;
-                            predmet.POSLEDNI_HODNOCENI = null;
+                        if (moment(hodn.DATUM) < $scope.selectedDateFrom) {
+                            return false;
                         }
 
-                        if (!predmet.POSLEDNI_HODNOCENI) {
-                            predmet.POSLEDNI_HODNOCENI = hodn.DATUM;
+                        var predmet = _(data.Predmety).find(function (p) {
+                            return p.REALIZACE_ID == hodn.REALIZACE_ID;
+                        });
+
+                        var druhHodnoceni = _(druhyHodnoceni).find(function (p) {
+                            return p.DRUH_UDALOSTI_ID == hodn.DRUH_UDALOSTI_ID;
+                        });
+
+                        if (predmet) {
+                            if (!predmet.HODNOCENI) {
+                                predmet.HODNOCENI = [];
+                                predmet.POCET_HODNOCENI = 0;
+                                predmet.POSLEDNI_HODNOCENI = null;
+                            }
+
+                            if (!predmet.POSLEDNI_HODNOCENI) {
+                                predmet.POSLEDNI_HODNOCENI = hodn.DATUM;
+                            }
+
+                            predmet.POCET_HODNOCENI = predmet.POCET_HODNOCENI + 1;
+
+                            var vysledek = (hodn.VYSLEDEK != null) ? hodn.VYSLEDEK : ((hodn.VYSLEDEK_TEXT != null) ? 'S' : '-');
+
+
+                            predmet.HODNOCENI[predmet.HODNOCENI.length] = {
+                                VYSLEDEK: vysledek,
+                                DRUH_VYSLEDKU: hodn.DRUH_VYSLEDKU,
+                                NAZEV: hodn.NAZEV,
+                                DRUH_HODNOCENI: (druhHodnoceni ? druhHodnoceni.NAZEV : null),
+                                VAHA: (druhHodnoceni ? druhHodnoceni.VAHA.toString().replace('.', ',') : null),
+                                DATUM: hodn.DATUM
+                            };
+
                         }
 
-                        predmet.POCET_HODNOCENI = predmet.POCET_HODNOCENI + 1;
-                        predmet.HODNOCENI[predmet.HODNOCENI.length] = {
-                            VYSLEDEK: hodn.VYSLEDEK,
-                            DRUH_VYSLEDKU: hodn.DRUH_VYSLEDKU,
-                            NAZEV: hodn.NAZEV,
-                            DRUH_HODNOCENI: (druhHodnoceni ? druhHodnoceni.NAZEV : null),
-                            VAHA: (druhHodnoceni ? druhHodnoceni.VAHA : null),
-                            DATUM: hodn.DATUM
-                        };
 
-                    }
+                    });
 
 
+                    $log.log(data.Predmety);
+                    $log.log(data.Hodnoceni);
+
+                    $scope.predmety = _(data.Predmety).filter(function (x) { return x.HODNOCENI; }).value();
+
+                    $scope.data = hodnoceni.Hodnoceni;
+
+                    $scope.isDataLoaded = true;
+
+
+
+                    setTimeout(function () {
+                        var table = angular.element('#hodnoceniVypisStudent-table');
+                        table.listview('refresh');
+
+                        var table2 = angular.element('.hodnoceniVypisStudentList');
+
+                        $('[data-role=collapsible]').collapsibleset().trigger('create');
+
+                        //$('#myList').listview('refresh');
+                        //$('#myList').find('li[data-role=collapsible]').collapsible({ refresh: true });
+                        $('[data-role=collapsible]').collapsible({ refresh: true });
+
+                    }, 0);
+
+                    $.mobile.loading("hide");
+
+                },
+                function (error) {
+                    $.mobile.loading("hide");
+                    $log.error(error);
+                    $scope.data = null;
+                    $("#hodnoceniVypisStudentNotifier").html(result.Status.Message).popup("open");
                 });
 
-
-                $log.log(data.Predmety);
-                $log.log(data.Hodnoceni);
-
-                $scope.predmety = _(data.Predmety).filter(function (x) { return x.HODNOCENI }).value();
-
-                $scope.data = hodnoceni.Hodnoceni;
-
-                $scope.isDataLoaded = true;
-
-                
-
-                setTimeout(function () {
-                    var table = angular.element('#hodnoceniVypisStudent-table');
-                    table.listview('refresh');
-
-                    var table2 = angular.element('.hodnoceniVypisStudentList');
-
-                    $('[data-role=collapsible]').collapsibleset().trigger('create');
-
-                    //$('#myList').listview('refresh');
-                    //$('#myList').find('li[data-role=collapsible]').collapsible({ refresh: true });
-                    $('[data-role=collapsible]').collapsible({ refresh: true });
-
-                    //table2.collapsible();
-                    //table2.collapsibleset("refresh")
-                    //table2.listview('refresh');
-
-                    //angular.element('[type="text"]', '#hodnoceni-table').textinput();
-                    //angular.element('[type="text"]', table).textinput();
-                }, 0);
-
-                $.mobile.loading("hide");
-
-            },
-                    function (error) {
-                        $.mobile.loading("hide");
-                        $log.error(error);
-                        $scope.data = null;
-                        $("#hodnoceniVypisStudentNotifier").html(result.Status.Message).popup("open");
-                    });
-/*
-                hodnoceni
-                    .success(function (result, status, headers, config) {
-                        $log.log("RozvrhCtrl - loadData");
-
-                        $log.log(result);
-
-                        if (result.Status.Code != "OK") {
-                            $scope.data = null;
-                            $("#hodnoceniVypisStudentNotifier").html(result.Status.Message).popup("open");
-                        } else {
-                            $scope.data = result.Data.Hodnoceni;
-
-                            $scope.isDataLoaded = true;
-                        }
-
-                        setTimeout(function () {
-                            var table = angular.element('#hodnoceniVypisStudent-table');
-                            table.listview('refresh');
-
-                            //angular.element('[type="text"]', '#hodnoceni-table').textinput();
-                            //angular.element('[type="text"]', table).textinput();
-                        }, 0);
-
-                        $.mobile.loading("hide");
-
-                    })
-                    .error(function (error, status, headers, config) {
-                        $log.log("ERROR");
-                        $log.error(status);
-
-                        if (status == 401) {
-                            setTimeout(function () { $.mobile.changePage('#login'); }, 0);
-                        }
-
-
-                        $.mobile.loading("hide");
-
-                    });
-                    */
-
             };
+
 
             $scope.navigateTo = function (pageIdToChange) {
                 $.mobile.pageContainer.pagecontainer('change', pageIdToChange, {
@@ -255,11 +304,19 @@
 
             };
 
-            $scope.nastavObdobiVypisu = function (selectedValue) {
+
+            $scope.nastavObdobiVypisu = function(selectedValue) {
                 setSelectedObdobi(selectedValue);
                 $("#hodnoceniVypisStudentObdobiPopup").popup("close");
+
+                setTimeout(function() {
+                    $("input[type='radio']").checkboxradio();
+                    $("input[type='radio']").checkboxradio("refresh");
+                }, 0);
+
+
                 $scope.loadData();
-            }
+            };
 
         });
 

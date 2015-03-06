@@ -1,4 +1,4 @@
-﻿; (function () {
+; (function () {
     "use strict";
     var module = angular.module('sol.services');
 
@@ -7,6 +7,9 @@
 
         me.getApiUrl = function() {
             var user = me.getCurrentUser();
+
+            $log.info("getApiUrl user", user);
+
             if (user) {
                 return user.apiUrl;
             }
@@ -189,6 +192,7 @@
         me.checkAuthorizationIsValid = function(apiUrl, username, password) {
             //var url = NastaveniService.getApiURL() + 'AuthorizationStatus';
             var url = apiUrl + 'AuthorizationStatus';
+            $log.info("checkAuthorizationIsValid", url);
 
             $http.defaults.headers.common.Authorization = me.getAuthorizationHeader(username, password);
 

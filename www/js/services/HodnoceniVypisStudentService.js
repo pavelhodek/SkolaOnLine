@@ -12,10 +12,14 @@
         me.selectedUdalostPoradi = null;
         me.selectedDatum = null;
 
-        me.getAllOfCurrentSemester = function () {
+        me.getAllOfCurrentSemester = function (osobaID) {
             //$log.debug('RozvrhService - getByDatum');
 
-            var url = AuthorizationService.getApiUrl() + 'VypisHodnoceniStudent';
+            if (osobaID) {
+                var url = AuthorizationService.getApiUrl() + 'VypisHodnoceniStudent' + '/' + osobaID;
+            } else {
+                var url = AuthorizationService.getApiUrl() + 'VypisHodnoceniStudent';
+            }
 
             $http.defaults.headers.common.Authorization = AuthorizationService.getAuthorizationHeader();
 
