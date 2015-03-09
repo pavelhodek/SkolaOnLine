@@ -50,7 +50,7 @@
 
             $scope.init = function () {
                 $scope.data = {};
-
+                $rootScope.shared = {};
                 $scope.data.remember = true; //AuthorizationService.getRemember();
 
                 var currentUser = AuthorizationService.getCurrentUser();

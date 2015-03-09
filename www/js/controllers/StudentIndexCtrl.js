@@ -12,7 +12,9 @@
         })
         .on("pageshow", "#indexStudent", function (event, ui) {
             $log.debug("PAGESHOW - #ROZVRH");
-            $scope.init();
+            $scope.$apply(function() {
+                $scope.init();
+            });
         });
 
         $scope.init = function () {
@@ -26,9 +28,10 @@
 
 
         $scope.loadData = function() {
-            //if (! $rootScope.shared) {
+            if (!$rootScope.shared) {
+                $log.log("STUDENT_ID: null");
                 $rootScope.shared = { STUDENT_ID: null };
-            //}
+            }
 
             var currentUser = AuthorizationService.getCurrentUser();
 
@@ -40,11 +43,12 @@
                     $scope.data.Studenti = _(success.data.Data).sortBy(function (x) { return x.JMENO; }).value();
                     $scope.pocetStudentu = $scope.data.Studenti.length;
 
-                    //if (! $rootScope.shared.STUDENT_ID) {
+                    if (! $rootScope.shared.STUDENT_ID) {
                         $rootScope.shared.STUDENT_ID = ($scope.data.Studenti.length > 0) ? $scope.data.Studenti[0].OSOBA_ID : currentUser.OSOBA_ID;
-                    //}
+                        $log.log("STUDENT_ID: " + $rootScope.shared.STUDENT_ID);
+                    }
 
-                        $timeout(function () { $("#student").selectmenu('refresh'); }, 0);
+                    $timeout(function () { $("#student").selectmenu('refresh'); }, 0);
 
                     $log.log("$rootScope.shared.STUDENT_ID", $rootScope.shared.STUDENT_ID);
                     $('#indexStudentContent').show();
