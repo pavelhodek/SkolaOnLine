@@ -31,7 +31,7 @@
             if (typeof cordova !== "undefined" && cordova.getAppVersion) {
                 cordova.getAppVersion().then(function (version) {
                     //$('.appVersion').text(version);
-                    $scope.data["app"] = { "version": version };
+                    $scope.data.app = { "version": version };
                 });
             }
 
