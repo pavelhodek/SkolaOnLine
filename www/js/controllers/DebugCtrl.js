@@ -15,9 +15,9 @@
             });
 
         $scope.init = function () {
-            $scope.$apply(function() {
+            //$scope.$apply(function() {
                 $scope.loadData();
-            });
+            //});
         };
 
 
@@ -32,6 +32,7 @@
                 cordova.getAppVersion().then(function (version) {
                     //$('.appVersion').text(version);
                     $scope.data.app = { "version": version };
+                    $scope.$apply();
                 });
             }
 
