@@ -188,4 +188,18 @@ jQuery(function ($) {
             $('.ui-btn-active').removeClass('ui-btn-active ui-focus');
         }, 0);
     });
+
+
+    // na virtuální klávesnici tlačítko "Go" / "Přejdi" způsobí stisk tlačítka "Přihlásit"
+    $('#password').on('keyup', function (e) {
+        var theEvent = e || window.event;
+        var keyPressed = theEvent.keyCode || theEvent.which;
+        if (keyPressed == 13) {
+            $('#submitLogin').trigger('click');
+        }
+        return true;
+    });
+
+
+
 });
