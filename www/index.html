@@ -89,6 +89,7 @@
     <script src="js/controllers/ZapisDochazkyCtrl.js"></script>
     <script src="js/controllers/ZapisHodnoceniCtrl.js"></script>
     <script src="js/controllers/HodnoceniVypisStudentCtrl.js"></script>
+    <script src="js/controllers/DebugCtrl.js"></script>
 
     <style>
         
@@ -120,8 +121,6 @@
         <div class="content" data-role="content">
             <!--Nastavení, přihlášení, výpis rozvrhu, zadávání docházky a další funkce jsou přístupné z menu v záhlaví.-->
 
-            <div id="deviceProperties"></div>
-
         </div>
     </section>
 
@@ -141,20 +140,19 @@
         <div class="content" data-role="content">
             <!--Přihlášený uživatel: {{data.userInfo}}-->
 
-            <div ng-show="pocetStudentu > 1">
-                <select name="student" id="student" data-native-menu="true"
-                        ng-options="item.OSOBA_ID as item.JMENO for item in data.Studenti"
-                        ng-model="shared.STUDENT_ID"></select>
+            <div id="indexStudentContent">
+
+                <div ng-show="pocetStudentu > 1">
+                    <select name="student" id="student" data-native-menu="true"
+                            ng-options="item.OSOBA_ID as item.JMENO for item in data.Studenti"
+                            ng-model="shared.STUDENT_ID"></select>
+                </div>
+
+                <button onclick="$.mobile.changePage('#rozvrhStudent')" data-iconpos="top" data-icon="calendar" class="ui-nodisc-icon ui-alt-icon ui-btn-inline">Rozvrh</button>
+                <button onclick="$.mobile.changePage('#hodnoceniVypisStudent')" data-iconpos="top" data-icon="edit" class="ui-nodisc-icon ui-alt-icon ui-btn-inline">Hodnocení</button>
+                <!--<button onclick="$.mobile.changePage('#absenceVypisStudent')" data-iconpos="top" data-icon="forbidden" class="ui-nodisc-icon ui-alt-icon ui-btn-inline">Absence</button>-->
+
             </div>
-
-            <!--{{shared.STUDENT_ID}}-->
-            <!--<button ng-click="inc()">inc</button>
-            counter: {{counter}}-->
-
-            <button onclick="$.mobile.changePage('#rozvrhStudent')" data-iconpos="top" data-icon="calendar" class="ui-nodisc-icon ui-alt-icon ui-btn-inline">Rozvrh</button>
-            <button onclick="$.mobile.changePage('#hodnoceniVypisStudent')" data-iconpos="top" data-icon="edit" class="ui-nodisc-icon ui-alt-icon ui-btn-inline">Hodnocení</button>
-            <!--<button onclick="$.mobile.changePage('#absenceVypisStudent')" data-iconpos="top" data-icon="forbidden" class="ui-nodisc-icon ui-alt-icon ui-btn-inline">Absence</button>-->
-
         </div>
     </section>
 
@@ -303,28 +301,31 @@
         <div class="content" data-role="content">
 
             <div data-role="popup" id="rozvrhNotifier"></div>
+            <div id="rozvrhUcitelContent">
+                <ul id="rozvrh-table" data-role="listview">
+                    <li ng-repeat="udalost in data">
+                        <a ng-click="showPopupMenu($event, udalost)">
+                            <div style="display:table-cell">
+                                <div style="text-align:center; width: 72px">
+                                    {{obdobiDneNazev(udalost)}}
+                                    <p>{{udalost.CAS_OD | date:timeFormat}} - {{udalost.CAS_DO | date:timeFormat}}</p>
+                                </div>
 
-            <ul id="rozvrh-table" data-role="listview">
-                <li ng-repeat="udalost in data">
-                    <a ng-click="showPopupMenu($event, udalost)">
-                        <div style="display:table-cell">
-                            <div style="text-align:center">
-                                {{obdobiDneNazev(udalost)}}
                             </div>
-                            <p>{{udalost.CAS_OD | date:timeFormat}} - {{udalost.CAS_DO | date:timeFormat}}</p>
-                        </div>
-                        <div style="display:table-cell; padding-left: 20px">
-                            {{udalost.NAZEV}}
-                            <p>
-                                {{zdrojeInfo(udalost)}}
-                            </p>
-                        </div>
-                    </a>
-                    <!--<a ng-click="showPopupInfo($event, udalost, udalost.showPopupInfo)"
-                           class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-info ui-btn-icon-notext"
-                           title="Detail hodiny">Detail hodiny</a>-->
-                </li>
-            </ul>
+                            <div style="display:table-cell; padding-left: 20px">
+                                <h2>{{udalost.NAZEV}}</h2>
+                                <p>
+                                    {{zdrojeInfo(udalost)}}
+                                </p>
+                            </div>
+                        </a>
+                        <!--<a ng-click="showPopupInfo($event, udalost, udalost.showPopupInfo)"
+                class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-info ui-btn-icon-notext"
+                title="Detail hodiny">Detail hodiny</a>-->
+                    </li>
+                </ul>
+            </div>
+
         </div>
 
 
@@ -377,29 +378,30 @@
         <div class="content" data-role="content">
             <div data-role="popup" id="rozvrhStudentNotifier"></div>
 
-            <!--{{shared.STUDENT_ID}}-->
-
-            <ul id="rozvrhStudent-table" data-role="listview">
-                <li ng-repeat="udalost in data" data-icon="false">
-                    <a>
-                        <div style="display:table-cell">
-                            <div style="text-align:center">
-                                {{obdobiDneNazev(udalost)}}
+            <div id="rozvrhStudentContent">
+                <ul id="rozvrhStudent-table" data-role="listview">
+                    <li ng-repeat="udalost in data" data-icon="false">
+                        <a>
+                            <div style="display:table-cell">
+                                <div style="text-align:center; width: 72px">
+                                    {{obdobiDneNazev(udalost)}}
+                                    <p>{{udalost.CAS_OD | date:timeFormat}} - {{udalost.CAS_DO | date:timeFormat}}</p>
+                                </div>
                             </div>
-                            <p>{{udalost.CAS_OD | date:timeFormat}} - {{udalost.CAS_DO | date:timeFormat}}</p>
-                        </div>
-                        <div style="display:table-cell; padding-left: 20px">
-                            {{udalost.NAZEV}}
-                            <p>
-                                {{zdrojeInfo(udalost)}}
-                            </p>
-                        </div>
-                    </a>
-                    <!--<a ng-click="showPopupInfo($event, udalost, udalost.showPopupInfo)"
-                    class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-info ui-btn-icon-notext"
-                    title="Detail hodiny">Detail hodiny</a>-->
-                </li>
-            </ul>
+                            <div style="display:table-cell; padding-left: 20px">
+                                <h2>{{udalost.NAZEV}}</h2>
+                                <p>
+                                    {{zdrojeInfo(udalost)}}
+                                </p>
+                            </div>
+                        </a>
+                        <!--<a ng-click="showPopupInfo($event, udalost, udalost.showPopupInfo)"
+                   class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-info ui-btn-icon-notext"
+                   title="Detail hodiny">Detail hodiny</a>-->
+                    </li>
+                </ul>                
+            </div>
+
         </div>
 
     </section>
@@ -422,111 +424,68 @@
         <div class="content" data-role="content">
             <div data-role="popup" id="hodnoceniVypisStudentNotifier"></div>
 
-            <!--<ul data-role="listview">
-                    <li data-role="collapsible" data-iconpos="left" data-inset="false">
-                        <h3>
+            <div id="hodnoceniVypisStudentContent">
 
-                            Matematika (MAT) <span class="ui-li-aside">poslední: 22.12.2014</span>
-                            <span class="ui-li-count">počet: 4</span>
+                <ul class="hodnoceniVypisStudentList" data-role="listview">
+                    <li data-role="collapsible" data-iconpos="left" data-inset="false" ng-repeat="predmet in predmety">
+                        <h3>
+                            {{predmet.NAZEV}} ({{predmet.ZKRATKA}})
+                            <div>
+                                <span class="ui-li-desc " style="font-size:12px; font-weight: normal">Počet: {{predmet.POCET_HODNOCENI}}</span>
+                                <span class="ui-li-desc " style="font-size:12px; font-weight: normal; float: right">Poslední: {{predmet.POSLEDNI_HODNOCENI | date:dateFormat}}</span>
+
+                            </div>
+
+                            <!--<span class="ui-li-aside" style="font-size:12px; font-weight: normal">poslední: {{predmet.POSLEDNI_HODNOCENI | date:dateFormat}}</span>-->
+                            <!--<span class="ui-li-count">{{predmet.POCET_HODNOCENI}}</span>-->
                         </h3>
 
-                        <ul data-role="listview">
-                            <li><a href="#">Condor</a></li>
-                            <li><a href="#">Eagle</a></li>
-                            <li><a href="#">Sparrow</a></li>
+                        <ul class="hodnoceniVypisStudentSubList" data-role="listview">
+                            <li ng-repeat="hodnoceni in predmet.HODNOCENI" data-icon="false">
+                                <a>
+                                    <div style="display:table-cell; vertical-align: middle; width: 30px; font-size: 24px; float: left">
+                                        {{hodnoceni.VYSLEDEK}}
+                                    </div>
+                                    <div style="margin-left: 30px">
+                                        {{hodnoceni.NAZEV}}
+                                        <div>
+                                            <span class="ui-li-desc" style=" font-size:12px; font-weight: normal">{{hodnoceni.DRUH_HODNOCENI}} ({{hodnoceni.VAHA}})</span>
+                                            <span class="ui-li-desc" style=" font-size:12px; font-weight: normal; float: right">{{hodnoceni.DATUM | date:dateFormat}}</span>
+                                        </div>
+
+                                    </div>
+                                    <!--<span class="ui-li-count">
+                                xxx
+                            </span>-->
+                                </a>
+                            </li>
                         </ul>
                     </li>
 
                 </ul>
-                <hr />-->
-            
-            <ul class="hodnoceniVypisStudentList" data-role="listview">
-                <li data-role="collapsible" data-iconpos="left" data-inset="false" ng-repeat="predmet in predmety">
-                    <h3>
-                        {{predmet.NAZEV}} ({{predmet.ZKRATKA}})
-                        <div>
-                            <span class="ui-li-desc " style="font-size:12px; font-weight: normal">Počet: {{predmet.POCET_HODNOCENI}}</span>
-                            <span class="ui-li-desc " style="font-size:12px; font-weight: normal; float: right">Poslední: {{predmet.POSLEDNI_HODNOCENI | date:dateFormat}}</span>
 
-                        </div>
 
-                        <!--<span class="ui-li-aside" style="font-size:12px; font-weight: normal">poslední: {{predmet.POSLEDNI_HODNOCENI | date:dateFormat}}</span>-->
-                        <!--<span class="ui-li-count">{{predmet.POCET_HODNOCENI}}</span>-->
-                    </h3>
-
-                    <ul class="hodnoceniVypisStudentSubList" data-role="listview">
-                        <li ng-repeat="hodnoceni in predmet.HODNOCENI" data-icon="false">
-                            <a>
-                                <div style="display:table-cell; vertical-align: middle; width: 30px; font-size: 24px; float: left">
-                                    {{hodnoceni.VYSLEDEK}}
-                                </div>
-                                <div style="margin-left: 30px">
-                                    {{hodnoceni.NAZEV}}
-                                    <div>
-                                        <span class="ui-li-desc" style=" font-size:12px; font-weight: normal">{{hodnoceni.DRUH_HODNOCENI}} ({{hodnoceni.VAHA}})</span>
-                                        <span class="ui-li-desc" style=" font-size:12px; font-weight: normal; float: right">{{hodnoceni.DATUM | date:dateFormat}}</span>                                        
-                                    </div>
-
-                                </div>
-                                <!--<span class="ui-li-count">
-                                    xxx
-                                </span>-->
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-            </ul>
-
-            <!--<ul data-role="listview">
-                <li data-role="list-divider" data-iconpos="right" data-inset="false">
-                    <h3>Matematika (MAT)</h3>
-                    <span class="ui-li-count">12</span>
+                <ul id="hodnoceniVypisStudent-table" data-role="listview">
+                    <li ng-repeat="hodnoceni in dataX" data-icon="false">
+                        <a>
+                            <div style="display:table-cell; vertical-align: middle; width: 26px">
+                                {{hodnoceni.VYSLEDEK}}
+                            </div>
+                            <div style="display:table-cell">
+                                {{hodnoceni.NAZEV}}
+                                <p>druh hodnocení</p>
+                            </div>
+                            <div class="ui-li-aside">
+                                <p>{{hodnoceni.DATUM | date:dateFormat}}</p>
+                            </div>
+                            <span class="ui-li-count">
+                                xxx
+                            </span>
+                        </a>
                     </li>
+                </ul>
 
-                        <li><a href="#">Condor</a></li>
-                        <li><a href="#">Eagle</a></li>
-                        <li><a href="#">Sparrow</a></li>
-
-            </ul>
-
-            <ul data-role="listview">
-                <li data-role="collapsible" data-iconpos="left" data-inset="false">
-                    <h3>
-
-                        Matematika (MAT) <span class="ui-li-aside">poslední: 22.12.2014</span>
-                        <span class="ui-li-count">počet: 4</span>
-                    </h3>
-
-                    <ul data-role="listview">
-                        <li><a href="#">Condor</a></li>
-                        <li><a href="#">Eagle</a></li>
-                        <li><a href="#">Sparrow</a></li>
-                    </ul>
-                </li>
-
-            </ul>-->
-
-
-            <ul id="hodnoceniVypisStudent-table" data-role="listview">
-                <li ng-repeat="hodnoceni in dataX" data-icon="false">
-                    <a>
-                        <div style="display:table-cell; vertical-align: middle; width: 26px">
-                            {{hodnoceni.VYSLEDEK}}
-                        </div>
-                        <div style="display:table-cell">
-                            {{hodnoceni.NAZEV}}
-                            <p>druh hodnocení</p>
-                        </div>
-                        <div class="ui-li-aside">
-                            <p>{{hodnoceni.DATUM | date:dateFormat}}</p>
-                        </div>
-                        <span class="ui-li-count">
-                            xxx
-                        </span>
-                    </a>
-                </li>
-            </ul>
+            </div>
 
             <div data-role="popup" id="hodnoceniVypisStudentObdobiPopup" class="ui-content" data-theme="a" data-overlay-theme="a">
                 Změna období výpisu
@@ -534,59 +493,59 @@
                 <fieldset data-role="controlgroup" data-mini="false">
                     <!--<label ng-repeat="obdobi in sledovaneObdobi">
                         <input type="radio"
-                               name="hodnoceniVypisStudentObdobi"
-                               id="hodnoceniVypisStudentObdobi-{{obdobi.ID}}"
-                               ng-model="selectedObdobiVypisu"
-                               ng-change="nastavObdobiVypisu('{{obdobi.ID}}')"
-                               onclick="console.log('x')"
-                               >{{obdobi.Title}}
-                    </label>-->                    
-                    
+                                name="hodnoceniVypisStudentObdobi"
+                                id="hodnoceniVypisStudentObdobi-{{obdobi.ID}}"
+                                ng-model="selectedObdobiVypisu"
+                                ng-change="nastavObdobiVypisu('{{obdobi.ID}}')"
+                                onclick="console.log('x')"
+                            >{{obdobi.Title}}
+                    </label>-->
+
                     <label>
                         <input type="radio"
-                               name="hodnoceniVypisStudentObdobi"
-                               id="hodnoceniVypisStudentObdobi-den"
-                               ng-model="selectedObdobiVypisu"
-                               ng-change="nastavObdobiVypisu('D')"
-                               value="D">Dnes
+                                name="hodnoceniVypisStudentObdobi"
+                                id="hodnoceniVypisStudentObdobi-den"
+                                ng-model="selectedObdobiVypisu"
+                                ng-change="nastavObdobiVypisu('D')"
+                                value="D">Dnes
                     </label>
                     <label>
                         <input type="radio"
-                               name="hodnoceniVypisStudentObdobi"
-                               id="hodnoceniVypisStudentObdobi-tyden"
-                               ng-model="selectedObdobiVypisu"
-                               ng-change="nastavObdobiVypisu('W')"
-                               value="W">Poslední týden
+                                name="hodnoceniVypisStudentObdobi"
+                                id="hodnoceniVypisStudentObdobi-tyden"
+                                ng-model="selectedObdobiVypisu"
+                                ng-change="nastavObdobiVypisu('W')"
+                                value="W">Poslední týden
                     </label>
                     <label>
                         <input type="radio"
-                               name="hodnoceniVypisStudentObdobi"
-                               id="hodnoceniVypisStudentObdobi-mesic"
-                               ng-model="selectedObdobiVypisu"
-                               ng-change="nastavObdobiVypisu('M')"
-                               value="M">Poslední měsíc
+                                name="hodnoceniVypisStudentObdobi"
+                                id="hodnoceniVypisStudentObdobi-mesic"
+                                ng-model="selectedObdobiVypisu"
+                                ng-change="nastavObdobiVypisu('M')"
+                                value="M">Poslední měsíc
                     </label>
                     <label>
                         <input type="radio"
-                               name="hodnoceniVypisStudentObdobi"
-                               id="hodnoceniVypisStudentObdobi-3mesic"
-                               ng-model="selectedObdobiVypisu"
-                               ng-change="nastavObdobiVypisu('3M')"
-                               value="3M">Poslední 3 měsíce
+                                name="hodnoceniVypisStudentObdobi"
+                                id="hodnoceniVypisStudentObdobi-3mesic"
+                                ng-model="selectedObdobiVypisu"
+                                ng-change="nastavObdobiVypisu('3M')"
+                                value="3M">Poslední 3 měsíce
                     </label>
                     <label>
                         <input type="radio"
-                               name="hodnoceniVypisStudentObdobi"
-                               id="hodnoceniVypisStudentObdobi-semestr"
-                               ng-model="selectedObdobiVypisu"
-                               ng-change="nastavObdobiVypisu('S')"
-                               value="S">Celé pololetí
+                                name="hodnoceniVypisStudentObdobi"
+                                id="hodnoceniVypisStudentObdobi-semestr"
+                                ng-model="selectedObdobiVypisu"
+                                ng-change="nastavObdobiVypisu('S')"
+                                value="S">Celé pololetí
                     </label>
                 </fieldset>
             </div>
 
-
         </div>
+        
 
         <!--FOOTER-->
         <footer data-role="footer" data-theme="a" data-position="fixed">
@@ -1035,6 +994,37 @@
     </section>
 
 
+
+    <!--DEBUG-->
+    <section id="debug" data-role="page" ng-controller="DebugCtrl">
+
+        <!--HEADER-->
+        <header data-role="header" data-position="fixed">
+            <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
+            <h1>Debug</h1>
+        </header>
+
+        <!--CONTENT-->
+        <div class="content" data-role="content">
+            <div id="debugContent">
+                <h4 class="list-inset">Verze aplikace</h4>
+                {{data.app.version}}
+
+                <h4 class="list-inset">Informace o zařízení</h4>
+                Device Model: {{data.device.model}} <br />
+                Device Cordova: {{data.device.cordova}} <br />
+                Device Platform: {{data.device.platform}} <br />
+                Device UUID: {{data.device.uuid}} <br />
+                Device Version: {{data.device.version}} <br />
+                Device Name: {{data.device.name}} <br />
+                Internet Connection: {{data.navigator.connection.type}} <br />
+                <hr />
+            </div>
+
+        </div>
+
+    </section>
+    
 
 
     <!--DEBUG-->

@@ -138,5 +138,20 @@ em { color: red; font-weight: bold; padding-right: .25em; }
 }
 
 
+/* zahlavi (omezeni zkracovani ...) */
+.ui-header .ui-title {
+    margin-right: 10%;
+    margin-left: 10%;
+}
 
+/* zalamovani titulku v listview */
+ul.ui-listview li h2 {
+    white-space: normal !important;
+    word-wrap:break-word;
+    overflow-wrap: break-word;
+}
 
+.ui-btn {
+    /*padding: .5em .5em;*/
+    /*text-overflow: normal;*/
+}

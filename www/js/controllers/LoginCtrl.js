@@ -2,7 +2,7 @@
     "use strict";
     angular.module('sol.controllers')
 
-        .controller('LoginCtrl', ['$scope', '$rootScope', '$log', 'AuthorizationService', function ($scope, $rootScope, $log, AuthorizationService) {
+        .controller('LoginCtrl', ['$scope', '$rootScope', '$log', '$timeout', 'AuthorizationService', function ($scope, $rootScope, $log, $timeout, AuthorizationService) {
             //$log.debug('LoginCtrl');
 
             angular.element(document)
@@ -40,7 +40,7 @@
                 angular.extend($scope, initial);
 
                 // refresh radiobuttonu (kvůli jqm extenzi)
-                setTimeout(function () {
+                $timeout(function () {
                     $("#remember").checkboxradio("refresh");
                 }, 0);
 
@@ -67,7 +67,7 @@
                 $scope.data.userProfiles = AuthorizationService.getUserProfiles();
 
 
-                setTimeout(function () {
+                $timeout(function () {
                     $("#login-userProfiles").listview("refresh");
                     $("#remember").checkboxradio("refresh");
                 }, 0);

@@ -31,9 +31,6 @@
     <preference name="android-minSdkVersion" value="14" />
     <preference name="android-installLocation" value="auto" />
 
-
-
-
       <!--
     <preference name="SplashScreen" value="splash" />
     <preference name="SplashScreenDelay" value="20000" />
@@ -55,7 +52,6 @@
     <preference name="SplashScreenDelay" value="1000" />
      -->
 
-
     <feature name="SplashScreen">
         <param name="ios-package" value="CDVSplashScreen"/>
         <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen"/>
@@ -68,6 +64,8 @@
     <gap:plugin name="org.apache.cordova.dialogs" />
     <gap:plugin name="org.apache.cordova.network-information" />
     <gap:plugin name="org.apache.cordova.splashscreen" />
+    <gap:plugin name="org.apache.cordova.device" />
+    <gap:plugin name="uk.co.whiteoctober.cordova.appversion" version="0.1.4" />
 
     <!--
     <gap:plugin name="org.apache.cordova.battery-status" />

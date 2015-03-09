@@ -1,7 +1,7 @@
 ; (function () {
     "use strict";
     angular.module('sol.controllers')
-        .controller('ZapisProbiranehoUcivaCtrl', function ($scope, $rootScope, $log, $q, $filter, ZapisProbiranehoUcivaService, RozvrhService, TridyService, ObdobiDneService, UdalostService) {
+        .controller('ZapisProbiranehoUcivaCtrl', function ($scope, $rootScope, $log, $q, $filter, $timeout, ZapisProbiranehoUcivaService, RozvrhService, TridyService, ObdobiDneService, UdalostService) {
             //$log.debug('ZapisProbiranehoUcivaCtrl');
 
             angular.element(document)
@@ -29,7 +29,7 @@
                 //$scope.zapsatHodinyZvlast = false;
                 $scope.zapsatHodinyZvlast = true;
 
-                setTimeout(function () {
+                $timeout(function () {
 
                     $scope.hideCheckBox($('#zapsatVsemTridam'));
                     $scope.hideCheckBox($('#zapsatHodinyZvlast'));
@@ -148,7 +148,7 @@
                     });
 
 
-                setTimeout(function () {
+                $timeout(function () {
                     //var table = angular.element('#dochazka-table');
                     //table.table('refresh');
                     //angular.element('[type="text"]', '#hodnoceni-table').textinput();
@@ -270,7 +270,7 @@
             };
 
             $scope.enhanceFields = function () {
-                setTimeout(function () {
+                $timeout(function () {
                     angular.element('[type="number"],[type="text"],textarea').textinput();
                     angular.element('#probiraneUcivoTrida').selectmenu('refresh');
                 }, 0);

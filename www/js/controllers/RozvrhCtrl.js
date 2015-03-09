@@ -2,12 +2,15 @@
     "use strict";
     angular.module('sol.controllers')
 
-        .controller('RozvrhCtrl', function ($scope, $rootScope, $log, NastaveniService, SelectedDateService, RozvrhService, ZapisHodnoceniService) {
+        .controller('RozvrhCtrl', function ($scope, $rootScope, $log, $timeout, NastaveniService, SelectedDateService, RozvrhService, ZapisHodnoceniService) {
             //$log.debug('RozvrhCtrl');
 
             angular.element(document)
                 .on("pagecreate", "#rozvrh", function (event, ui) {
                     //$log.debug("PAGECREATE - #ROZVRH");
+                })
+                .on("pagebeforeshow", "#rozvrh", function (event, ui) {
+                    $('#rozvrhUcitelContent').hide();
                 })
                 .on("pageshow", "#rozvrh", function (event, ui) {
                     //$log.debug("PAGESHOW - #ROZVRH");
@@ -112,15 +115,17 @@
                             $scope.isDataLoaded = true;
                         }
 
-                        setTimeout(function () {
+                        $timeout(function () {
                             var table = angular.element('#rozvrh-table');
                             table.listview('refresh');
 
                             //angular.element('[type="text"]', '#hodnoceni-table').textinput();
                             //angular.element('[type="text"]', table).textinput();
-                        }, 0);
 
-                        $.mobile.loading("hide");
+                            $.mobile.loading("hide");
+                            $('#rozvrhUcitelContent').show();
+
+                        }, 0);
 
                     })
                     .error(function (error, status, headers, config) {
@@ -128,11 +133,12 @@
                         $log.error(status);
 
                         if (status == 401) {
-                            setTimeout(function () { $.mobile.changePage('#login'); }, 0);
+                            $timeout(function () { $.mobile.changePage('#login'); }, 0);
                         }
 
 
                         $.mobile.loading("hide");
+                        $('#rozvrhUcitelContent').show();
 
                     });
             };
@@ -262,7 +268,7 @@
 
                 $scope.loadData();
 
-                setTimeout(function () {
+                $timeout(function () {
                     $('.ui-btn-active').removeClass('ui-btn-active ui-focus');
                 }, 0);
 
@@ -279,7 +285,7 @@
                 $scope.data = {};
 
                 /*
-                setTimeout(function () {
+                $timeout(function () {
                     var table = angular.element('#rozvrh-table');
                     table.listview('refresh');
 
@@ -290,7 +296,7 @@
 
                 $scope.loadData();
 
-                setTimeout(function () {
+                $timeout(function () {
                     $('.ui-btn-active').removeClass('ui-btn-active ui-focus');
                 }, 0);
             }

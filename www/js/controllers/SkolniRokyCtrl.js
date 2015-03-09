@@ -2,7 +2,7 @@
     "use strict";
     angular.module('sol.controllers')
 
-        .controller('SkolniRokyCtrl', function ($scope, $log, SkolniRokyService) {
+        .controller('SkolniRokyCtrl', function ($scope, $log, $timeout, SkolniRokyService) {
             //$log.debug('SkolniRokyCtrl');
 
             angular.element(document)
@@ -34,7 +34,7 @@
                         $scope.skolniRoky = result.Data;
 
                         // refresh (kvůli jqm extenzi)
-                        setTimeout(function () {
+                        $timeout(function () {
                             $("#skolni-roky-list").listview("refresh");
                         }, 0);
                     }, function (error) {

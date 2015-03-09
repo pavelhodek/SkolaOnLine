@@ -14,6 +14,24 @@
             //delete $httpProvider.defaults.headers.common["X-Requested-With"];
             //$httpProvider.defaults.headers.common["Accept"] = "application/json";
             //$httpProvider.defaults.headers.common["Content-Type"] = "application/json";
+
+
+            //// toto simuluje latency 3s na každém http požadavku
+            //var handlerFactory = function ($q, $timeout) {
+            //    return function (promise) {
+            //        return promise.then(function (response) {
+            //            return $timeout(function () {
+            //                return response;
+            //            }, 3000);
+            //        }, function (response) {
+            //            return $q.reject(response);
+            //        });
+            //    };
+            //}
+            //$httpProvider.responseInterceptors.push(handlerFactory);
+
+
+
         }
     ]);
 })();
@@ -97,7 +115,7 @@ function getSidePanel() {
 
 
     var solSidePanel = '\
-<div data-role="panel" id="solSidePanel" data-position="left" data-display="push" data-theme="a" class="sol-sidebar" > \
+<div data-role="panel" id="solSidePanel" data-position="left" data-display="push" data-theme="a" class="sol-sidebar" onclick="sidePanelClicked()" > \
     <div data-role="header"> \
         <h1>Menu</h1> \
         <a href="#" data-role="button" data-rel="close" class="ui-btn ui-btn-right ui-btn-icon-notext ui-icon-delete ui-nodisc-icon ui-alt-icon" >Zavřít</a> \
@@ -167,6 +185,16 @@ function navigateToPageId(pageId) {
 }
 
 
+var sidePanelClickedCounter = 0;
+function sidePanelClicked() {
+    sidePanelClickedCounter++;
+    if (sidePanelClickedCounter === 10) {
+        sidePanelClickedCounter = 0;
+        $.mobile.changePage("#debug");
+    }
+}
+
+
 //<li data-icon="gear"><a href="#nastaveni" >Nastavení</a></li> \
 //<li data-icon="gear"><a href="#skolni-rok" >Školní roky</a></li> \
 
@@ -181,8 +209,13 @@ $(document).on('pagebeforeshow', function () {
 });
 
 
-// "Unclicking" all jQuery mobile buttons after onClick
+
+
+
+
 jQuery(function ($) {
+
+    // "Unclicking" all jQuery mobile buttons after onClick
     $(document).on('click', '.ui-btn', function () {
         setTimeout(function () {
             $('.ui-btn-active').removeClass('ui-btn-active ui-focus');
@@ -198,6 +231,14 @@ jQuery(function ($) {
             $('#submitLogin').trigger('click');
         }
         return true;
+    });
+
+    // stranka "#index" odebrana z historie - slouzi pouze pro navigaci na "#rozvrh" nebo nebo "#indexStudent" nebo "#login"
+    $(document).on("pagecontainershow", function (e, ui) {
+        if (typeof ui.prevPage[0] !== "undefined" && ui.prevPage[0].id == "index") {
+            $.mobile.navigate.history.stack.splice(0, 1);
+            $(ui.prevPage).remove();
+        }
     });
 
 

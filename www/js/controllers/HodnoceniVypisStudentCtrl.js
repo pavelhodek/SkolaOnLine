@@ -3,12 +3,15 @@
     angular.module('sol.controllers')
 
         .controller('HodnoceniVypisStudentCtrl',
-        function ($scope, $rootScope, $log, $q, NastaveniService, SelectedDateService, HodnoceniVypisStudentService, DruhyHodnoceniService, PredmetyService) {
+        function ($scope, $rootScope, $log, $q, $timeout, NastaveniService, SelectedDateService, HodnoceniVypisStudentService, DruhyHodnoceniService, PredmetyService) {
             //$log.debug('HodnoceniVypisStudent');
 
             angular.element(document)
                 .on("pagecreate", "#hodnoceniVypisStudent", function (event, ui) {
                     //$log.debug("PAGECREATE - #ROZVRH - STUDENT");
+                })
+                .on("pagebeforeshow", "#hodnoceniVypisStudent", function (event, ui) {
+                    $('#hodnoceniVypisStudentContent').hide();
                 })
                 .on("pageshow", "#hodnoceniVypisStudent", function (event, ui) {
                     //$log.debug("PAGESHOW - #ROZVRH - STUDENT");
@@ -67,21 +70,6 @@
             };
 
 
-            function setSelectedObdobiByDatum(datum) {
-                //$scope.selectedObdobiVypisu = selectedValue;
-
-                var obdobi = _($scope.sledovaneObdobi).find(function (x) {
-                    return x.ID == selectedValue;
-                });
-
-                if (obdobi) {
-                    $scope.selectedDateFrom = obdobi.DateFrom;
-                    $scope.selectedDateTo = obdobi.DateTo;
-                    $scope.popisObdobi = obdobi.Description;
-                }
-            }
-
-
             function setSelectedObdobi(selectedValue) {
                 $scope.selectedObdobiVypisu = selectedValue;
 
@@ -95,36 +83,6 @@
                     $scope.selectedDateTo = obdobi.DateTo;
                     $scope.popisObdobi = obdobi.Description;
                 }
-
-
-                //var now = moment().locale("cs");
-
-                //if ($scope.selectedObdobiVypisu == "D") {
-                //    $scope.selectedDateFrom = now.clone().startOf('day');
-                //    $scope.selectedDateTo = now.clone().endOf('day');
-                //    $scope.popisObdobi = $scope.selectedDateFrom.format('D. M.');
-
-                //} else if ($scope.selectedObdobiVypisu == "W") {
-                //    $scope.selectedDateFrom = now.clone().startOf('isoweek'); // isoweek
-                //    $scope.selectedDateTo = now.clone(); //now.clone().endOf('isoweek'); // isoweek
-                //    $scope.popisObdobi = "od " + $scope.selectedDateFrom.format('D. M.') + ' do ' + $scope.selectedDateTo.format('D. M.');
-
-                //} else if ($scope.selectedObdobiVypisu == "M") {
-                //    $scope.selectedDateFrom = now.clone().startOf('month');
-                //    $scope.selectedDateTo = now.clone(); //now.clone().endOf('month');
-                //    $scope.popisObdobi = "od " + $scope.selectedDateFrom.format('D. M.') + ' do ' + $scope.selectedDateTo.format('D. M.');
-
-                //} else if ($scope.selectedObdobiVypisu == "3M") {
-                //    $scope.selectedDateFrom = now.clone().startOf('month').add(-2, "M");
-                //    $scope.selectedDateTo = now.clone(); //now.clone().endOf('month');
-                //    $scope.popisObdobi = "od " + $scope.selectedDateFrom.format('D. M.') + ' do ' + $scope.selectedDateTo.format('D. M.');
-
-                //} else if ($scope.selectedObdobiVypisu == "S") {
-                //    $scope.selectedDateFrom = moment("1900-01-01");
-                //    $scope.selectedDateTo = now.clone();
-                //    $scope.popisObdobi = "za celé pololetí";
-                //}
-
             }
 
             $scope.loadData = function (isInitialLoad) {
@@ -253,7 +211,7 @@
 
 
 
-                    setTimeout(function () {
+                    $timeout(function () {
                         var table = angular.element('#hodnoceniVypisStudent-table');
                         table.listview('refresh');
 
@@ -268,10 +226,11 @@
                     }, 0);
 
                     $.mobile.loading("hide");
-
+                    $('#hodnoceniVypisStudentContent').show();
                 },
                 function (error) {
                     $.mobile.loading("hide");
+                    $('#hodnoceniVypisStudentContent').show();
                     $log.error(error);
                     $scope.data = null;
                     $("#hodnoceniVypisStudentNotifier").html(result.Status.Message).popup("open");
@@ -297,7 +256,7 @@
                 $log.info("vyberObdobiVypisu");
                 $("#hodnoceniVypisStudentObdobiPopup").popup("open");
 
-                setTimeout(function () {
+                $timeout(function () {
                     $("input[type='radio']").checkboxradio();
                     $("input[type='radio']").checkboxradio("refresh");
                 }, 0);
@@ -309,7 +268,7 @@
                 setSelectedObdobi(selectedValue);
                 $("#hodnoceniVypisStudentObdobiPopup").popup("close");
 
-                setTimeout(function() {
+                $timeout(function () {
                     $("input[type='radio']").checkboxradio();
                     $("input[type='radio']").checkboxradio("refresh");
                 }, 0);

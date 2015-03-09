@@ -1,6 +1,6 @@
 ﻿; (function () {
     "use strict";
-    angular.module('sol.controllers').controller('ZapisDochazkyCtrl', function ($scope, $rootScope, $log, $q, $filter, ZapisDochazkyService, RozvrhService, TridyService, ObdobiDneService, UdalostService) {
+    angular.module('sol.controllers').controller('ZapisDochazkyCtrl', function ($scope, $rootScope, $log, $q, $filter, $timeout, ZapisDochazkyService, RozvrhService, TridyService, ObdobiDneService, UdalostService) {
         //$log.debug('ZapisDochazkyCtrl');
 
         angular.element(document)
@@ -208,7 +208,7 @@
 
                 $scope.isDataLoaded = true;
 
-                setTimeout(function () {
+                $timeout(function () {
                     //var table = angular.element('#dochazka-table');
                     var table = $('#dochazka-table');
                     table.table('refresh');

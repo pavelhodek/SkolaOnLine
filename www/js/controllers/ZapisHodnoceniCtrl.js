@@ -1,6 +1,6 @@
 ﻿; (function () {
     "use strict";
-    angular.module('sol.controllers').controller('ZapisHodnoceniCtrl', function ($scope, $rootScope, $log, $q, ZapisHodnoceniService, DruhyHodnoceniService, RozvrhService, TridyService, ObdobiDneService, UdalostService, ObdobiRokuService, StupniceHodnoceniService, ParametryService) {
+    angular.module('sol.controllers').controller('ZapisHodnoceniCtrl', function ($scope, $rootScope, $log, $q, $timeout, ZapisHodnoceniService, DruhyHodnoceniService, RozvrhService, TridyService, ObdobiDneService, UdalostService, ObdobiRokuService, StupniceHodnoceniService, ParametryService) {
         //$log.debug('ZapisHodnoceniCtrl');
 
         angular.element(document)
@@ -123,30 +123,30 @@
 
                 $scope.isDataLoaded = true;
 
-                setTimeout(function () {
+                $timeout(function () {
                     var table = angular.element('#hodnoceni-table');
                     table.table('refresh');
                     angular.element('[type="text"]', table).textinput();
                 }, 0);
 
 
-                setTimeout(function () {
+                $timeout(function () {
                     angular.element('[type="number"]').textinput();
                 }, 0);
 
-                setTimeout(function () {
+                $timeout(function () {
                     var hodnoceniPololeti = angular.element('#hodnoceniPololeti');
                     hodnoceniPololeti.selectmenu('refresh');
                     //$log.debug("hodnoceniPololeti - REFRESH 2");
                 }, 0);
 
-                setTimeout(function () {
+                $timeout(function () {
                     var hodnoceniDruh = angular.element('#hodnoceniDruh');
                     hodnoceniDruh.selectmenu('refresh');
                     //$log.debug("hodnoceniDruh - REFRESH 2");
                 }, 0);
 
-                setTimeout(function () {
+                $timeout(function () {
                     //var table = angular.element('#hodnoceni-table');
                     //table.table('refresh');
                     angular.element('[type="radio"]').checkboxradio();
@@ -317,7 +317,7 @@
             //$log.debug('prepniHodnoceni');
             $scope.hodnoceniNastavitVsem = false;
             // kvuli jqm extenzim je treba refresh
-            setTimeout(function () {
+            $timeout(function () {
                 $("#hodnoceniNastavitVsem").checkboxradio("refresh");
             }, 0);
 
@@ -335,7 +335,7 @@
             });
 
             $scope.posledniEditovanyStudentIndex = indexStudenta;
-            setTimeout(function () {
+            $timeout(function () {
                 $("input[type='radio']").checkboxradio();
                 $("input[type='radio']").checkboxradio("refresh");
             }, 0);

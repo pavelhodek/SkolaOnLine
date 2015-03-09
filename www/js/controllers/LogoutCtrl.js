@@ -11,6 +11,7 @@
 
                 $rootScope.$broadcast('logout');
                 $rootScope.currentUser = null;
+                $rootScope.shared = {};
 
                 $.mobile.changePage('#login', 'slide', true, true);
             };

@@ -4,8 +4,30 @@
         "uninstalled": []
     },
     "config_munge": {
-        "files": {}
+        "files": {
+            "res/xml/config.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<feature name=\"AppVersion\"><param name=\"android-package\" value=\"uk.co.whiteoctober.cordova.AppVersion\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
+                            "count": 1
+                        }
+                    ]
+                }
+            }
+        }
     },
-    "installed_plugins": {},
+    "installed_plugins": {
+        "uk.co.whiteoctober.cordova.appversion": {
+            "PACKAGE_NAME": "cz.skolaonline.mobile"
+        },
+        "org.apache.cordova.device": {
+            "PACKAGE_NAME": "cz.skolaonline.mobile"
+        }
+    },
     "dependent_plugins": {}
 }

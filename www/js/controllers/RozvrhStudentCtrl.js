@@ -2,17 +2,21 @@
     "use strict";
     angular.module('sol.controllers')
 
-        .controller('RozvrhStudentCtrl', function ($scope, $rootScope, $log, NastaveniService, SelectedDateService, RozvrhService) {
+        .controller('RozvrhStudentCtrl', function ($scope, $rootScope, $log, $timeout, NastaveniService, SelectedDateService, RozvrhService) {
             //$log.debug('RozvrhCtrl');
 
             angular.element(document)
                 .on("pagecreate", "#rozvrhStudent", function (event, ui) {
                     //$log.debug("PAGECREATE - #ROZVRH - STUDENT");
                 })
+                .on("pagebeforeshow", "#rozvrhStudent", function (event, ui) {
+                    $('#rozvrhStudentContent').hide();
+                })
                 .on("pageshow", "#rozvrhStudent", function (event, ui) {
-                    //$log.debug("PAGESHOW - #ROZVRH - STUDENT");
+                    $log.debug("PAGESHOW - #ROZVRH - STUDENT");
                     $scope.init();
                 });
+
 
             $scope.timeFormat = NastaveniService.timeFormat;
             $scope.dateFormat = NastaveniService.dateFormat;
@@ -113,7 +117,7 @@
                             $scope.isDataLoaded = true;
                         }
 
-                        setTimeout(function () {
+                        $timeout(function () {
                             var table = angular.element('#rozvrhStudent-table');
                             table.listview('refresh');
 
@@ -122,6 +126,7 @@
                         }, 0);
 
                         $.mobile.loading("hide");
+                        $('#rozvrhStudentContent').show();
 
                     })
                     .error(function (error, status, headers, config) {
@@ -129,11 +134,12 @@
                         $log.error(status);
 
                         if (status == 401) {
-                            setTimeout(function () { $.mobile.changePage('#login'); }, 0);
+                            $timeout(function () { $.mobile.changePage('#login'); }, 0);
                         }
 
 
                         $.mobile.loading("hide");
+                        $('#rozvrhStudentContent').show();
 
                     });
             };
@@ -211,7 +217,7 @@
 
                 $scope.data = {};
 
-                setTimeout(function () {
+                $timeout(function () {
                     var table = angular.element('#rozvrhStudent-table');
                     table.listview('refresh');
 
