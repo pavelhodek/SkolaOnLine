@@ -113,7 +113,7 @@
     <section id="index" data-role="page" data-fullscreen="true" ng-controller="IndexCtrl">
         <!--HEADER-->
         <header data-role="header" data-theme="a" data-position="fixed">
-            <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
+            <a onclick="toggleSidePanel()" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
             <h1>Škola OnLine</h1>
         </header>
 
@@ -130,7 +130,7 @@
     <section id="indexStudent" data-role="page" data-fullscreen="true" ng-controller="StudentIndexCtrl">
         <!--HEADER-->
         <header data-role="header" data-theme="a" data-position="fixed">
-            <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
+            <a onclick="toggleSidePanel()" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
             <div style="text-align: center; background-color: #00b3c8;"><img src="img/sol-logo.png" alt="logo Škola OnLine" /></div>
             <!--<div style="text-align: center">...nejrozšířenější webový školní informační systém</div>-->
             <!--<h1>Škola OnLine</h1>-->
@@ -162,7 +162,7 @@
 
         <!--HEADER-->
         <header data-role="header" data-position="fixed">
-            <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
+            <a onclick="toggleSidePanel()" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
             <h1>Nastavení</h1>
             <button class="ui-btn-right" data-icon="check" data-iconpos="left" data-theme="b" ng-click="save()">Uložit</button>
         </header>
@@ -192,7 +192,7 @@
 
         <!--HEADER-->
         <header data-role="header" data>
-            <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
+            <a onclick="toggleSidePanel()" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
             <h1>Přihlášení do aplikace</h1>
         </header>
 
@@ -238,7 +238,7 @@
     <section id="logout" data-role="page" ng-controller="LogoutCtrl">
         <!--HEADER-->
         <header data-role="header">
-            <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
+            <a onclick="toggleSidePanel()" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
             <!--<h1>Odhlášení z aplikace</h1>-->
         </header>
 
@@ -277,7 +277,7 @@
 
         <!--HEADER-->
         <header id="rozvrh-header" data-role="header" data-theme="a" data-position="fixed">
-            <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
+            <a onclick="toggleSidePanel()" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
             <h1>Rozvrh</h1>
 
             <nav data-role="navbar" class="ui-bar-a">
@@ -356,7 +356,7 @@
 
         <!--HEADER-->
         <header id="rozvrhStudent-header" data-role="header" data-theme="a" data-position="fixed">
-            <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
+            <a onclick="toggleSidePanel()" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
             <h1>Rozvrh</h1>
 
             <nav data-role="navbar" class="ui-bar-a">
@@ -412,7 +412,7 @@
 
         <!--HEADER-->
         <header id="hodnoceniVypisStudent-header" data-role="header" data-theme="a" data-position="fixed">
-            <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
+            <a onclick="toggleSidePanel()" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
             <h1>Hodnocení</h1>
             <p class="sol-subheader">{{popisObdobi}}</p>
         </header>
@@ -570,7 +570,7 @@
 
         <!--HEADER-->
         <header data-role="header" data-theme="a" data-position="fixed">
-            <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
+            <a onclick="toggleSidePanel()" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
             <h1>Evidence docházky</h1>
             <p class="sol-subheader">{{popisHodiny}}</p>
         </header>
@@ -635,7 +635,7 @@
 
             <!--HEADER-->
             <header data-role="header" data-position="fixed">
-                <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
+                <a onclick="toggleSidePanel()" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
                 <h1>Zápis hodnocení</h1>
                 <p class="sol-subheader">{{popisHodiny}}</p>
             </header>
@@ -850,7 +850,7 @@
 
             <!--HEADER-->
             <header data-role="header" data-position="fixed">
-                <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
+                <a onclick="toggleSidePanel()" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
                 <h1>Probírané učivo</h1>
                 <p class="sol-subheader">{{popisHodiny}}</p>
             </header>
@@ -926,7 +926,7 @@
 
         <!--HEADER-->
         <header data-role="header" data-position="fixed">
-            <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
+            <a onclick="toggleSidePanel()" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
             <h1>Nápověda</h1>
         </header>
 
@@ -947,7 +947,7 @@
 
         <!--HEADER-->
         <header data-role="header" data-position="fixed">
-            <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
+            <a onclick="toggleSidePanel()" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
             <h1>O aplikaci</h1>
         </header>
 
@@ -969,7 +969,7 @@
 
         <!--HEADER-->
         <header data-role="header" data-position="fixed">
-            <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
+            <a onclick="toggleSidePanel()" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
             <h1>Škoní rok</h1>
             <button class="ui-btn-right" data-icon="check" data-iconpos="left" data-theme="b">Uložit</button>
         </header>
@@ -1000,7 +1000,7 @@
 
         <!--HEADER-->
         <header data-role="header" data-position="fixed">
-            <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
+            <a onclick="toggleSidePanel()" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
             <h1>Debug</h1>
         </header>
 

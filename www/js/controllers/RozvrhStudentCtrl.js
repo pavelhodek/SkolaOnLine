@@ -99,8 +99,13 @@
                     html: ""
                 });
 
-                //var data = RozvrhService.getByDatum($scope.selectedDate);
-                var data = RozvrhService.getByDatumAndOsobaId($scope.selectedDate, $rootScope.shared.STUDENT_ID);
+
+                var studentID = null;
+                if ($rootScope.shared) {
+                    studentID = $rootScope.shared.STUDENT_ID;
+                }
+
+                var data = RozvrhService.getByDatumAndOsobaId($scope.selectedDate, studentID);
 
                 data
                     .success(function (result, status, headers, config) {

@@ -83,7 +83,7 @@ var app = {
     onBackButton: function() {
     },
     onMenuButton: function() {
-      $('#solSidePanel').panel("toggle");
+        toggleSidePanel();
     },	
     onOnline: function() {
     },	
@@ -96,7 +96,10 @@ var app = {
 
 };
 
-
+function toggleSidePanel() {
+    sidePanelHeaderClickedCounter = 0;
+    $('#solSidePanel').panel("toggle");
+}
 
 function getSidePanel() {
 //    var solSidePanel = '\
@@ -115,9 +118,9 @@ function getSidePanel() {
 
 
     var solSidePanel = '\
-<div data-role="panel" id="solSidePanel" data-position="left" data-display="push" data-theme="a" class="sol-sidebar" onclick="sidePanelClicked()" > \
+<div data-role="panel" id="solSidePanel" data-position="left" data-display="push" data-theme="a" class="sol-sidebar" > \
     <div data-role="header"> \
-        <h1>Menu</h1> \
+        <h1 onclick="sidePanelHeaderClicked()">Menu</h1> \
         <a href="#" data-role="button" data-rel="close" class="ui-btn ui-btn-right ui-btn-icon-notext ui-icon-delete ui-nodisc-icon ui-alt-icon" >Zavřít</a> \
     </div> \
     <ul data-role="listview" data-inset="true"> ';
@@ -185,11 +188,11 @@ function navigateToPageId(pageId) {
 }
 
 
-var sidePanelClickedCounter = 0;
-function sidePanelClicked() {
-    sidePanelClickedCounter++;
-    if (sidePanelClickedCounter === 10) {
-        sidePanelClickedCounter = 0;
+var sidePanelHeaderClickedCounter = 0;
+function sidePanelHeaderClicked() {
+    sidePanelHeaderClickedCounter++;
+    if (sidePanelHeaderClickedCounter === 10) {
+        sidePanelHeaderClickedCounter = 0;
         $.mobile.changePage("#debug");
     }
 }
