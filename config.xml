@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="cz.skolaonline.mobile" version="1.0.4" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="cz.skolaonline.mobile" version="1.0.5" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>Škola OnLine</name>
     <description>
         Aplikace Škola OnLine pro učitele, studenty a rodiče.
@@ -65,7 +65,7 @@
     <gap:plugin name="org.apache.cordova.network-information" />
     <gap:plugin name="org.apache.cordova.splashscreen" />
     <gap:plugin name="org.apache.cordova.device" />
-    <gap:plugin name="uk.co.whiteoctober.cordova.appversion" version="0.1.4" />
+    <!--<gap:plugin name="uk.co.whiteoctober.cordova.appversion" version="0.1.4" />-->
 
     <!--
     <gap:plugin name="org.apache.cordova.battery-status" />
