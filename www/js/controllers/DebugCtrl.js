@@ -25,16 +25,16 @@
             $scope.data = {};
             $scope.data.device = (typeof device !== "undefined") ? device : {};
             $scope.data.navigator = (typeof navigator !== "undefined") ? navigator : {};
-            $scope.data.app = {};
+            $scope.data.app = { version: app.version };
+            $scope.$apply();
 
-
-            if (typeof cordova !== "undefined" && cordova.getAppVersion) {
-                cordova.getAppVersion().then(function (version) {
-                    //$('.appVersion').text(version);
-                    $scope.data.app = { "version": version };
-                    $scope.$apply();
-                });
-            }
+            //if (typeof cordova !== "undefined" && cordova.getAppVersion) {
+            //    cordova.getAppVersion().then(function (version) {
+            //        //$('.appVersion').text(version);
+            //        $scope.data.app = { "version": version };
+            //        $scope.$apply();
+            //    });
+            //}
 
 
             $('#debugContent').show();

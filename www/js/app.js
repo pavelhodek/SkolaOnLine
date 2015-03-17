@@ -37,6 +37,8 @@
 })();
 
 var app = {
+    version: '1.0.6',
+
     // Application Constructor
     initialize: function() {
         this.bindEvents();
@@ -238,10 +240,20 @@ jQuery(function ($) {
 
     // stranka "#index" odebrana z historie - slouzi pouze pro navigaci na "#rozvrh" nebo nebo "#indexStudent" nebo "#login"
     $(document).on("pagecontainershow", function (e, ui) {
-        if (typeof ui.prevPage[0] !== "undefined" && ui.prevPage[0].id == "index") {
-            $.mobile.navigate.history.stack.splice(0, 1);
-            $(ui.prevPage).remove();
+        //console.log(ui.prevPage);
+        //console.log(ui.toPage);
+
+        if (typeof ui.toPage[0] !== "undefined" && ui.toPage[0].id == "index") {
+            if (typeof navigator !== "undefined" && navigator.app && navigator.app.exitApp) {
+                navigator.app.exitApp();
+            }
+            
         }
+
+        //if (typeof ui.prevPage[0] !== "undefined" && ui.prevPage[0].id == "index") {
+        //    $.mobile.navigate.history.stack.splice(0, 1);
+        //    $(ui.prevPage).remove();
+        //}
     });
 
 
