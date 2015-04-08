@@ -155,3 +155,22 @@ ul.ui-listview li h2 {
     /*padding: .5em .5em;*/
     /*text-overflow: normal;*/
 }
+
+
+@media screen and (orientation: portrait) {
+    @-ms-viewport {
+       width: 320px;
+       user-zoom: fixed;
+       max-zoom: 1;
+       min-zoom: 1;
+    }
+}
+
+@media screen and (orientation: landscape) {
+@-ms-viewport {
+    width: 480px;
+       user-zoom: fixed;
+       max-zoom: 1;
+       min-zoom: 1;
+    }
+}
