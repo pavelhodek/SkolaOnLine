@@ -85,8 +85,6 @@
                 // pockam na vsechny promise
                 $q.all([probiraneUcivo]).then(function (results) {
                     //$log.log("ZapisProbiranehoUcivaCtrl - all resloved");
-                        alert(results[0].data.Data.ProbiraneUcivo[2].POZNAMKA);
-
 
                     var originalData = results[0].data.Data;
 
