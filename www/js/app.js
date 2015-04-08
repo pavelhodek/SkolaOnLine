@@ -60,7 +60,7 @@ var app = {
         //navigator.splashscreen.hide();
         if (typeof cordova !== "undefined") cordova.exec(null, null, "SplashScreen", "hide", []);
 
-        if (typeof StatusBar !== "undefined") StatusBar.hide();
+        //if (typeof StatusBar !== "undefined") StatusBar.hide();
 
 
         /*
