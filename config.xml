@@ -17,7 +17,8 @@
     <preference name="target-device" value="universal" />
 
     <!-- aplikace nesmi byt fullscreen - zlobi scrolovani na Android (klavesnice zakryva formular) -->
-    <preference name="fullscreen" value="true" />
+    <preference name="fullscreen" value="false" />
+
 
     <preference name="webviewbounce" value="true" />
     <preference name="prerendered-icon" value="true" />
@@ -65,6 +66,8 @@
     <gap:plugin name="org.apache.cordova.network-information" />
     <gap:plugin name="org.apache.cordova.splashscreen" />
     <gap:plugin name="org.apache.cordova.device" />
+    <gap:plugin name="org.apache.cordova.statusbar" version="0.1.4" />
+
     <!--
     <gap:plugin name="uk.co.whiteoctober.cordova.appversion" version="0.1.4" />
     -->

@@ -37,7 +37,7 @@
 })();
 
 var app = {
-    version: '1.0.6',
+    version: '1.0.7',
 
     // Application Constructor
     initialize: function() {
@@ -59,6 +59,9 @@ var app = {
         //navigator.splashscreen.show();
         //navigator.splashscreen.hide();
         if (typeof cordova !== "undefined") cordova.exec(null, null, "SplashScreen", "hide", []);
+
+        if (typeof StatusBar !== "undefined") StatusBar.hide();
+
 
         /*
         cordova.exec(null, null, "SplashScreen", "show", []);
