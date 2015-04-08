@@ -25,7 +25,9 @@
 
                 $scope.limitToTrida = 1000000;
 
+
                 $scope.zapsatVsemTridam = true;
+
                 //$scope.zapsatHodinyZvlast = false;
                 $scope.zapsatHodinyZvlast = true;
 
@@ -43,15 +45,33 @@
 
 
             $scope.$watch("zapsatVsemTridam", function (newVal, oldVal) {
-                $log.debug('zapsatVsemTridam has changed!');
+                $log.debug('zapsatVsemTridam has changed! ', newVal);
             });
 
             $scope.$watch("zapsatHodinyZvlast", function (newVal, oldVal) {
-                $log.debug('zapsatHodinyZvlast has changed!');
+                $log.debug('zapsatHodinyZvlast has changed! ', newVal);
             });
 
 
-            $scope.loadData = function () {
+        function jeNejednotnostDat(probiraneUcivo, obdobiDneArray) {
+            $log.debug('jeNejednotnostDat', probiraneUcivo, obdobiDneArray);
+
+            for (var idxOdbobi = 0; idxOdbobi < obdobiDneArray.length; idxOdbobi++) {
+                var obdobiDneID = obdobiDneArray[idxOdbobi].OBDOBI_DNE_ID;
+
+                var pocetRuznychZapisu = _(probiraneUcivo)
+                    .filter(function (x) { return x.OBDOBI_DNE_ID == obdobiDneID; })
+                    .uniq(false, function (x) { return (x.POZNAMKA || '') + '|' + (x.PROBRANE_UCIVO || ''); })
+                    .value().length;
+
+                if (pocetRuznychZapisu > 1) return true;
+            }
+
+            return false;
+        }
+
+
+        $scope.loadData = function () {
                 //$log.log("ZapisProbiranehoUcivaCtrl - loadData");
                 $scope.UdalostID = RozvrhService.selectedUdalostID;
                 $scope.UdalostPoradi = RozvrhService.selectedUdalostPoradi;
@@ -65,10 +85,18 @@
                 // pockam na vsechny promise
                 $q.all([probiraneUcivo]).then(function (results) {
                     //$log.log("ZapisProbiranehoUcivaCtrl - all resloved");
+                        alert(results[0].data.Data.ProbiraneUcivo[2].POZNAMKA);
 
-                    var probiraneUcivo = results[0].data.Data;
 
-                    //$log.log(probiraneUcivo);
+                    var originalData = results[0].data.Data;
+
+                    var probiraneUcivo = $.extend(true, {}, results[0].data.Data);
+
+                    var jeRuzneZadani = jeNejednotnostDat(originalData.ProbiraneUcivo, originalData.ObdobiDne);
+                    $log.info('jeRuzneZadani: ', jeRuzneZadani);
+
+                    $log.log('ORIGINAL DATA: ', originalData);
+                    $log.log('DATA: ', probiraneUcivo);
 
                     UdalostService.getPopisHodiny($scope.UdalostID, $scope.UdalostPoradi).then(
                         function (result) {
@@ -97,7 +125,18 @@
                     $scope.seznamTrid = _($scope.data.Tridy).pluck("TRIDA_NAZEV").reduce(function (acc, item) { return acc + ', ' + item; });
                     $scope.selectedTrida = _.chain($scope.data.Tridy).pluck("TRIDA_ID").first().value();
 
-                    if ($scope.pocetTrid > 1) $scope.showCheckBox($('#zapsatVsemTridam'));
+                    if ($scope.pocetTrid > 1) {
+                        $scope.showCheckBox($('#zapsatVsemTridam'));
+
+                        $scope.zapsatVsemTridam = !jeRuzneZadani;
+
+                        $timeout(function () {
+                            $("#zapsatVsemTridam").checkboxradio("refresh");
+                            $scope.setVisibilityTrida();
+                        }, 0);
+
+                        
+                    }
                     //if ($scope.pocetHodin > 1) $scope.showCheckBox($('#zapsatHodinyZvlast'));
 
 
@@ -283,6 +322,7 @@
             };
 
             $scope.zapsatHodinyZvlastChanged = function () {
+                $log.info('$scope.zapsatHodinyZvlast CHANGED : ' + $scope.zapsatHodinyZvlast);
                 makeProbiraneUcivoView();
             };
 

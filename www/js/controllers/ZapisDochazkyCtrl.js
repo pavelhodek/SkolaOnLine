@@ -227,8 +227,35 @@
             return (student.PRIJMENI || '') + ' ' + (student.JMENO || '');
         };
 
+        $scope.prednastavitDlePredchozi = function() {
+            var dochazkyPredchozi = ZapisDochazkyService.getPredchoziByRozvrhovaUdalost($scope.UdalostID, $scope.UdalostPoradi);
+            dochazkyPredchozi.then(function (result) {
+                $log.info(result.data.Data);
+                var absenceCollection = result.data.Data;
 
-        $scope.prednastavitDlePredchozi = function () {
+                for (var i = 0; i < absenceCollection.length; i++) {
+                    var absence = absenceCollection[i];
+
+                    var student = _.find($scope.data.Studenti, function (x) { return x.OSOBA_ID == absence.OSOBA_ID; });
+                    if (student) {
+
+                        for (var j = 0; j < student.DOCHAZKA.length; j++) {
+                            student.DOCHAZKA[j] = '/';
+                        }
+
+                        student.POZNAMKA = absence.POZNAMKA;
+                    }
+
+                }
+
+                
+
+
+            });
+        }
+
+
+        $scope.prednastavitDlePredchoziXXX = function () {
             //$log.info('prednastavitDlePredchozi');
 
             if ($scope.posledniEditovanyStudentIndex == null)
@@ -247,6 +274,29 @@
             });
 
         };
+
+        $scope.prednastavitDlePredchoziXXX = function () {
+            //$log.info('prednastavitDlePredchozi');
+
+            if ($scope.posledniEditovanyStudentIndex == null)
+                return;
+
+            var referencniStudent = $scope.data.Studenti[$scope.posledniEditovanyStudentIndex];
+
+
+            angular.forEach($scope.data.Studenti, function (student) {
+                var newDochazka = [];
+                angular.copy(referencniStudent.DOCHAZKA, newDochazka);
+
+
+                student.DOCHAZKA = newDochazka;
+                student.POZNAMKA = referencniStudent.POZNAMKA;
+            });
+
+        };
+
+
+
 
         $scope.ulozit = function () {
             //$log.info('ulozit');

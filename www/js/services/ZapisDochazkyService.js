@@ -21,6 +21,15 @@
         };
 
 
+        me.getPredchoziByRozvrhovaUdalost = function (udalostId, poradi) {
+            var url = AuthorizationService.getApiUrl() + 'ZapisDochazkyPredchozi' + '/' + udalostId + '/' + poradi;
+
+            $http.defaults.headers.common.Authorization = AuthorizationService.getAuthorizationHeader();
+
+            return $http.get(url);
+        }
+
+
         me.save = function (udalostId, poradi, data) {
             var url = AuthorizationService.getApiUrl() + 'ZapisDochazky' + '/' + udalostId + '/' + poradi;
 
