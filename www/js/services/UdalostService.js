@@ -58,8 +58,11 @@
 
                 var nazevUdalosti = udalost.NAZEV;
 
-                if (udalost.TYP_UDALOSTI_ID == 'ROZVRH') {
+                //if (udalost.TYP_UDALOSTI_ID == 'ROZVRH') {
+
+                if (udalost.REALIZACE_ID != null) {
                     var predmet = findInCollection(predmety, function (x) { return x.REALIZACE_ID == udalost.REALIZACE_ID; });
+
                     if (predmet) {
                         nazevUdalosti = predmet.NAZEV;
                         if (predmet.ZKRATKA != null) {

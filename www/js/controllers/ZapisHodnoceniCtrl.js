@@ -85,17 +85,17 @@
                         return order;
                     }
 
-                    order = (a.TRIDA_NAZEV || "").localeCompare(b.TRIDA_NAZEV || "");
+                    order = (a.TRIDA_NAZEV || "").localeCompare(b.TRIDA_NAZEV || "", "cs-CZ");
                     if (order != 0) {
                         return order;
                     }
 
-                    order = (a.PRIJMENI || "").localeCompare(b.PRIJMENI || "");
+                    order = (a.PRIJMENI || "").localeCompare(b.PRIJMENI || "", "cs-CZ");
                     if (order != 0) {
                         return order;
                     }
 
-                    order = (a.JMENO || "").localeCompare(b.JMENO || "");
+                    order = (a.JMENO || "").localeCompare(b.JMENO || "", "cs-CZ");
                     if (order != 0) {
                         return order;
                     }

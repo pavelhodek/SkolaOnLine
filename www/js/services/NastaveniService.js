@@ -16,7 +16,7 @@
         //var defaultApiUrl = "https://sol.cca.cz/SOLWebApi/api/";
         //var defaultApiUrl = "https://aplikace.skolaonline.cz/SOLWebApi/api/";
 
-        me.defaultApiUrls = [];
+        //me.defaultApiUrls = [];
         //me.defaultApiUrls[me.defaultApiUrls.length] = { id: "sol", url: "https://aplikace.skolaonline.cz/SOLWebApi/api/" }
         //me.defaultApiUrls[me.defaultApiUrls.length] = { id: "cca", url: "http://sol.cca.cz/SOLWebApi/api/" }
         //me.defaultApiUrls[me.defaultApiUrls.length] = { id: "localhost", url: "http://localhost/SOLWebApi/api/" }
@@ -24,7 +24,48 @@
         //me.defaultApiUrls[1] = "http://sol.cca.cz/SOLWebApi/api/";
         //me.defaultApiUrls[me.defaultApiUrls.length] = "http://localhost/SOLWebApi/api/";
         //me.defaultApiUrls[me.defaultApiUrls.length] = "http://sol.cca.cz/SOLWebApi/api/";
-        me.defaultApiUrls[me.defaultApiUrls.length] = "https://aplikace.skolaonline.cz/SOLWebApi/api/";
+
+        //me.defaultApiUrls = [];
+        //me.defaultApiUrls[me.defaultApiUrls.length] = "https://aplikace.skolaonline.cz/SOLWebApi/api/";
+
+        me.environments = ['prod', 'test', 'dev'];
+        me.selectedEnvironmentCode = 'prod';
+
+        me.setEnvironment = function(environmentCode) {
+            if (environmentCode == 'prod') {
+                me.setApiUrlProd();
+            } 
+            else if (environmentCode == 'test') {
+                me.setApiUrlTest();
+            }
+            else if (environmentCode == 'dev') {
+                me.setApiUrlDev();
+            }
+        }
+
+
+        me.setApiUrlDev = function () {
+            me.defaultApiUrls = [];
+            me.defaultApiUrls.push('http://10.0.2.2/SOLWebApi/api/');
+            me.selectedEnvironmentCode = 'dev';
+        };
+
+        me.setApiUrlTest = function () {
+            me.defaultApiUrls = [];
+            me.defaultApiUrls.push('https://sol.cca.cz/SOLWebApi/api/');
+            me.selectedEnvironmentCode = 'test';
+        };
+
+        me.setApiUrlProd = function () {
+            me.defaultApiUrls = [];
+            me.defaultApiUrls.push('https://aplikace.skolaonline.cz/SOLWebApi/api/');
+            me.selectedEnvironmentCode = 'prod';
+        };
+
+
+
+        me.setApiUrlProd();
+
 
         //me.getApiUrl = function () {
         //    var currentUser = $rootScope.currentUser || {};
@@ -40,6 +81,10 @@
 
         //    return localStorage.setItem("nastaveni.apiURL", value);
         //}
+
+
+
+
 
         return me;
     }]);

@@ -1006,22 +1006,35 @@
         <!--CONTENT-->
         <div class="content" data-role="content">
             <div id="debugContent">
-                <h4 class="list-inset">Verze aplikace</h4>
-                {{data.app.version}}
 
-                <h4 class="list-inset">Informace o zařízení</h4>
-                Device Model: {{data.device.model}} <br />
-                Device Cordova: {{data.device.cordova}} <br />
-                Device Platform: {{data.device.platform}} <br />
-                Device UUID: {{data.device.uuid}} <br />
-                Device Version: {{data.device.version}} <br />
-                Device Name: {{data.device.name}} <br />
-                Internet Connection: {{data.navigator.connection.type}} <br />
-                Navigator user agent: {{data.navigator.userAgent}} <br />
-                Navigator app name: {{data.navigator.appName}} <br />
-                Navigator app version: {{data.navigator.appVersion}} <br />
+                <h3>Verze aplikace: {{data.app.version}}</h3>
+
+
+                <div data-role="collapsible">
+                    <h3>Informace o zařízení</h3>
+                    <p>
+                        <b>Device Platform:</b> {{data.device.platform}} <br />
+                        <b>Device Version:</b> {{data.device.version}} <br />
+                        <b>Device UUID:</b> {{data.device.uuid}} <br />
+                        <b>Device Model:</b> {{data.device.model}} <br />
+                        <b>Device Cordova:</b> {{data.device.cordova}} <br />
+                        <b>Device Name:</b> {{data.device.name}} <br />
+                        <b>Internet Connection:</b> {{data.navigator.connection.type}} <br />
+                        <b>Navigator app name:</b> {{data.navigator.appName}} <br />
+                        <b>Navigator app version:</b> {{data.navigator.appVersion}} <br />
+                        <b>Navigator user agent:</b> {{data.navigator.userAgent}} <br />
+                    </p>
+                </div>
 
                 <hr />
+                
+                <div class="ui-field-contain">
+                    <label for="ddlEnvironment">Prostředí:</label>
+                    <select id="ddlEnvironment" ng-options="env.code as env.name for env in data.environments"
+                            ng-model="data.selectedEnvironmentCode" ng-change="updateEnvironment()"></select>
+                </div>                
+
+                
             </div>
 
         </div>
