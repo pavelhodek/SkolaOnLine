@@ -5,17 +5,26 @@
         .controller('RozvrhStudentCtrl', function ($scope, $rootScope, $log, $timeout, NastaveniService, SelectedDateService, RozvrhService) {
             //$log.debug('RozvrhCtrl');
 
-            angular.element(document)
-                .on("pagecreate", "#rozvrhStudent", function (event, ui) {
-                    //$log.debug("PAGECREATE - #ROZVRH - STUDENT");
-                })
-                .on("pagebeforeshow", "#rozvrhStudent", function (event, ui) {
-                    $('#rozvrhStudentContent').hide();
-                })
-                .on("pageshow", "#rozvrhStudent", function (event, ui) {
-                    $log.debug("PAGESHOW - #ROZVRH - STUDENT");
-                    $scope.init();
-                });
+        angular.element(document)
+            .on("pagecreate", "#rozvrhStudent", function(event, ui) {
+                //$log.debug("PAGECREATE - #ROZVRH - STUDENT");
+            })
+            .on("pagebeforeshow", "#rozvrhStudent", function(event, ui) {
+                $('#rozvrhStudentContent').hide();
+            })
+            .on("pageshow", "#rozvrhStudent", function(event, ui) {
+                $log.debug("PAGESHOW - #ROZVRH - STUDENT");
+                $scope.init();
+            })
+            .on("swipeleft", "#rozvrhStudent", function (event, ui) {
+                $log.debug("<= SWIPELEFT - #ROZVRH");
+                $scope.incrementSelectedDate();
+
+            })
+            .on("swiperight", "#rozvrhStudent", function (event, ui) {
+                $log.debug("=> SWIPERIGHT - #ROZVRH");
+                $scope.decrementSelectedDate();
+            });
 
 
             $scope.timeFormat = NastaveniService.timeFormat;
@@ -211,8 +220,12 @@
 
                 $scope.data = {};
 
-                $scope.loadData();
+                //$scope.loadData();
+
+                $.mobile.changePage("#rozvrhStudent", { transition: "slide", reverse: true, allowSamePageTransition: true });
+
             }
+
 
             $scope.incrementSelectedDate = function () {
                 //$log.info('incrementSelectedDate');
@@ -222,15 +235,17 @@
 
                 $scope.data = {};
 
-                $timeout(function () {
-                    var table = angular.element('#rozvrhStudent-table');
-                    table.listview('refresh');
+                ////$timeout(function () {
+                ////    var table = angular.element('#rozvrhStudent-table');
+                ////    table.listview('refresh');
 
-                    //angular.element('[type="text"]', '#hodnoceni-table').textinput();
-                    //angular.element('[type="text"]', table).textinput();
-                }, 0);
+                ////    //angular.element('[type="text"]', '#hodnoceni-table').textinput();
+                ////    //angular.element('[type="text"]', table).textinput();
+                ////}, 0);
 
-                $scope.loadData();
+                //$scope.loadData();
+
+                $.mobile.changePage("#rozvrhStudent", { transition: "slide", allowSamePageTransition: true });
 
             }
 

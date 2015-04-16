@@ -5,17 +5,26 @@
         .controller('RozvrhCtrl', function ($scope, $rootScope, $log, $timeout, NastaveniService, SelectedDateService, RozvrhService, ZapisHodnoceniService) {
             //$log.debug('RozvrhCtrl');
 
-            angular.element(document)
-                .on("pagecreate", "#rozvrh", function (event, ui) {
-                    //$log.debug("PAGECREATE - #ROZVRH");
-                })
-                .on("pagebeforeshow", "#rozvrh", function (event, ui) {
-                    $('#rozvrhUcitelContent').hide();
-                })
-                .on("pageshow", "#rozvrh", function (event, ui) {
-                    //$log.debug("PAGESHOW - #ROZVRH");
-                    $scope.init();
-                });
+        angular.element(document)
+            .on("pagecreate", "#rozvrh", function(event, ui) {
+                //$log.debug("PAGECREATE - #ROZVRH");
+            })
+            .on("pagebeforeshow", "#rozvrh", function(event, ui) {
+                $('#rozvrhUcitelContent').hide();
+            })
+            .on("pageshow", "#rozvrh", function(event, ui) {
+                //$log.debug("PAGESHOW - #ROZVRH");
+                $scope.init();
+            })
+            .on("swipeleft", "#rozvrh", function(event, ui) {
+                $log.debug("<= SWIPELEFT - #ROZVRH");
+                $scope.incrementSelectedDate();
+                
+            })
+            .on("swiperight", "#rozvrh", function(event, ui) {
+                $log.debug("=> SWIPERIGHT - #ROZVRH");
+                $scope.decrementSelectedDate();
+            });
 
             $scope.timeFormat = NastaveniService.timeFormat;
             $scope.dateFormat = NastaveniService.dateFormat;
@@ -266,11 +275,14 @@
 
                 $scope.data = {};
 
-                $scope.loadData();
+                //$scope.loadData();
 
-                $timeout(function () {
-                    $('.ui-btn-active').removeClass('ui-btn-active ui-focus');
-                }, 0);
+                //$timeout(function () {
+                //    $('.ui-btn-active').removeClass('ui-btn-active ui-focus');
+                //}, 0);
+
+
+                $.mobile.changePage("#rozvrh", { transition: "slide", reverse: true, allowSamePageTransition: true });
 
             }
 
@@ -284,21 +296,14 @@
 
                 $scope.data = {};
 
-                /*
-                $timeout(function () {
-                    var table = angular.element('#rozvrh-table');
-                    table.listview('refresh');
+                //$scope.loadData();
 
-                    //angular.element('[type="text"]', '#hodnoceni-table').textinput();
-                    //angular.element('[type="text"]', table).textinput();
-                }, 0);
-                */
+                //$timeout(function () {
+                //    $('.ui-btn-active').removeClass('ui-btn-active ui-focus');
+                //}, 0);
 
-                $scope.loadData();
 
-                $timeout(function () {
-                    $('.ui-btn-active').removeClass('ui-btn-active ui-focus');
-                }, 0);
+                $.mobile.changePage("#rozvrh", { transition: "slide", allowSamePageTransition: true });
             }
 
         });
