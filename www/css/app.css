@@ -156,6 +156,11 @@ ul.ui-listview li h2 {
     /*text-overflow: normal;*/
 }
 
+/* paticka, aby byla podbarvena az ke krajum */
+.ui-footer .ui-title {
+  margin: 0 0; 
+}
+
 
 @media screen and (orientation: portrait) {
     @-ms-viewport {
