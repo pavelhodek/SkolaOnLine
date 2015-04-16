@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="cz.skolaonline.mobile" version="1.0.9" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="cz.skolaonline.mobile" version="1.0.10" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>Škola OnLine</name>
     <description>
         Aplikace Škola OnLine pro učitele, studenty a rodiče.
@@ -16,8 +16,20 @@
     <preference name="orientation" value="default" />
     <preference name="target-device" value="universal" />
 
-    <!-- aplikace nesmi byt fullscreen - zlobi scrolovani na Android (klavesnice zakryva formular) -->
-    <preference name="fullscreen" value="false" />
+    <!-- Android - aplikace NESMÍ byt fullscreen - zlobi scrolovani (klavesnice zakryva formular) -->
+    <platform name="android">
+        <preference name="fullscreen" value="false" />
+    </platform>
+
+    <!-- Android - aplikace MUSÍ byt fullscreen - jinak se rozsype design záhlaví/zápatí a zlobí scrolování -->
+    <platform name="wp8">
+        <preference name="fullscreen" value="true" />
+    </platform>
+
+    <platform name="ios">
+        <preference name="fullscreen" value="false" />
+    </platform>
+
 
     <preference name="webviewbounce" value="true" />
     <preference name="prerendered-icon" value="true" />
