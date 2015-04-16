@@ -15,16 +15,28 @@
             .on("pageshow", "#rozvrh", function(event, ui) {
                 //$log.debug("PAGESHOW - #ROZVRH");
                 $scope.init();
-            })
-            .on("swipeleft", "#rozvrh", function(event, ui) {
+            });
+
+
+            $("#rozvrh").hammer().on("swipeleft", function(event) {
                 $log.debug("<= SWIPELEFT - #ROZVRH");
                 $scope.incrementSelectedDate();
-                
-            })
-            .on("swiperight", "#rozvrh", function(event, ui) {
+            });
+
+            $("#rozvrh").hammer().on("swiperight", function (event) {
                 $log.debug("=> SWIPERIGHT - #ROZVRH");
                 $scope.decrementSelectedDate();
             });
+
+            //.on("swipeleft", "#rozvrh", function(event, ui) {
+            //    $log.debug("<= SWIPELEFT - #ROZVRH");
+            //    $scope.incrementSelectedDate();
+                
+            //})
+            //.on("swiperight", "#rozvrh", function(event, ui) {
+            //    $log.debug("=> SWIPERIGHT - #ROZVRH");
+            //    $scope.decrementSelectedDate();
+            //});
 
             $scope.timeFormat = NastaveniService.timeFormat;
             $scope.dateFormat = NastaveniService.dateFormat;

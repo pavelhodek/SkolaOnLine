@@ -157,6 +157,8 @@ function getSidePanel() {
         solSidePanel += '<li data-icon="user" class="ui-nodisc-icon ui-alt-icon"><a href="javascript:void(0)" onclick="navigateToPageId(\'login\')" >Přihlásit</a></li>';
     }
 
+    solSidePanel += '<li data-icon="power" class="ui-nodisc-icon ui-alt-icon"><a href="javascript:void(0)" onclick="exitApp()" >Ukončit aplikaci</a></li>';
+
     /*
     <li data-icon="calendar"><a href="#rozvrh" >Rozvrh</a></li> \
 
@@ -199,6 +201,13 @@ function sidePanelHeaderClicked() {
     if (sidePanelHeaderClickedCounter === 10) {
         sidePanelHeaderClickedCounter = 0;
         $.mobile.changePage("#debug");
+    }
+}
+
+
+function exitApp() {
+    if (typeof navigator !== "undefined" && navigator.app && navigator.app.exitApp) {
+        navigator.app.exitApp();
     }
 }
 

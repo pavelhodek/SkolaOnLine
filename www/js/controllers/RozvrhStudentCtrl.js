@@ -3,7 +3,7 @@
     angular.module('sol.controllers')
 
         .controller('RozvrhStudentCtrl', function ($scope, $rootScope, $log, $timeout, NastaveniService, SelectedDateService, RozvrhService) {
-            //$log.debug('RozvrhCtrl');
+            $log.debug('RozvrhCtrl');
 
         angular.element(document)
             .on("pagecreate", "#rozvrhStudent", function(event, ui) {
@@ -15,16 +15,26 @@
             .on("pageshow", "#rozvrhStudent", function(event, ui) {
                 $log.debug("PAGESHOW - #ROZVRH - STUDENT");
                 $scope.init();
-            })
-            .on("swipeleft", "#rozvrhStudent", function (event, ui) {
-                $log.debug("<= SWIPELEFT - #ROZVRH");
-                $scope.incrementSelectedDate();
-
-            })
-            .on("swiperight", "#rozvrhStudent", function (event, ui) {
-                $log.debug("=> SWIPERIGHT - #ROZVRH");
-                $scope.decrementSelectedDate();
             });
+            //.on("swipeleft", "#rozvrhStudent", function (event, ui) {
+            //    $log.debug("<= SWIPELEFT - #ROZVRH");
+            //    $scope.incrementSelectedDate();
+
+            //})
+            //.on("swiperight", "#rozvrhStudent", function (event, ui) {
+            //    $log.debug("=> SWIPERIGHT - #ROZVRH");
+            //    $scope.decrementSelectedDate();
+            //});
+
+        $("#rozvrhStudent").hammer().on("swipeleft", function (event) {
+            $log.debug("<= SWIPELEFT - #ROZVRH");
+            $scope.incrementSelectedDate();
+        });
+
+        $("#rozvrhStudent").hammer().on("swiperight", function (event) {
+            $log.debug("=> SWIPERIGHT - #ROZVRH");
+            $scope.decrementSelectedDate();
+        });
 
 
             $scope.timeFormat = NastaveniService.timeFormat;
