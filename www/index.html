@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head lang="cs">
@@ -871,7 +871,7 @@
                 <!--<div ng-repeat="ucivo in data.ProbiraneUcivo | filter:{ SKUPINA_ID: selectedTrida } | limitTo:limitToTrida">-->
 
                 <div ng-repeat="ucivo in data.ProbiraneUcivoView">
-                    <div ng-show="zapsatHodinyZvlast && pocetHodin > 1">Období dne: {{ucivo.OBDOBI_DNE_NAZEV}}</div>
+                    <div ng-show="zapsatHodinyZvlast && pocetHodin > 1">Vyučovací hodina: {{ucivo.OBDOBI_DNE_NAZEV}}</div>
                     <div class="ui-field-contain">
                         <label for="cisloHodiny">Číslo hodiny</label>
                         <input name="cisloHodiny" id="cisloHodiny" type="number" pattern="\d*" min="0" max="9999" step="1" size="4" ng-model="ucivo.POCET_ODUCENYCH_HODIN">
