@@ -40,6 +40,12 @@ div.page {
     font-weight: normal;
 }
 
+
+.nowrap {
+    white-space: nowrap;
+}
+
+
 /* column toggle nefungovalo - proto skryjeme */
 a[href='#dochazka-table-popup'] {
     display: none;

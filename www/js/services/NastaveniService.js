@@ -44,9 +44,19 @@
         }
 
 
+        me.getEnvironmentCodeByApiUrl = function(url) {
+            if (url == 'https://aplikace.skolaonline.cz/SOLWebApi/api/') return 'prod';
+            if (url == 'https://sol.cca.cz/SOLWebApi/api/') return 'test';
+            //if (url == 'http://10.0.2.2/SOLWebApi/api/') return 'dev';
+            if (url == 'http://localhost/SOLWebApi/api/') return 'dev';
+            return '';
+        }
+
+
         me.setApiUrlDev = function () {
             me.defaultApiUrls = [];
-            me.defaultApiUrls.push('http://10.0.2.2/SOLWebApi/api/');
+            //me.defaultApiUrls.push('http://10.0.2.2/SOLWebApi/api/');
+            me.defaultApiUrls.push('http://localhost/SOLWebApi/api/');
             me.selectedEnvironmentCode = 'dev';
         };
 

@@ -46,7 +46,18 @@
 
             var urls = apiUrls.map(function(url, i) {
                 return function() {
-                    return $http.get(url + "UzivatelInfo/" + username).then(function(data) {
+                    //return $http.get(url + "UzivatelInfo/" + username).then(function(data) {
+                    //return $http.post(url + "UzivatelInfo", { id: username }).then(function (data) {
+
+
+                    return $http({
+                        url: url + "UzivatelInfo", 
+                        method: "POST",
+                        data: JSON.stringify(utf8_to_b64(username)),
+                        headers: { 'Content-Type': 'application/json' }
+                        })
+                        .then(function (data) {
+
                         $log.debug("then: ", url, data);
 
                         if (data.data.Status.Code == "OK") {
@@ -109,16 +120,43 @@
 
         me.setAuthorizationHeader = function () {
             $http.defaults.headers.common.Authorization = me.getAuthorizationHeader();
+            //$http.defaults.headers['base64'] = "1";
+        }
+
+
+        function utf8_to_b64(str) {
+            return window.btoa(unescape(encodeURIComponent(str)));
         }
 
         me.getAuthorizationHeader = function (username, password) {
+            //if (username && password) {
+            //    return 'Basic ' + base64.encode(username + ":" + password);
+            //} else {
+            //    var currentUser = me.getCurrentUser();
+            //    var basicAuthHash = base64.encode(currentUser.username + ":" + currentUser.password);
+            //    return 'Basic ' + basicAuthHash;
+            //}
+
             if (username && password) {
-                return 'Basic ' + base64.encode(username + ":" + password);
+                //var sanitizedUsername = username.replace(/:/g, '\\:');
+                //var sanitizedPassword = username.replace(/:/g, '\\:');
+
+                var sanitizedUsername = utf8_to_b64(username);
+                var sanitizedPassword = utf8_to_b64(password);
+
+                //$log.info('Basic', utf8_to_b64(sanitizedUsername + ":" + sanitizedPassword));
+
+
+                return 'Basic ' + utf8_to_b64(sanitizedUsername + ":" + sanitizedPassword);
             } else {
                 var currentUser = me.getCurrentUser();
-                var basicAuthHash = base64.encode(currentUser.username + ":" + currentUser.password);
+                var sanitizedCurrentUsername = utf8_to_b64(currentUser.username);
+                var sanitizedCurrentPassword = utf8_to_b64(currentUser.password);
+
+                var basicAuthHash = utf8_to_b64(sanitizedCurrentUsername + ":" + sanitizedCurrentPassword);
                 return 'Basic ' + basicAuthHash;
             }
+
         }
 
         me.getStoredCredentials = function () {
@@ -139,6 +177,16 @@
 
         me.getCurrentUser = function () {
             return JSON.parse(localStorage.getItem("currentUser"));
+        }
+
+
+        me.getCurrentUserEnvironmentCode = function() {
+            var user = me.getCurrentUser();
+            if (user && user.apiUrl) {
+                return NastaveniService.getEnvironmentCodeByApiUrl(user.apiUrl);
+            }
+
+            return null;
         }
 
 
@@ -196,13 +244,32 @@
 
             $http.defaults.headers.common.Authorization = me.getAuthorizationHeader(username, password);
 
+            //return $http.get(url, {
+            //    headers: { 'base64': '1' }
+            //});
+
             return $http.get(url);
         };
 
+
         me.getUserInfo = function(apiUrl, username) {
-            var url = apiUrl + 'UzivatelInfo/' + username;
+
+            
+            //var url = apiUrl + 'UzivatelInfo/' + escape(username);
+            //$http.defaults.headers.common.Authorization = me.getAuthorizationHeader(username, password);
+            //return $http.get(url);
+
+            var url = apiUrl + 'UzivatelInfo';
             $http.defaults.headers.common.Authorization = me.getAuthorizationHeader(username, password);
-            return $http.get(url);
+
+            return $http({
+                url: url,
+                method: "POST",
+                data: JSON.stringify(utf8_to_b64(username)),
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+
         };
 
 

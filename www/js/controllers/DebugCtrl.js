@@ -1,7 +1,7 @@
 ﻿; (function () {
     "use strict";
     angular.module('sol.controllers')
-    .controller('DebugCtrl', ['$scope', '$log', '$timeout', 'NastaveniService', function ($scope, $log, $timeout, NastaveniService) {   
+    .controller('DebugCtrl', ['$scope', '$log', '$timeout', 'NastaveniService', 'AuthorizationService', function ($scope, $log, $timeout, NastaveniService, AuthorizationService) {
 
         angular.element(document)
             .on("pagecreate", "#debug", function (event, ui) {
@@ -62,8 +62,18 @@
                 { "name": "vývoj", "code": "dev" }
             ];
 
-            //$scope.data.selectedEnvironment = $scope.data.environments[0];
-            $scope.data.selectedEnvironmentCode = NastaveniService.selectedEnvironmentCode;
+            var userEnvironmentCode = AuthorizationService.getCurrentUserEnvironmentCode();
+            if (userEnvironmentCode) {
+                $log.info('userEnvironmentCode: ', userEnvironmentCode);
+                $scope.data.selectedEnvironmentCode = userEnvironmentCode;
+            } else {
+                $log.info('selectedEnvironmentCode: ', NastaveniService.selectedEnvironmentCode);
+                $scope.data.selectedEnvironmentCode = NastaveniService.selectedEnvironmentCode;
+            }
+
+
+//$scope.data.selectedEnvironment = $scope.data.environments[0];
+            
 
             $scope.$apply();
 
@@ -72,12 +82,7 @@
 
             $('#debugContent').show();
 
-
-
-
-
         };
-
 
     }]);
 })();

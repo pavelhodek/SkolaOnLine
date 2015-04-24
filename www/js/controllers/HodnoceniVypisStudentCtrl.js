@@ -15,7 +15,12 @@
                 })
                 .on("pageshow", "#hodnoceniVypisStudent", function (event, ui) {
                     //$log.debug("PAGESHOW - #ROZVRH - STUDENT");
+                    //$log.debug('This page was just hidden: ', ui.prevPage);
                     $scope.init();
+                    //if (ui.prevPage[0].id != 'hodnoceniDetail') {
+                    //    $scope.init();
+                    //}
+                
                 });
 
 
@@ -276,6 +281,25 @@
 
                 $scope.loadData();
             };
+
+
+            $scope.showDetail = function(event, hodnoceni) {
+                $.mobile.pageContainer.pagecontainer('change', '#hodnoceniDetail', {
+                    transition: 'none',
+                    ajax: false
+                    //changeHash: false
+                    //role: 'dialog',
+                    //reload: false,
+                    //changeHash: true,
+                    //reverse: false,
+                    //showLoadMsg: false
+                });
+
+                //$('#hodnoceniDetail').popup();
+                //$('#hodnoceniDetail').popup('open');
+
+
+            }
 
         });
 

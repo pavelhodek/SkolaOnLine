@@ -15,6 +15,7 @@
             //$httpProvider.defaults.headers.common["Accept"] = "application/json";
             //$httpProvider.defaults.headers.common["Content-Type"] = "application/json";
 
+            $httpProvider.defaults.headers.common["base64"] = "1";
 
             //// toto simuluje latency 3s na každém http požadavku
             //var handlerFactory = function ($q, $timeout) {
@@ -37,7 +38,7 @@
 })();
 
 var app = {
-    version: '1.0.11',
+    version: '1.0.12',
 
     // Application Constructor
     initialize: function() {
@@ -232,12 +233,12 @@ $(document).on('pagebeforeshow', function () {
 
 jQuery(function ($) {
 
-    // "Unclicking" all jQuery mobile buttons after onClick
-    $(document).on('click', '.ui-btn', function () {
-        setTimeout(function () {
-            $('.ui-btn-active').removeClass('ui-btn-active ui-focus');
-        }, 0);
-    });
+    //// "Unclicking" all jQuery mobile buttons after onClick
+    //$(document).on('click', '.ui-btn', function () {
+    //    setTimeout(function () {
+    //        $('.ui-btn-active').removeClass('ui-btn-active ui-focus');
+    //    }, 0);
+    //});
 
 
     // na virtuální klávesnici tlačítko "Go" / "Přejdi" způsobí stisk tlačítka "Přihlásit"

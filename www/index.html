@@ -70,6 +70,7 @@
     <script src="js/services/ParametryService.js"></script>
     <script src="js/services/HodnoceniVypisStudentService.js"></script>
     <script src="js/services/ZastupceOsobyService.js"></script>
+    <script src="js/services/HodnoceniDetailService.js"></script>
 
 
     <!--CONTROLLERS-->
@@ -93,6 +94,7 @@
     <script src="js/controllers/ZapisHodnoceniCtrl.js"></script>
     <script src="js/controllers/HodnoceniVypisStudentCtrl.js"></script>
     <script src="js/controllers/DebugCtrl.js"></script>
+    <script src="js/controllers/HodnoceniDetailCtrl.js"></script>
 
     <style>
         
@@ -444,6 +446,7 @@
 
                         <ul class="hodnoceniVypisStudentSubList" data-role="listview">
                             <li ng-repeat="hodnoceni in predmet.HODNOCENI" data-icon="false">
+                                <!--ng-click="showDetail($event, hodnoceni)"-->
                                 <a>
                                     <div style="display:table-cell; vertical-align: middle; width: 30px; font-size: 24px; float: left">
                                         {{hodnoceni.VYSLEDEK}}
@@ -456,9 +459,6 @@
                                         </div>
 
                                     </div>
-                                    <!--<span class="ui-li-count">
-                                xxx
-                            </span>-->
                                 </a>
                             </li>
                         </ul>
@@ -1043,6 +1043,56 @@
         </div>
 
     </section>
+    
+
+    
+    <!--HODNOCENI DETAIL-->
+    <section id="hodnoceniDetail" data-role="dialog" data-history="false" ng-controller="HodnoceniDetailCtrl">
+
+        <!--HEADER-->
+        <header data-role="header" data-position="fixed">
+            <h1>Detail hodnocení</h1>
+        </header>
+
+        <!--CONTENT-->
+        <div class="content" data-role="content">
+
+
+            <div class="ui-field-contain">
+                <label class="nowrap">Předmět:</label>
+                <label>{{hodnoceni.PREDMET}}</label>
+            </div>
+
+            <div class="ui-field-contain">
+                <label class="nowrap">Téma:</label>
+                <label>{{hodnoceni.TEMA}}</label>
+            </div>
+
+            <div class="ui-field-contain">
+                <label class="nowrap">Druh hodnocení (váha):</label>
+                <label>{{hodnoceni.DRUH_VAHA}}</label>
+            </div>
+
+            <div class="ui-field-contain">
+                <label class="nowrap">Hodnocení:</label>
+                <label>{{hodnoceni.HODNOCENI}}</label>
+            </div>
+
+            <div class="ui-field-contain">
+                <label class="nowrap">Slovní hodnocení:</label>
+                <label>{{hodnoceni.SLOVNI_HODNOCENI}}</label>
+            </div>
+
+        </div>
+
+        <!--FOOTER-->
+        <footer data-role="footer" data-theme="a">
+            <a href="#" data-role="button" data-rel="back" data-theme="b">Zavřít</a> 
+            <a data-role="button" ng-click="close()">Zavřít</a>
+        </footer>
+
+    </section>
+    
     
 
 
