@@ -184,7 +184,7 @@
                 //$log.debug(udalost.UDALOST_ID, udalost.PORADI);
                 //$log.debug(x);
 
-                alert('detail');
+                //alert('detail');
 
                 RozvrhService.selectedUdalostID = udalost.UDALOST_ID;
                 RozvrhService.selectedUdalostPoradi = udalost.PORADI;
@@ -289,14 +289,14 @@
 
                 $scope.data = {};
 
-                //$scope.loadData();
+                $scope.loadData();
 
                 //$timeout(function () {
                 //    $('.ui-btn-active').removeClass('ui-btn-active ui-focus');
                 //}, 0);
 
 
-                $.mobile.changePage("#rozvrh", { transition: "slide", reverse: true, allowSamePageTransition: true });
+                //$.mobile.changePage("#rozvrh", { transition: "slide", reverse: true, allowSamePageTransition: true });
 
             }
 
@@ -310,14 +310,14 @@
 
                 $scope.data = {};
 
-                //$scope.loadData();
+                $scope.loadData();
 
                 //$timeout(function () {
                 //    $('.ui-btn-active').removeClass('ui-btn-active ui-focus');
                 //}, 0);
 
 
-                $.mobile.changePage("#rozvrh", { transition: "slide", allowSamePageTransition: true });
+                //$.mobile.changePage("#rozvrh", { transition: "slide", allowSamePageTransition: true });
             }
 
         });
