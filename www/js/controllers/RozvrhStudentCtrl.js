@@ -26,15 +26,15 @@
             //    $scope.decrementSelectedDate();
             //});
 
-        $("#rozvrhStudent").hammer().on("swipeleft", function (event) {
-            $log.debug("<= SWIPELEFT - #ROZVRH");
-            $scope.incrementSelectedDate();
-        });
+        //$("#rozvrhStudent").hammer().on("swipeleft", function (event) {
+        //    $log.debug("<= SWIPELEFT - #ROZVRH");
+        //    $scope.incrementSelectedDate();
+        //});
 
-        $("#rozvrhStudent").hammer().on("swiperight", function (event) {
-            $log.debug("=> SWIPERIGHT - #ROZVRH");
-            $scope.decrementSelectedDate();
-        });
+        //$("#rozvrhStudent").hammer().on("swiperight", function (event) {
+        //    $log.debug("=> SWIPERIGHT - #ROZVRH");
+        //    $scope.decrementSelectedDate();
+        //});
 
 
             $scope.timeFormat = NastaveniService.timeFormat;

@@ -18,15 +18,15 @@
             });
 
 
-            $("#rozvrh").hammer().on("swipeleft", function(event) {
-                $log.debug("<= SWIPELEFT - #ROZVRH");
-                $scope.incrementSelectedDate();
-            });
+            //$("#rozvrh").hammer().on("swipeleft", function(event) {
+            //    $log.debug("<= SWIPELEFT - #ROZVRH");
+            //    $scope.incrementSelectedDate();
+            //});
 
-            $("#rozvrh").hammer().on("swiperight", function (event) {
-                $log.debug("=> SWIPERIGHT - #ROZVRH");
-                $scope.decrementSelectedDate();
-            });
+            //$("#rozvrh").hammer().on("swiperight", function (event) {
+            //    $log.debug("=> SWIPERIGHT - #ROZVRH");
+            //    $scope.decrementSelectedDate();
+            //});
 
             //.on("swipeleft", "#rozvrh", function(event, ui) {
             //    $log.debug("<= SWIPELEFT - #ROZVRH");

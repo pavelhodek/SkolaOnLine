@@ -128,10 +128,11 @@
                                     $.mobile.changePage('#rozvrh', 'slide', true, true);
                                 } else {
                                     //$.mobile.changePage('#rozvrhStudent', 'slide', true, true);    
+                                    $.mobile.loading("hide");
                                     $.mobile.changePage('#indexStudent');
                                 }
                                 
-                                $.mobile.loading("hide");
+                                
 
                             },
                             function (error) {
@@ -165,13 +166,22 @@
                 $rootScope.$broadcast('login');
 
 
+                if (navigator.network && navigator.network.connection.type === Connection.NONE) {
+                    navigator.notification.alert(
+                          'Vaše zařízení není připojeno k Interentu. Data nemohou být přijata.',
+                          function () { },
+                          'Chybí připojení'
+                        );
+
+                    return;
+                }
+
                 $.mobile.loading("show", {
-                    text: "přihlášení...",
+                    text: "načítám...",
                     textVisible: true,
                     theme: "a",
                     html: ""
                 });
-
 
                 var apiUrlResult = AuthorizationService.findApiUrl($scope.data.username);
 
@@ -190,6 +200,23 @@
             };
 
         $scope.loginProfile = function (profile) {
+            if (navigator.network && navigator.network.connection.type === Connection.NONE) {
+                navigator.notification.alert(
+                      'Vaše zařízení není připojeno k Interentu. Data nemohou být přijata.',
+                      function () { },
+                      'Chybí připojení'
+                    );
+
+                return;
+            }
+
+            $.mobile.loading("show", {
+                text: "načítám...",
+                textVisible: true,
+                theme: "a",
+                html: ""
+            });
+
             $rootScope.$broadcast('login');
             //AuthorizationService.storeLogin(profile.username, profile.password, profile.apiUrl);
 
@@ -197,7 +224,7 @@
         };
 
 
-        $scope.deleteProfile = function(profile, index) {
+        $scope.deleteProfile = function (profile, index) {
             $scope.data.userProfiles.splice(index, 1);
             AuthorizationService.setUserProfiles($scope.data.userProfiles);
         };
