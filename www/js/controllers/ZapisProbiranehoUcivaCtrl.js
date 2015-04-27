@@ -44,17 +44,17 @@
             };
 
 
-            $scope.$watch("zapsatVsemTridam", function (newVal, oldVal) {
-                $log.debug('zapsatVsemTridam has changed! ', newVal);
-            });
+            //$scope.$watch("zapsatVsemTridam", function (newVal, oldVal) {
+            //    //$log.debug('zapsatVsemTridam has changed! ', newVal);
+            //});
 
-            $scope.$watch("zapsatHodinyZvlast", function (newVal, oldVal) {
-                $log.debug('zapsatHodinyZvlast has changed! ', newVal);
-            });
+            //$scope.$watch("zapsatHodinyZvlast", function (newVal, oldVal) {
+            //    //$log.debug('zapsatHodinyZvlast has changed! ', newVal);
+            //});
 
 
         function jeNejednotnostDat(probiraneUcivo, obdobiDneArray) {
-            $log.debug('jeNejednotnostDat', probiraneUcivo, obdobiDneArray);
+            //$log.debug('jeNejednotnostDat', probiraneUcivo, obdobiDneArray);
 
             for (var idxOdbobi = 0; idxOdbobi < obdobiDneArray.length; idxOdbobi++) {
                 var obdobiDneID = obdobiDneArray[idxOdbobi].OBDOBI_DNE_ID;
@@ -109,10 +109,10 @@
                     var probiraneUcivo = $.extend(true, {}, results[0].data.Data);
 
                     var jeRuzneZadani = jeNejednotnostDat(originalData.ProbiraneUcivo, originalData.ObdobiDne);
-                    $log.info('jeRuzneZadani: ', jeRuzneZadani);
+                    //$log.info('jeRuzneZadani: ', jeRuzneZadani);
 
-                    $log.log('ORIGINAL DATA: ', originalData);
-                    $log.log('DATA: ', probiraneUcivo);
+                    //$log.log('ORIGINAL DATA: ', originalData);
+                    //$log.log('DATA: ', probiraneUcivo);
 
                     UdalostService.getPopisHodiny($scope.UdalostID, $scope.UdalostPoradi).then(
                         function (result) {
@@ -131,7 +131,7 @@
                         .sortBy(function (x) { return x.NAZEV; })
                         .sortBy(function (x) { return x.PORADI_ZOBRAZENI; }).value();
 
-                    $log.debug(probiraneUcivo);
+                    //$log.debug(probiraneUcivo);
 
                     $scope.data = probiraneUcivo;
 
@@ -167,8 +167,8 @@
 
                     $scope.enhanceFields();
 
-                    $log.info($scope.data.ProbiraneUcivo);
-                    $log.info($scope.data.ProbiraneUcivoView);
+                    //$log.info($scope.data.ProbiraneUcivo);
+                    //$log.info($scope.data.ProbiraneUcivoView);
 
                     //$scope.$watchCollection("data.ProbiraneUcivo", function (newValue, oldValue) {
                     //    $log.debug('watchCollection');
@@ -339,7 +339,7 @@
             };
 
             $scope.zapsatHodinyZvlastChanged = function () {
-                $log.info('$scope.zapsatHodinyZvlast CHANGED : ' + $scope.zapsatHodinyZvlast);
+                //$log.info('$scope.zapsatHodinyZvlast CHANGED : ' + $scope.zapsatHodinyZvlast);
                 makeProbiraneUcivoView();
             };
 
@@ -366,18 +366,18 @@
                 //$log.info(probiraneUcivoViewQuery);
 
                 if ($scope.zapsatHodinyZvlast == false) {
-                    $log.info("LAST");
+                    //$log.info("LAST");
 
                     $scope.data.ProbiraneUcivoView = probiraneUcivoViewQuery.last(1).value();
                 } else {
-                    $log.info("VALUE");
+                    //$log.info("VALUE");
 
                     $scope.data.ProbiraneUcivoView = probiraneUcivoViewQuery.value();
                 }
 
                 $scope.$watch("data.ProbiraneUcivoView", function (newValue, oldValue, x, y, z) {
-                    $log.debug('watch values data.ProbiraneUcivoView');
-                    $log.info(newValue, oldValue, x, y, z);
+                    //$log.debug('watch values data.ProbiraneUcivoView');
+                    //$log.info(newValue, oldValue, x, y, z);
                 
                     // $scope.zapsatVsemTridam
                     // $scope.zapsatHodinyZvlast
@@ -413,12 +413,12 @@
                     //value, index | key, collection
 
                 
-                    $log.debug($scope.data.ProbiraneUcivo);
+                    //$log.debug($scope.data.ProbiraneUcivo);
                 
                 }, true);
 
 
-                $log.info($scope.data.ProbiraneUcivo);
+                //$log.info($scope.data.ProbiraneUcivo);
 
                 $scope.enhanceFields();
             }

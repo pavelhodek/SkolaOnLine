@@ -250,7 +250,7 @@
         $scope.prednastavitDlePredchozi = function() {
             var dochazkyPredchozi = ZapisDochazkyService.getPredchoziByRozvrhovaUdalost($scope.UdalostID, $scope.UdalostPoradi);
             dochazkyPredchozi.then(function (result) {
-                $log.info(result.data.Data);
+                //$log.info(result.data.Data);
                 var absenceCollection = result.data.Data;
 
                 for (var i = 0; i < absenceCollection.length; i++) {

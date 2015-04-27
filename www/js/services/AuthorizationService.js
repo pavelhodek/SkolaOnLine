@@ -8,7 +8,7 @@
         me.getApiUrl = function() {
             var user = me.getCurrentUser();
 
-            $log.info("getApiUrl user", user);
+            //$log.info("getApiUrl user", user);
 
             if (user) {
                 return user.apiUrl;
@@ -58,10 +58,10 @@
                         })
                         .then(function (data) {
 
-                        $log.debug("then: ", url, data);
+                        //$log.debug("then: ", url, data);
 
                         if (data.data.Status.Code == "OK") {
-                            $log.debug("OK", url);
+                            //$log.debug("OK", url);
                             //$log.debug(context.foundUrl.length);
                             //context.foundUrl.push(url);
                             foundUrl.push(url);
@@ -88,9 +88,9 @@
             //$.when(urls.forEach(function (t) { return t(); })).then(function (results) {
             //$.when(urls.forEach(function (t) { return t(); })).then(function (results) {
             $q.all(deferredUrls).then(function (results) {
-                $log.info("results:", results);
+                //$log.info("results:", results);
                 //$log.info("foundUrl: ", context.foundUrl);
-                $log.info("foundUrl: ", foundUrl);
+                //$log.info("foundUrl: ", foundUrl);
 
                 //if (context.foundUrl.length > 0) {
                 if (foundUrl.length > 0) {
@@ -240,7 +240,7 @@
         me.checkAuthorizationIsValid = function(apiUrl, username, password) {
             //var url = NastaveniService.getApiURL() + 'AuthorizationStatus';
             var url = apiUrl + 'AuthorizationStatus';
-            $log.info("checkAuthorizationIsValid", url);
+            //$log.info("checkAuthorizationIsValid", url);
 
             $http.defaults.headers.common.Authorization = me.getAuthorizationHeader(username, password);
 

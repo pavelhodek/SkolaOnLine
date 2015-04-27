@@ -85,7 +85,7 @@
                         var userInfoResult = AuthorizationService.getUserInfo(apiUrl, username);
                         userInfoResult.then(
                             function (success) {
-                                $log.info(success);
+                                //$log.info(success);
 
                                 //AuthorizationService.setCurrentUser(username, password, apiUrl);
                                 // {"username":"ada","password":"welcome12","apiUrl":"http://sol.cca.cz/SOLWebApi/api/"}
@@ -103,11 +103,11 @@
 
                                 //var currentUser = AuthorizationService.getCurrentUser();
 
-                                $log.info("currentUser", currentUser);
+                                //$log.info("currentUser", currentUser);
                                 $rootScope.currentUser = currentUser; // AuthorizationService.getUsername();
 
 
-                                $log.info("remember", remember);
+                                //$log.info("remember", remember);
                                 if (remember === true) {
                                     AuthorizationService.saveUserProfile(currentUser);
                                 }
@@ -117,7 +117,7 @@
                                     || currentUser.kategorie.indexOf("KAT_UCITEL") > -1
                                 );
 
-                                $log.info("jeInterniRole", jeInterniRole);
+                                //$log.info("jeInterniRole", jeInterniRole);
 
 
                                 app.isUserLoggedIn = true;
@@ -161,7 +161,7 @@
 
 
         $scope.login = function () {
-                $log.debug("LOGIN");
+                //$log.debug("LOGIN");
                 $rootScope.currentUser = null;
                 $rootScope.$broadcast('login');
 
@@ -187,7 +187,7 @@
 
                 apiUrlResult.then(
                     function(apiUrl) {
-                        $log.info("apiUrlResult", apiUrl);
+                        //$log.info("apiUrlResult", apiUrl);
                         //AuthorizationService.storeLogin($scope.data.username, $scope.data.password, $scope.data.remember);
                         loginInternal(apiUrl, $scope.data.username, $scope.data.password, $scope.data.remember);
                         $.mobile.loading("hide");

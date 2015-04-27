@@ -21,9 +21,9 @@
                     }).
                     error(function (data, status, headers, config) {
                         $log.error(data);
-                        $log.error(status);
-                        $log.error(headers);
-                        $log.error(config);
+                        //$log.error(status);
+                        //$log.error(headers);
+                        //$log.error(config);
                         $("#nastaveniNotifier").html("Nastavení uloženo. <br>Nepopdařilo se však ověřit platnost URL.").popup("open");
                     });
             };

@@ -10,7 +10,7 @@
                     //$log.debug("PAGECREATE - #skolni-rok");
                 })
                 .on("pageshow", "#skolni-rok", function (event, ui) {
-                    $log.debug("PAGESHOW - #skolni-rok");
+                    //$log.debug("PAGESHOW - #skolni-rok");
 
                     //$scope.$apply(function () {
                     $scope.loadData();
@@ -24,7 +24,7 @@
             //}
 
             $scope.loadData = function () {
-                $log.debug('SkolniRokyCtrl - LOAD DATA');
+                //$log.debug('SkolniRokyCtrl - LOAD DATA');
 
                 SkolniRokyService.all()
                     .then(function (result) {

@@ -15,7 +15,7 @@
 
                 //var credentials = AuthorizationService.getStoredCredentials();
                 var currentUser = AuthorizationService.getCurrentUser();
-                $log.info("currentUser", currentUser);
+                //$log.info("currentUser", currentUser);
 
                 if (currentUser != null) {
 
@@ -23,7 +23,7 @@
 
                     result.success(function (data, status, headers, config) {
                         if (data.Data) {
-                            $log.info(data);
+                            //$log.info(data);
                             var jeInterniRole = (currentUser.kategorie.split(',').filter(function(a) { return (a == "KAT_STUDENT" || a == "KAT_RODIC"); }).length == 0);
 
                             app.isUserRoleInternal = jeInterniRole;

@@ -3,7 +3,7 @@
     angular.module('sol.controllers')
 
         .controller('RozvrhStudentCtrl', function ($scope, $rootScope, $log, $timeout, NastaveniService, SelectedDateService, RozvrhService) {
-            $log.debug('RozvrhCtrl');
+            //$log.debug('RozvrhCtrl');
 
         angular.element(document)
             .on("pagecreate", "#rozvrhStudent", function(event, ui) {
@@ -13,7 +13,7 @@
                 $('#rozvrhStudentContent').hide();
             })
             .on("pageshow", "#rozvrhStudent", function(event, ui) {
-                $log.debug("PAGESHOW - #ROZVRH - STUDENT");
+                //$log.debug("PAGESHOW - #ROZVRH - STUDENT");
                 $scope.init();
             });
             //.on("swipeleft", "#rozvrhStudent", function (event, ui) {
@@ -154,8 +154,8 @@
 
                     })
                     .error(function (error, status, headers, config) {
-                        $log.log("ERROR");
-                        $log.error(status);
+                        //$log.log("ERROR");
+                        $log.error(error);
 
                         if (status == 401) {
                             $timeout(function () { $.mobile.changePage('#login'); }, 0);

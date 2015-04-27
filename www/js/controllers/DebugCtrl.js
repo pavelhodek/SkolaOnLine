@@ -22,7 +22,7 @@
 
 
         $scope.updateEnvironment = function () {
-            $log.log($scope.data.selectedEnvironmentCode);
+            //$log.log($scope.data.selectedEnvironmentCode);
 
             //$scope.data.selectedEnvironmentCode = $scope.selectedEnvironment.code;
 
@@ -64,10 +64,10 @@
 
             var userEnvironmentCode = AuthorizationService.getCurrentUserEnvironmentCode();
             if (userEnvironmentCode) {
-                $log.info('userEnvironmentCode: ', userEnvironmentCode);
+                //$log.info('userEnvironmentCode: ', userEnvironmentCode);
                 $scope.data.selectedEnvironmentCode = userEnvironmentCode;
             } else {
-                $log.info('selectedEnvironmentCode: ', NastaveniService.selectedEnvironmentCode);
+                //$log.info('selectedEnvironmentCode: ', NastaveniService.selectedEnvironmentCode);
                 $scope.data.selectedEnvironmentCode = NastaveniService.selectedEnvironmentCode;
             }
 

@@ -150,8 +150,8 @@
 
                     })
                     .error(function (error, status, headers, config) {
-                        $log.log("ERROR");
-                        $log.error(status);
+                        //$log.log("ERROR");
+                        $log.error(error);
 
                         if (status == 401) {
                             $timeout(function () { $.mobile.changePage('#login'); }, 0);
@@ -183,6 +183,8 @@
                 //$log.debug(event);
                 //$log.debug(udalost.UDALOST_ID, udalost.PORADI);
                 //$log.debug(x);
+
+                alert('detail');
 
                 RozvrhService.selectedUdalostID = udalost.UDALOST_ID;
                 RozvrhService.selectedUdalostPoradi = udalost.PORADI;

@@ -126,7 +126,7 @@
                     var hodnoceni = results[0].data.Data;
                     var druhyHodnoceni = results[1].data.Data;
                     var predmety = results[2].data.Data;
-                    $log.log(druhyHodnoceni);
+                    //$log.log(druhyHodnoceni);
 
                     var data = {};
 
@@ -146,10 +146,10 @@
                     if (isInitialLoad && data.Hodnoceni.length > 0) {
 
                         var datum = moment(data.Hodnoceni[0].DATUM);
-                        $log.log(datum, $scope.selectedDateFrom);
+                        //$log.log(datum, $scope.selectedDateFrom);
 
                         if (datum < $scope.selectedDateFrom) {
-                            $log.log('KOREKCE SLEDOVANEHO OBDOBI');
+                            //$log.log('KOREKCE SLEDOVANEHO OBDOBI');
                             var obdobi = _($scope.sledovaneObdobi).find(function (x) { return x.DateFrom <= datum; });
                             if (obdobi) {
                                 setSelectedObdobi(obdobi.ID);
@@ -205,8 +205,8 @@
                     });
 
 
-                    $log.log(data.Predmety);
-                    $log.log(data.Hodnoceni);
+                    //$log.log(data.Predmety);
+                    //$log.log(data.Hodnoceni);
 
                     $scope.predmety = _(data.Predmety).filter(function (x) { return x.HODNOCENI; }).value();
 
@@ -258,7 +258,7 @@
 
 
             $scope.vyberObdobiVypisu = function () {
-                $log.info("vyberObdobiVypisu");
+                //$log.info("vyberObdobiVypisu");
                 $("#hodnoceniVypisStudentObdobiPopup").popup("open");
 
                 $timeout(function () {

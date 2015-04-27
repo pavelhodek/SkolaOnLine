@@ -80,7 +80,7 @@
             //}
 
             $scope.close = function() {
-                $log.debug('CLOSE');
+                //$log.debug('CLOSE');
                 $("#hodnoceniDetail").dialog("close");
                 //$('[data-role=dialog]').dialog("close");
                 //$("#hodnoceniDetail").popup("close");
