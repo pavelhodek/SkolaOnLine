@@ -43,27 +43,27 @@
                 }
 
 
-                $.mobile.loading("show", {
-                    text: "načítám...",
-                    textVisible: true,
-                    theme: "a",
-                    html: ""
-                });
+                //$.mobile.loading("show", {
+                //    text: "načítám...",
+                //    textVisible: true,
+                //    theme: "a",
+                //    html: ""
+                //});
 
-                var hodnoceni = HodnoceniDetailService.getHodnoceniDetail(UdalostID, studentID);
+                //var hodnoceni = HodnoceniDetailService.getHodnoceniDetail(UdalostID, studentID);
 
-                hodnoceni.then(function(success) {
+                //hodnoceni.then(function(success) {
                     
-                }, function(error) {
+                //}, function(error) {
                     
-                });
+                //});
 
 
 
                 $scope.hodnoceni.PREDMET = 'matematika';
                 //$scope.apply();
 
-                $.mobile.loading("hide");
+                //$.mobile.loading("hide");
             }
 
 

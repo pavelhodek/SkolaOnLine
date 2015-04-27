@@ -420,8 +420,76 @@
             <h1>Hodnocení</h1>
             <p class="sol-subheader">{{popisObdobi}}</p>
         </header>
+        
+        <!--POPUP DETAIL-->
+        <div data-role="popup" id="popupDetail" data-theme="a" class="ui-content" style="width: 100%">
+            <div data-role="header" data-theme="a">
+                <h1>Detail hodnocení</h1>
+            </div>
 
+            <div data-role="content">
+                <table>
 
+                    <tr>
+                        <td style="vertical-align: top"><label class="nowrap">Předmět:</label></td>
+                        <td style="vertical-align: top"><label>{{detail.PREDMET}}</label></td>
+                    </tr>
+
+                    <tr>
+                        <td style="vertical-align: top"><label class="nowrap">Téma:</label></td>
+                        <td style="vertical-align: top"><label>{{detail.TEMA}}</label></td>
+                    </tr>
+
+                    <tr>
+                        <td style="vertical-align: top"><label class="nowrap">Druh hodnocení (váha):</label></td>
+                        <td style="vertical-align: top"><label>{{detail.DRUH_VAHA}}</label></td>
+                    </tr>
+
+                    <tr>
+                        <td style="vertical-align: top"><label class="nowrap">Hodnocení:</label></td>
+                        <td style="vertical-align: top"><label>{{detail.HODNOCENI}}</label></td>
+                    </tr>
+
+                    <tr ng-show="detail.SLOVNI_HODNOCENI">
+                        <td style="vertical-align: top"><label class="nowrap">Slovní hodnocení:</label></td>
+                        <td style="vertical-align: top"><label>{{detail.SLOVNI_HODNOCENI}}</label></td>
+                    </tr>
+
+                    <tr ng-show="detail.KOMENTAR">
+                        <td style="vertical-align: top"><label class="nowrap">Komentář:</label></td>
+                        <td style="vertical-align: top"><label>{{detail.KOMENTAR}}</label>
+                        <td>
+                    </tr>
+
+                    <tr>
+                        <td style="vertical-align: top"><label class="nowrap">Datum hodnocení:</label></td>
+                        <td style="vertical-align: top"><label>{{detail.DATUM_HODNOCENI | date:dateFormat}}</label></td>
+                    </tr>
+
+                    <tr>
+                        <td style="vertical-align: top"><label class="nowrap">Vyučovací hodina:</label></td>
+                        <td style="vertical-align: top"><label>{{detail.VYUCOVACI_HODINA}}</label></td>
+                    </tr>
+
+                    <tr>
+                        <td style="vertical-align: top"><label class="nowrap">Učitel:</label></td>
+                        <td style="vertical-align: top"><label>{{detail.UCITEL}}</label></td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top"><label class="nowrap">Započítává se do období:</label></td>
+                        <td style="vertical-align: top"><label>{{detail.OBDOBI}}</label></td>
+                    </tr>
+
+                </table>
+            </div>
+            
+            <a href="#" data-role="button" data-rel="back" data-theme="b" data-inline="false">Zavřít</a>
+
+            <footer data-role="footer" data-theme="a">
+                
+            </footer>
+
+        </div>
 
 
         <!--CONTENT-->
@@ -429,7 +497,6 @@
             <div data-role="popup" id="hodnoceniVypisStudentNotifier"></div>
 
             <div id="hodnoceniVypisStudentContent">
-
                 <ul class="hodnoceniVypisStudentList" data-role="listview">
                     <li data-role="collapsible" data-iconpos="left" data-inset="false" ng-repeat="predmet in predmety">
                         <h3>
@@ -437,7 +504,6 @@
                             <div>
                                 <span class="ui-li-desc " style="font-size:12px; font-weight: normal">Počet: {{predmet.POCET_HODNOCENI}}</span>
                                 <span class="ui-li-desc " style="font-size:12px; font-weight: normal; float: right">Poslední: {{predmet.POSLEDNI_HODNOCENI | date:dateFormat}}</span>
-
                             </div>
 
                             <!--<span class="ui-li-aside" style="font-size:12px; font-weight: normal">poslední: {{predmet.POSLEDNI_HODNOCENI | date:dateFormat}}</span>-->
@@ -447,7 +513,7 @@
                         <ul class="hodnoceniVypisStudentSubList" data-role="listview">
                             <li ng-repeat="hodnoceni in predmet.HODNOCENI" data-icon="false">
                                 <!--ng-click="showDetail($event, hodnoceni)"-->
-                                <a>
+                                <a ng-click="showDetail($event, hodnoceni)">
                                     <div style="display:table-cell; vertical-align: middle; width: 30px; font-size: 24px; float: left">
                                         {{hodnoceni.VYSLEDEK}}
                                     </div>
@@ -565,8 +631,6 @@
 
 
 
-
-
     <!--DOCHAZKA-->
     <section id="dochazka" data-role="page" ng-controller="ZapisDochazkyCtrl">
 
@@ -623,10 +687,6 @@
         </footer>
 
     </section>
-
-
-
-
 
 
 
@@ -842,10 +902,6 @@
 
 
 
-
-
-
-
     <!--PROBIRANE-UCIVO-->
     <section id="probirane-ucivo" data-role="page" ng-controller="ZapisProbiranehoUcivaCtrl">
         <form id="probiraneUcivoForm" name="probiraneUcivoForm" novalidate>
@@ -920,9 +976,6 @@
 
 
 
-
-
-
     <!--NAPOVEDA-->
     <section id="napoveda" data-role="page">
 
@@ -937,9 +990,6 @@
             <h1>NÁPOVĚDA</h1>
         </div>
     </section>
-
-
-
 
 
 
@@ -959,9 +1009,6 @@
         </div>
 
     </section>
-
-
-
 
 
 

@@ -3,7 +3,7 @@
     angular.module('sol.controllers')
 
         .controller('HodnoceniVypisStudentCtrl',
-        function ($scope, $rootScope, $log, $q, $timeout, NastaveniService, SelectedDateService, HodnoceniVypisStudentService, DruhyHodnoceniService, PredmetyService) {
+        function ($scope, $rootScope, $log, $q, $timeout, NastaveniService, SelectedDateService, HodnoceniVypisStudentService, DruhyHodnoceniService, PredmetyService, HodnoceniDetailService) {
             //$log.debug('HodnoceniVypisStudent');
 
             angular.element(document)
@@ -16,7 +16,9 @@
                 .on("pageshow", "#hodnoceniVypisStudent", function (event, ui) {
                     //$log.debug("PAGESHOW - #ROZVRH - STUDENT");
                     //$log.debug('This page was just hidden: ', ui.prevPage);
+
                     $scope.init();
+
                     //if (ui.prevPage[0].id != 'hodnoceniDetail') {
                     //    $scope.init();
                     //}
@@ -191,6 +193,7 @@
 
 
                             predmet.HODNOCENI[predmet.HODNOCENI.length] = {
+                                UDALOST_ID: hodn.UDALOST_ID,
                                 VYSLEDEK: vysledek,
                                 DRUH_VYSLEDKU: hodn.DRUH_VYSLEDKU,
                                 NAZEV: hodn.NAZEV,
@@ -284,16 +287,77 @@
 
 
             $scope.showDetail = function(event, hodnoceni) {
-                $.mobile.pageContainer.pagecontainer('change', '#hodnoceniDetail', {
-                    transition: 'none',
-                    ajax: false
-                    //changeHash: false
-                    //role: 'dialog',
-                    //reload: false,
-                    //changeHash: true,
-                    //reverse: false,
-                    //showLoadMsg: false
+
+                $log.info(hodnoceni);
+                $scope.detail = {};
+
+
+                var studentID = null;
+                if ($rootScope.shared) {
+                    studentID = $rootScope.shared.STUDENT_ID;
+                }
+                if (studentID == null) {
+                    studentID = $rootScope.currentUser.id;
+                }
+
+                var result = HodnoceniDetailService.getHodnoceniDetail(hodnoceni.UDALOST_ID, studentID);
+                result.then(function (success) {
+                    var data = success.data.Data;
+
+                    $log.info(data);
+                    
+
+                    $scope.detail.DATUM = data.DATUM;
+
+                    if (data.PREDMET_NAZEV)
+                        $scope.detail.PREDMET = data.PREDMET_ZKRATKA + ' (' + data.PREDMET_NAZEV + ")";
+                    else
+                        $scope.detail.PREDMET = data.PREDMET_ZKRATKA;
+
+                    $scope.detail.TEMA = data.TEMA;
+                    $scope.detail.DRUH_VAHA = data.DRUH_HODNOCENI_NAZEV + ' (' + data.DRUH_HODNOCENI_VAHA.toString().replace('.', ',') + ')';
+
+                    $scope.detail.HODNOCENI = data.VYSLEDEK;
+                    $scope.detail.SLOVNI_HODNOCENI = data.SLOVNI_HODNOCENI;
+                    $scope.detail.KOMENTAR = data.KOMENTAR;
+                    $scope.detail.DATUM_HODNOCENI = data.DATUM_HODNOCENI;
+                    $scope.detail.VYUCOVACI_HODINA = data.VYUCOVACI_HODINA;
+                    $scope.detail.UCITEL = ((data.UCITEL_TITUL_PRED || '') + ' ' + (data.UCITEL_JMENO || '') + ' ' + (data.UCITEL_PRIJMENI || '') + ' ' + (data.UCITEL_TITUL_ZA || '')).trim();
+                    $scope.detail.OBDOBI = data.OBDOBI_ROK_NAZEV + ' - ' + data.OBDOBI_POLOLETI_NAZEV;
+
+
+                    $('#popupDetail').popup('open', {
+                        transition: 'pop'
+                        , positionTo: "window"
+                        //x: event.clientX,
+                        //y: event.clientY
+
+                        //, x: event.pageX
+                        //, y: event.pageY
+
+                    });
+
+                }, function(error) {
+                    $log.error(error);
                 });
+
+
+
+
+                
+
+
+
+                //$.mobile.pageContainer.pagecontainer('change', '#hodnoceniDetail', {
+                //    transition: 'none',
+                //    ajax: false
+                //    //changeHash: false
+                //    //role: 'dialog',
+                //    //reload: false,
+                //    //changeHash: true,
+                //    //reverse: false,
+                //    //showLoadMsg: false
+                //});
 
                 //$('#hodnoceniDetail').popup();
                 //$('#hodnoceniDetail').popup('open');
