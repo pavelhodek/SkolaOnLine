@@ -253,9 +253,14 @@
                 ////    //angular.element('[type="text"]', table).textinput();
                 ////}, 0);
 
-                //$scope.loadData();
 
-                $.mobile.changePage("#rozvrhStudent", { transition: "slide", allowSamePageTransition: true });
+                $scope.loadData();
+
+                $timeout(function () {
+                    $('.ui-btn-active').removeClass('ui-btn-active ui-focus');
+                }, 0);
+
+                //$.mobile.changePage("#rozvrhStudent", { transition: "slide", allowSamePageTransition: true });
 
             }
 
