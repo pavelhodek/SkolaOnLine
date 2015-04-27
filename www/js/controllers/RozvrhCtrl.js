@@ -291,9 +291,9 @@
 
                 $scope.loadData();
 
-                //$timeout(function () {
-                //    $('.ui-btn-active').removeClass('ui-btn-active ui-focus');
-                //}, 0);
+                $timeout(function () {
+                    $('.ui-btn-active').removeClass('ui-btn-active ui-focus');
+                }, 0);
 
 
                 //$.mobile.changePage("#rozvrh", { transition: "slide", reverse: true, allowSamePageTransition: true });
@@ -312,9 +312,9 @@
 
                 $scope.loadData();
 
-                //$timeout(function () {
-                //    $('.ui-btn-active').removeClass('ui-btn-active ui-focus');
-                //}, 0);
+                $timeout(function () {
+                    $('.ui-btn-active').removeClass('ui-btn-active ui-focus');
+                }, 0);
 
 
                 //$.mobile.changePage("#rozvrh", { transition: "slide", allowSamePageTransition: true });

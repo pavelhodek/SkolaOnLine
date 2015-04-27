@@ -6,7 +6,7 @@
         //$log.debug('ZastupceOsobyService');
 
         function all() {
-            $log.debug('ZastupceOsobyService - all');
+            //$log.debug('ZastupceOsobyService - all');
             var url = AuthorizationService.getApiUrl() + 'ZastupceOsoby';
 
             $http.defaults.headers.common.Authorization = AuthorizationService.getAuthorizationHeader();
