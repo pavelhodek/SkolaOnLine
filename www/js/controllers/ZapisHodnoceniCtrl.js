@@ -33,6 +33,24 @@
         $scope.loadData = function () {
             //$log.log("ZapisHodnoceniCtrl - loadData");
 
+            if (navigator.network && navigator.network.connection.type === Connection.NONE) {
+                navigator.notification.alert(
+                      'Vaše zařízení není připojeno k Interentu. Data nemohou být přijata.',
+                      function () { },
+                      'Chybí připojení'
+                    );
+
+                return;
+            }
+
+            $.mobile.loading("show", {
+                text: "načítám...",
+                textVisible: true,
+                theme: "a",
+                html: ""
+            });
+
+
             $scope.UdalostID = RozvrhService.selectedUdalostID;
             $scope.UdalostPoradi = RozvrhService.selectedUdalostPoradi;
 
@@ -153,9 +171,10 @@
                     angular.element('[type="radio"]').checkboxradio("refresh");
                 }, 0);
 
-
+                $.mobile.loading("hide");
             },
             function (error) {
+                $.mobile.loading("hide");
                 $log.error(error);
             });
 

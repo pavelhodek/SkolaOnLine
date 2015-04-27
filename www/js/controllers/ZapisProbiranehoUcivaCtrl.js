@@ -72,6 +72,24 @@
 
 
         $scope.loadData = function () {
+
+            if (navigator.network && navigator.network.connection.type === Connection.NONE) {
+                navigator.notification.alert(
+                      'Vaše zařízení není připojeno k Interentu. Data nemohou být přijata.',
+                      function () { },
+                      'Chybí připojení'
+                    );
+
+                return;
+            }
+
+            $.mobile.loading("show", {
+                text: "načítám...",
+                textVisible: true,
+                theme: "a",
+                html: ""
+            });
+
                 //$log.log("ZapisProbiranehoUcivaCtrl - loadData");
                 $scope.UdalostID = RozvrhService.selectedUdalostID;
                 $scope.UdalostPoradi = RozvrhService.selectedUdalostPoradi;
@@ -178,9 +196,10 @@
 
                     $scope.isDataLoaded = true;
 
-
+                    $.mobile.loading("hide");
                 },
                     function (error) {
+                        $.mobile.loading("hide");
                         $log.error(error);
                     });
 

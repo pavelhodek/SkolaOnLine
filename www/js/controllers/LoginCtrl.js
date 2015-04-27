@@ -131,10 +131,11 @@
                                     $.mobile.changePage('#indexStudent');
                                 }
                                 
-
+                                $.mobile.loading("hide");
 
                             },
                             function (error) {
+                                $.mobile.loading("hide");
                                 $log.error(error);
                             });
 
@@ -145,6 +146,7 @@
                         app.isUserRoleInternal = false;
                         app.isUserRoleExternal = false;
 
+                        $.mobile.loading("hide");
 
                         if (data.Status.Code == "ACCOUNT_LOCKED") {
                             $("#loginNotifier").html("Účet je uzamčen.").popup("open");
@@ -162,6 +164,15 @@
                 $rootScope.currentUser = null;
                 $rootScope.$broadcast('login');
 
+
+                $.mobile.loading("show", {
+                    text: "přihlášení...",
+                    textVisible: true,
+                    theme: "a",
+                    html: ""
+                });
+
+
                 var apiUrlResult = AuthorizationService.findApiUrl($scope.data.username);
 
                 apiUrlResult.then(
@@ -169,9 +180,10 @@
                         $log.info("apiUrlResult", apiUrl);
                         //AuthorizationService.storeLogin($scope.data.username, $scope.data.password, $scope.data.remember);
                         loginInternal(apiUrl, $scope.data.username, $scope.data.password, $scope.data.remember);
-
+                        $.mobile.loading("hide");
                     },
                     function(reason) {
+                        $.mobile.loading("hide");
                         $("#loginNotifier").html("Neplatné přihlášení.").popup("open");
                         //$log.error("error: ", reason);
                     });
