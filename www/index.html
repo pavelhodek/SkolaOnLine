@@ -505,15 +505,12 @@
                                 <span class="ui-li-desc " style="font-size:12px; font-weight: normal">Počet: {{predmet.POCET_HODNOCENI}}</span>
                                 <span class="ui-li-desc " style="font-size:12px; font-weight: normal; float: right">Poslední: {{predmet.POSLEDNI_HODNOCENI | date:dateFormat}}</span>
                             </div>
-
-                            <!--<span class="ui-li-aside" style="font-size:12px; font-weight: normal">poslední: {{predmet.POSLEDNI_HODNOCENI | date:dateFormat}}</span>-->
-                            <!--<span class="ui-li-count">{{predmet.POCET_HODNOCENI}}</span>-->
                         </h3>
 
                         <ul class="hodnoceniVypisStudentSubList" data-role="listview">
                             <li ng-repeat="hodnoceni in predmet.HODNOCENI" data-icon="false">
                                 <!--ng-click="showDetail($event, hodnoceni)"-->
-                                <a ng-click="showDetail($event, hodnoceni)">
+                                <a>
                                     <div style="display:table-cell; vertical-align: middle; width: 30px; font-size: 24px; float: left">
                                         {{hodnoceni.VYSLEDEK}}
                                     </div>
