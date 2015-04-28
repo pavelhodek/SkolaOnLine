@@ -38,7 +38,7 @@
 })();
 
 var app = {
-    version: '1.0.13',
+    version: '1.0.14',
 
     // Application Constructor
     initialize: function() {
