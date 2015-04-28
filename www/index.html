@@ -935,7 +935,7 @@
                         <label for="cisloHodiny">Číslo hodiny</label>
                         <input name="cisloHodiny" id="cisloHodiny" type="number" pattern="\d*" min="0" max="9999" step="1" size="4" ng-model="ucivo.POCET_ODUCENYCH_HODIN">
                         <label class="error" ng-show="(probiraneUcivoForm.cisloHodiny.$dirty || submitted) && (probiraneUcivoForm.cisloHodiny.$error.number || probiraneUcivoForm.cisloHodiny.$error.max || probiraneUcivoForm.cisloHodiny.$error.min) ">
-                            {{probiraneUcivoForm.procenta.$error}}
+                            <!--{{probiraneUcivoForm.cisloHodiny.$error}}-->
                             neplatná hodnota
                         </label>
                     </div>
