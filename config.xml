@@ -10,6 +10,8 @@
 
     <content src="index.html" />
 
+
+
     <!-- PREFERENCES -->
     <preference name="permissions" value="none" />
     <!--<preference name="phonegap-version" value="3.6.3" />-->
@@ -17,17 +19,24 @@
     <preference name="orientation" value="default" />
     <preference name="target-device" value="universal" />
 
-
     <!-- Android - aplikace NESMÍ byt fullscreen - zlobi scrolovani (klavesnice zakryva formular) -->
-    <platform name="android">
-        <preference name="fullscreen" value="false" />
-    </platform>
+    <preference gap:platform="android" name="fullscreen" value="false" />
 
-    <platform name="ios">
-        <preference name="fullscreen" value="false" />
-    </platform>
+    <preference gap:platform="winphone" name="fullscreen" value="true" />
 
-    <preference name="fullscreen" value="true" />
+    <preference gap:platform="ios" name="fullscreen" value="false" />
+
+
+    <gap:config-file platform="ios" parent="UIViewControllerBasedStatusBarAppearance" overwrite="true">
+        <false/>
+    </gap:config-file>
+
+    <gap:config-file platform="ios" parent="UIStatusBarHidden" overwrite="true">
+        <true/>
+    </gap:config-file>
+
+
+
 
     <preference name="webviewbounce" value="true" />
     <preference name="prerendered-icon" value="true" />
