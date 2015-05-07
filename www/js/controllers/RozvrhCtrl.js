@@ -2,7 +2,7 @@
     "use strict";
     angular.module('sol.controllers')
 
-        .controller('RozvrhCtrl', function ($scope, $rootScope, $log, $timeout, NastaveniService, SelectedDateService, RozvrhService, ZapisHodnoceniService) {
+        .controller('RozvrhCtrl', function ($scope, $rootScope, $log, $timeout, NastaveniService, SelectedDateService, RozvrhService, ZapisHodnoceniService, ParametryService) {
             //$log.debug('RozvrhCtrl');
 
         angular.element(document)
@@ -190,16 +190,71 @@
                 RozvrhService.selectedUdalostPoradi = udalost.PORADI;
                 RozvrhService.selectedDatum = udalost.DATUM;
 
-                $('#popupMenu').popup('open', {
-                    transition: 'pop',
-                    positionTo: "origin",
-                    //x: event.clientX,
-                    //y: event.clientY
 
-                    x: event.pageX,
-                    y: event.pageY
+                //https://sol.cca.cz/SOLWebApi/api/Parametry/string/TK_DOPREDNY_ZAPIS
 
-                });
+                var when = moment(udalost.CAS_OD);
+                var now = moment();
+                var jeDoprednyZapis = (when > now);
+
+                if (jeDoprednyZapis) {
+                    var parametrDoprednyZapis = ParametryService.getStringById('TK_DOPREDNY_ZAPIS');
+                    parametrDoprednyZapis.then(function(result) {
+                        //$log.log(result);
+                        //$log.log(udalost);
+                        var povolenDoprednyZapis = (result.data.Data === 'ANO');
+
+                        if (povolenDoprednyZapis) {
+                            $('#menuItemZadatDochazku').show();
+                        } else {
+                            $('#menuItemZadatDochazku').hide();
+                        }
+                    });
+
+                    $timeout(function() {
+                        $('#popupMenu').popup('open', {
+                            transition: 'pop',
+                            positionTo: "origin",
+                            //x: event.clientX,
+                            //y: event.clientY
+
+                            x: event.pageX,
+                            y: event.pageY
+
+                        });
+                    }, 0);
+
+
+                    //    .then(
+                    //    function (povolenDoprednyZapis) {
+                    //        $log.log(povolenDoprednyZapis);
+                    //        //moment().
+                    //        if (povolenDoprednyZapis == "NE") {
+                    //            $("#rozvrhNotifier").html("Nemáte povolen zápis .").popup("open");
+                    //            return;
+                    //        }
+                    //    }
+                    //);
+
+
+                } else {
+                    $('#menuItemZadatDochazku').show();
+                    $timeout(function() {
+                        $('#popupMenu').popup('open', {
+                            transition: 'pop',
+                            positionTo: "origin",
+                            //x: event.clientX,
+                            //y: event.clientY
+
+                            x: event.pageX,
+                            y: event.pageY
+
+                        });
+
+                    }, 0);
+                }
+
+
             }
 
 
