@@ -192,3 +192,32 @@ ul.ui-listview li h2 {
     left: 5%;
     width: 90%;
 }
+
+
+
+@media screen and (orientation: portrait) {
+
+    .login-logo {
+        text-align: center;
+        width: 100%;
+    }
+    
+    
+}
+
+
+@media screen and (orientation: landscape) {
+
+    .login-logo {
+        display: table-cell;
+        padding: 10px;
+    }
+
+    .login-form {
+        display: table-cell;
+        width: 100%;
+        vertical-align: top;
+    }
+
+
+}

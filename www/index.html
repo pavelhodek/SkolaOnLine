@@ -74,18 +74,10 @@
 
 
     <!--CONTROLLERS-->
-    <!--<script src="js/controllers/IndexCtrl.js"></script>
-    <script src="js/controllers/StudentIndexCtrl.js"></script>
-    <script src="js/controllers/NastaveniCtrl.js"></script>
-    <script src="js/controllers/LoginCtrl.js"></script>
-    <script src="js/controllers/LogoutCtrl.js"></script>
-    <script src="js/controllers/RozvrhCtrl.js"></script>-->
-    
     <script src="js/controllers/IndexCtrl.js"></script>
     <script src="js/controllers/StudentIndexCtrl.js"></script>
     <script src="js/controllers/LoginCtrl.js"></script>
     <script src="js/controllers/LogoutCtrl.js"></script>
-    <script src="js/controllers/NastaveniCtrl.js"></script>
     <script src="js/controllers/ZapisProbiranehoUcivaCtrl.js"></script>
     <script src="js/controllers/RozvrhCtrl.js"></script>
     <script src="js/controllers/RozvrhStudentCtrl.js"></script>
@@ -161,35 +153,6 @@
     </section>
 
 
-    <!--NASTAVENI-->
-    <section id="nastaveni" data-role="page" ng-controller="NastaveniCtrl">
-
-        <!--HEADER-->
-        <header data-role="header" data-position="fixed">
-            <a onclick="toggleSidePanel()" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-alt-icon "></a>
-            <h1>Nastavení</h1>
-            <button class="ui-btn-right" data-icon="check" data-iconpos="left" data-theme="b" ng-click="save()">Uložit</button>
-        </header>
-
-        <!--CONTENT-->
-        <div class="content" data-role="content">
-            <div data-role="popup" id="nastaveniNotifier"></div>
-
-            <div class="ui-field-contain">
-                <label for="apiURL">URL adresa pro komunikaci:</label>
-                <input type="url" id="apiURL" ng-model="apiURL" data-clear-btn="true" />
-            </div>
-            <!--<div class="ui-field-contain">
-                    <label><input type="checkbox" id="remember" ng-model="remember" />Nabízet v rozvrhu sobotu / neděli</label>
-                </div>
-            -->
-
-        </div>
-    </section>
-
-
-
-
 
     <!--LOGIN-->
     <section id="login" data-role="page" ng-controller="LoginCtrl">
@@ -204,29 +167,35 @@
         <div id="loginContent" class="content" data-role="content" style="padding-top: 0">
             <div data-role="popup" id="loginNotifier"></div>
 
-            <!--<h4>Přihlašovací údaje do Školy OnLine:</h4>-->
-            <div style="text-align: center; width: 100%"><img src="img/sol-logo-big.jpg" alt="logo Škola OnLine" /></div>
+            <div class="login-logo"><img src="img/sol-logo-big.jpg" alt="logo Škola OnLine" /></div>
 
-            <input type="text" name="username" id="username" ng-model="data.username" placeholder="Uživatelské jméno" maxlength="50" data-clear-btn="true" />
-            <input type="password" id="password" ng-model="data.password" placeholder="Heslo" maxlength="50" data-clear-btn="true" />
-            <input id="submitLogin" type="submit" ng-click="login()" value="Přihlásit" data-role="button" data-inline="false" data-theme="b" />
-            <label><input type="checkbox" id="remember" ng-model="data.remember" />Uložit profil</label>
-            
-            <div ng-show='data.userProfiles.length > 0'>
-                <hr />
-                <h4>Uložené profily:</h4>
-                <ul id="login-userProfiles" data-role="listview" class="ui-listview-inset">
-                    <li ng-repeat="profile in data.userProfiles">
-                        <a href="#" ng-click="loginProfile(profile, $index, $event)">
-                            {{profile.username}}
-                        </a>
-                        <a ng-click="deleteProfile(profile, $index, $event)"
-                           class="ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-delete ui-btn-icon-notext"
-                           title="Menu">Smazat</a>
-                    </li>
-                </ul>
+            <div class="login-form">
+                <input type="text" name="username" id="username" ng-model="data.username" placeholder="Uživatelské jméno" maxlength="50" data-clear-btn="true" />
+                <input type="password" id="password" ng-model="data.password" placeholder="Heslo" maxlength="50" data-clear-btn="true" />
+
+                <select name="loginApis" id="loginApis" data-native-menu="true"
+                        ng-init="data.selectedApi = data.selectedApi || data.apiUrls[0]"
+                        ng-model="data.selectedApi"
+                        ng-options="api as api.nazev for api in data.apiUrls"></select>
+
+                <input id="submitLogin" type="submit" ng-click="login()" value="Přihlásit" data-role="button" data-inline="false" data-theme="b" />
+                <label><input type="checkbox" id="remember" ng-model="data.remember" />Uložit profil</label>
+
+                <div ng-show='data.userProfiles.length > 0'>
+                    <hr />
+                    <h4>Uložené profily:</h4>
+                    <ul id="login-userProfiles" data-role="listview" class="ui-listview-inset">
+                        <li ng-repeat="profile in data.userProfiles  track by $index">
+                            <a href="#" ng-click="loginProfile(profile, $index, $event)">
+                                {{profile.username}}
+                            </a>
+                            <a ng-click="deleteProfile(profile, $index, $event)"
+                               class="ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-delete ui-btn-icon-notext"
+                               title="Menu">Smazat</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-
         </div>
 
     </section>

@@ -8,114 +8,61 @@
         me.getApiUrl = function() {
             var user = me.getCurrentUser();
 
-            //$log.info("getApiUrl user", user);
-
-            if (user) {
-                return user.apiUrl;
-            }
-
-        //if ($rootScope.currentUser) {
-            //    return $rootScope.currentUser.apiUrl;
+            //if (user) {
+            //    return user.apiUrl;
             //}
-
-            return "";
-        };
-
-        me.findApiUrl = function(username) {
-            //if ($rootScope.currentUser) {
-            //    var currentUser = $rootScope.currentUser || {};
-            //    if (currentUser.username == username) {
-            //        return currentUser.apiUrl;
-            //    }
-            //}
-
-            var apiUrls = NastaveniService.defaultApiUrls;
-
-            //for (var i = 0, length = urls.length; i < length; i++) {
-            //    //h ttp://localhost/SOLWebApi/api/UzivatelInfo/ada
-            //    var url = urls[i] + 'UzivatelInfo/' + username;
-            //    return $http.get(url);
-
-            //}
-
-            var foundUrl = [];
-
-            //var context = {};
-            //context.foundUrl = [];
-
-
-            var urls = apiUrls.map(function(url, i) {
-                return function() {
-                    //return $http.get(url + "UzivatelInfo/" + username).then(function(data) {
-                    //return $http.post(url + "UzivatelInfo", { id: username }).then(function (data) {
-
-
-                    return $http({
-                        url: url + "UzivatelInfo", 
-                        method: "POST",
-                        data: JSON.stringify(utf8_to_b64(username)),
-                        headers: { 'Content-Type': 'application/json' }
-                        })
-                        .then(function (data) {
-
-                        //$log.debug("then: ", url, data);
-
-                        if (data.data.Status.Code == "OK") {
-                            //$log.debug("OK", url);
-                            //$log.debug(context.foundUrl.length);
-                            //context.foundUrl.push(url);
-                            foundUrl.push(url);
-                            //$log.debug(context.foundUrl.length);
-                            //context.foundUrl.push(url);
-                            return url;
-                        } else {
-                            //context.foundUrl.push("xxx");
-                            //return null;
-                            //return data.data.Status.Code;
-                        }
-                    });
-                }
-            });
-
-            var deferred = $q.defer();
-
-            //var deferredUrls = urls.forEach(function(t) { return t(); });
-            var deferredUrls = [];
-            urls.forEach(function (x) { deferredUrls.push(x()); });
-
-
-            //$.when.apply(this, urls.forEach(function(t) { return t(); })).then(function(results) {
-            //$.when(urls.forEach(function (t) { return t(); })).then(function (results) {
-            //$.when(urls.forEach(function (t) { return t(); })).then(function (results) {
-            $q.all(deferredUrls).then(function (results) {
-                //$log.info("results:", results);
-                //$log.info("foundUrl: ", context.foundUrl);
-                //$log.info("foundUrl: ", foundUrl);
-
-                //if (context.foundUrl.length > 0) {
-                if (foundUrl.length > 0) {
-                    //deferred.resolve(context.foundUrl[0]);
-                    //deferred.resolve(foundUrl[0]);
-
-                    // TODO: zde je potřeba nechat uživatele vybrat URL (uživatelský název)
-
-                    deferred.resolve(foundUrl[foundUrl.length - 1]);
-                } else {
-                    deferred.reject("nic");
-                }
-            });
-
-            return deferred.promise;
-
-            //var url = NastaveniService.getApiURL() + 'AuthorizationStatus';
-
-            //$http.defaults.headers.common.Authorization = me.getAuthorizationHeader();
-
-            //return $http.get(url);
 
             //return "";
-            //return localStorage.getItem("nastaveni.apiURL") || defaultApiUrl;
+
+            return getApiUrlByUser(user);
+
         };
+
+        //me.findApi ByUsername = function (username) {
+
+        //    var apis = NastaveniService.getApis();
+
+        //    var foundUrl = [];
+
+
+        //    var suitableApis = apis.map(function (api, i) {
+        //        return function() {
+
+        //            return $http({
+        //                url: api.url + "UzivatelInfo",
+        //                method: "POST",
+        //                data: JSON.stringify(utf8_to_b64(username)),
+        //                headers: { 'Content-Type': 'application/json' }
+        //                })
+        //                .then(function (data) {
+
+        //                if (data.data.Status.Code == "OK") {
+        //                    foundUrl.push(api);
+        //                    return api;
+        //                }
+        //            });
+        //        }
+        //    });
+
+        //    var deferred = $q.defer();
+
+        //    var deferredUrls = [];
+        //    suitableApis.forEach(function (x) { deferredUrls.push(x()); });
+
+        //    $q.all(deferredUrls).then(function (results) {
+
+        //        if (foundUrl.length > 0) {
+
+        //            // TODO: zde je potřeba nechat uživatele vybrat URL (uživatelský název)
+
+        //            deferred.resolve(foundUrl[foundUrl.length - 1]);
+        //        } else {
+        //            deferred.reject(null);
+        //        }
+        //    });
+
+        //    return deferred.promise;
+        //};
 
 
         me.setAuthorizationHeader = function () {
@@ -167,7 +114,10 @@
                 var currentUser = me.getCurrentUser();
 
                 if ($.trim(currentUser.username) != "" && $.trim(currentUser.password) != "") {
-                    return { username: currentUser.username, password: currentUser.password, apiUrl: currentUser.apiUrl };
+
+                    var apiId = currentUser.apiId || NastaveniService.getApiByUrl(currentUser.apiUrl).id;
+
+                    return { username: currentUser.username, password: currentUser.password, apiId: apiId };
                 }
             }
 
@@ -180,38 +130,30 @@
         }
 
 
+        function getApiUrlByUser(user) {
+            if (user) {
+                if (user.apiUrl) return user.apiUrl;
+                if (user.apiId) return NastaveniService.getApiById(user.apiId).url;
+            }
+
+            return '';
+        }
+
         me.getCurrentUserEnvironmentCode = function() {
             var user = me.getCurrentUser();
-            if (user && user.apiUrl) {
-                return NastaveniService.getEnvironmentCodeByApiUrl(user.apiUrl);
+
+            if (user) {
+                if (user.apiUrl) return NastaveniService.getEnvironmentCodeByApiUrl(user.apiUrl);
+                if (user.apiId) return NastaveniService.getEnvironmentCodeByApiId(user.apiId);
             }
 
             return null;
         }
 
-
-        //me.getUsername = function () {
-        //    return localStorage.getItem("login.username");
-        //}
-
-        //me.getPassword = function () {
-        //    return localStorage.getItem("login.password");
-        //}
-
         me.getRemember = function () {
             return !!JSON.parse(localStorage.getItem("login.remember"));
         }
 
-
-        //me.setUsername = function (value) {
-        //    //$log.info("SET USERNAME");
-        //    localStorage.setItem("login.username", value);
-        //}
-
-        //me.setPassword = function (value) {
-        //    //$log.info("SET PASSWORD");
-        //    localStorage.setItem("login.password", value);
-        //}
 
         me.setRemember = function (value) {
             //$log.info("SET REMEMBER");
@@ -280,6 +222,11 @@
 
         me.setUserProfiles = function(userProfiles) {
             localStorage.setItem("userProfiles", JSON.stringify(userProfiles));
+        };
+
+
+        me.getApis = function() {
+            return NastaveniService.getApis();
         };
 
 

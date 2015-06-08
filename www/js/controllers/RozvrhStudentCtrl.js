@@ -230,9 +230,13 @@
 
                 $scope.data = {};
 
-                //$scope.loadData();
+                //$.mobile.changePage("#rozvrhStudent", { transition: "slide", reverse: true, allowSamePageTransition: true });
 
-                $.mobile.changePage("#rozvrhStudent", { transition: "slide", reverse: true, allowSamePageTransition: true });
+                $scope.loadData();
+
+                $timeout(function () {
+                    $('.ui-btn-active').removeClass('ui-btn-active ui-focus');
+                }, 0);
 
             }
 
@@ -254,13 +258,13 @@
                 ////}, 0);
 
 
+                //$.mobile.changePage("#rozvrhStudent", { transition: "slide", allowSamePageTransition: true });
+
                 $scope.loadData();
 
                 $timeout(function () {
                     $('.ui-btn-active').removeClass('ui-btn-active ui-focus');
                 }, 0);
-
-                //$.mobile.changePage("#rozvrhStudent", { transition: "slide", allowSamePageTransition: true });
 
             }
 

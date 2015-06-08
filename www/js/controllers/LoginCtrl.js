@@ -2,7 +2,7 @@
     "use strict";
     angular.module('sol.controllers')
 
-        .controller('LoginCtrl', ['$scope', '$rootScope', '$log', '$timeout', 'AuthorizationService', function ($scope, $rootScope, $log, $timeout, AuthorizationService) {
+        .controller('LoginCtrl', ['$scope', '$rootScope', '$log', '$timeout', 'AuthorizationService', 'NastaveniService', function ($scope, $rootScope, $log, $timeout, AuthorizationService, NastaveniService) {
             //$log.debug('LoginCtrl');
 
             angular.element(document)
@@ -27,11 +27,14 @@
                 $scope.init();
             });
 
-            var initial = {data: {
+        var initial = {
+            data: {
                 username: null,
                 password: null,
-                remember: true
-            }};
+                remember: true,
+                selectedApi: null
+            }
+        };
 
 
             $scope.resetForm = function () {
@@ -53,36 +56,52 @@
                 $rootScope.shared = {};
                 $scope.data.remember = true; //AuthorizationService.getRemember();
 
+                $scope.data.userProfiles = AuthorizationService.getUserProfiles();
+
+                var apis = AuthorizationService.getApis();
+                var apiUrls = [];
+                apiUrls.push({ nazev: 'Výběr serveru', url: apis[0].url, id: apis[0].id });
+                apiUrls = apiUrls.concat(apis);
+                $scope.data.apiUrls = apiUrls;
+
+                $scope.data.selectedApi = apiUrls[0];
+
+
                 var currentUser = AuthorizationService.getCurrentUser();
 
                 if (currentUser) {
                     $scope.data.username = currentUser.username; //AuthorizationService.getUsername();
                     $scope.data.password = null;
 
+                    if (currentUser.apiId) {
+                        $scope.data.selectedApi = NastaveniService.getApiById(currentUser.apiId);
+                    } else {
+                        $scope.data.selectedApi = NastaveniService.getApiByUrl(currentUser.apiUrl);
+                    }
+
+
                     if ($scope.data.remember) {
                         $scope.data.password = currentUser.password; //AuthorizationService.getPassword();
                     }
                 }
 
-                $scope.data.userProfiles = AuthorizationService.getUserProfiles();
-
-
                 $timeout(function () {
                     $("#login-userProfiles").listview("refresh");
+                    $("#loginApis").selectmenu("refresh");
                     $("#remember").checkboxradio("refresh");
                 }, 0);
             }
 
 
-        function loginInternal(apiUrl, username, password, remember) {
+        function loginInternal(api, username, password, remember) {
 
-            var authResult = AuthorizationService.checkAuthorizationIsValid(apiUrl, username, password);
+            var authResult = AuthorizationService.checkAuthorizationIsValid(api.url, username, password);
 
             authResult
                 .success(function (data, status, headers, config) {
                     if (data.Data) {
 
-                        var userInfoResult = AuthorizationService.getUserInfo(apiUrl, username);
+                        var userInfoResult = AuthorizationService.getUserInfo(api.url, username);
                         userInfoResult.then(
                             function (success) {
                                 //$log.info(success);
@@ -95,7 +114,8 @@
                                 var currentUser = {
                                     username: username,
                                     password: password,
-                                    apiUrl: apiUrl,
+                                    apiId: api.id,
+                                    //apiUrl: apiUrl.url,
                                     kategorie: kategorie,
                                     id: id
                                 };
@@ -183,21 +203,24 @@
                     html: ""
                 });
 
-                var apiUrlResult = AuthorizationService.findApiUrl($scope.data.username);
+                //var apiResult = AuthorizationService.findApiByUsername($scope.data.username);
 
-                apiUrlResult.then(
-                    function(apiUrl) {
-                        //$log.info("apiUrlResult", apiUrl);
-                        //AuthorizationService.storeLogin($scope.data.username, $scope.data.password, $scope.data.remember);
-                        loginInternal(apiUrl, $scope.data.username, $scope.data.password, $scope.data.remember);
-                        $.mobile.loading("hide");
-                    },
-                    function(reason) {
-                        $.mobile.loading("hide");
-                        $("#loginNotifier").html("Neplatné přihlášení.").popup("open");
-                        //$log.error("error: ", reason);
-                    });
-            };
+                //apiResult.then(
+                //    function(api) {
+                //        loginInternal(api, $scope.data.username, $scope.data.password, $scope.data.remember);
+                //        $.mobile.loading("hide");
+                //    },
+                //    function(reason) {
+                //        $.mobile.loading("hide");
+                //        $("#loginNotifier").html("Neplatné přihlášení.").popup("open");
+                //        //$log.error("error: ", reason);
+                //    });
+
+            var api = $scope.data.selectedApi;
+            loginInternal(api, $scope.data.username, $scope.data.password, $scope.data.remember);
+            $.mobile.loading("hide");
+
+        };
 
         $scope.loginProfile = function (profile) {
             if (navigator.network && navigator.network.connection.type === Connection.NONE) {
@@ -218,9 +241,14 @@
             });
 
             $rootScope.$broadcast('login');
-            //AuthorizationService.storeLogin(profile.username, profile.password, profile.apiUrl);
 
-            loginInternal(profile.apiUrl, profile.username, profile.password);
+            var api = null;
+            if (profile.apiUrl)
+                api = NastaveniService.getApiByUrl(profile.apiUrl);
+            else if (profile.apiId)
+                api = NastaveniService.getApiById(profile.apiId);
+
+            loginInternal(api, profile.username, profile.password);
         };
 
 
