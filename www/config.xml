@@ -20,10 +20,19 @@
 
     <!-- Android - aplikace NESMÍ byt fullscreen - zlobi scrolovani (klavesnice zakryva formular) -->
     <preference gap:platform="android" name="fullscreen" value="false" />
+    <platform name="android">
+        <preference name="fullscreen" value="false" />
+    </platform>
 
     <preference gap:platform="winphone" name="fullscreen" value="true" />
+    <platform name="winphone">
+        <preference name="fullscreen" value="true" />
+    </platform>
 
     <preference gap:platform="ios" name="fullscreen" value="false" />
+    <platform name="ios">
+        <preference name="fullscreen" value="false" />
+    </platform>
 
 
     <gap:config-file platform="ios" parent="UIViewControllerBasedStatusBarAppearance" overwrite="true">
