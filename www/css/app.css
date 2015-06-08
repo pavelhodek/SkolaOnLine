@@ -185,3 +185,10 @@ ul.ui-listview li h2 {
        min-zoom: 1;
     }
 }
+
+
+#popupDetailHodnoceniVypisStudent-popup{
+    right: 5%;
+    left: 5%;
+    width: 90%;
+}

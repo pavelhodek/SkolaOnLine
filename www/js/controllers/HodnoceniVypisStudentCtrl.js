@@ -326,6 +326,39 @@
                     $scope.detail.OBDOBI = data.OBDOBI_ROK_NAZEV + ' - ' + data.OBDOBI_POLOLETI_NAZEV;
 
 
+                    //$("#popupDetail").popup({ positionTo: "window" }).popup('open');
+
+                    //$("#popupDetail").popup('open').popup("reposition", { positionTo: 'window' });
+
+                    $("#popupDetailHodnoceniVypisStudent").popup('open');
+
+
+                    //$("#popupDetail").popup({
+                    //    afteropen: function (event, ui) {
+                    //        $log.log('afteropen');
+                    //        var that = this;
+                    //        $log.log(this);
+                    //        $timeout(function() {
+                    //            $log.log(that);
+                    //            $(that).resize();
+                    //            $log.log('resized');
+                    //        }, 1000);
+
+                    //    }
+                    //}).popup('open');
+
+
+                    //$("#popupDetail")
+                    //    .popup("open")
+                    //    .on("popupafteropen", function(event, ui) {
+                    //        $(this).resize();
+                    //    //.popup("reposition", {
+                    //    //    "positionTo": "window"
+                    //    //});
+                    //});
+
+
+                    /*
                     $('#popupDetail').popup('open', {
                         transition: 'pop'
                         , positionTo: "window"
@@ -335,7 +368,7 @@
                         //, x: event.pageX
                         //, y: event.pageY
 
-                    });
+                    });*/
 
                 }, function(error) {
                     $log.error(error);

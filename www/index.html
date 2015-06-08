@@ -422,7 +422,7 @@
         </header>
         
         <!--POPUP DETAIL-->
-        <div data-role="popup" id="popupDetail" data-theme="a" class="ui-content" style="width: 100%">
+        <div data-role="popup" id="popupDetailHodnoceniVypisStudent" data-theme="a" class="ui-content">
             <div data-role="header" data-theme="a">
                 <h1>Detail hodnocení</h1>
             </div>
@@ -482,13 +482,8 @@
 
                 </table>
             </div>
-            
+
             <a href="#" data-role="button" data-rel="back" data-theme="b" data-inline="false">Zavřít</a>
-
-            <footer data-role="footer" data-theme="a">
-                
-            </footer>
-
         </div>
 
 
@@ -510,7 +505,7 @@
                         <ul class="hodnoceniVypisStudentSubList" data-role="listview">
                             <li ng-repeat="hodnoceni in predmet.HODNOCENI" data-icon="false">
                                 <!--ng-click="showDetail($event, hodnoceni)"-->
-                                <a>
+                                <a ng-click="showDetail($event, hodnoceni)">
                                     <div style="display:table-cell; vertical-align: middle; width: 30px; font-size: 24px; float: left">
                                         {{hodnoceni.VYSLEDEK}}
                                     </div>
