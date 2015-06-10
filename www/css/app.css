@@ -194,20 +194,35 @@ ul.ui-listview li h2 {
 }
 
 
+.login-logo {
+    text-align: center;
+    width: 100%;
+}
 
+
+.hodnoceni-detail td {
+    vertical-align: top;
+}
+
+
+.hodnoceni-detail .label {
+    font-size: small;
+}
+
+.hodnoceni-detail .value {
+    font-size: small;
+}
+
+
+/*
 @media screen and (orientation: portrait) {
-
     .login-logo {
         text-align: center;
         width: 100%;
     }
-    
-    
 }
 
-
 @media screen and (orientation: landscape) {
-
     .login-logo {
         display: table-cell;
         padding: 10px;
@@ -218,6 +233,5 @@ ul.ui-listview li h2 {
         width: 100%;
         vertical-align: top;
     }
-
-
 }
+*/

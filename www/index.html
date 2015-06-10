@@ -391,62 +391,62 @@
         </header>
         
         <!--POPUP DETAIL-->
-        <div data-role="popup" id="popupDetailHodnoceniVypisStudent" data-theme="a" class="ui-content">
+        <div data-role="popup" id="popupDetailHodnoceniVypisStudent" data-theme="a" class="xui-content">
             <div data-role="header" data-theme="a">
                 <h1>Detail hodnocení</h1>
             </div>
 
-            <div data-role="content">
+            <div data-role="xcontent" class="hodnoceni-detail">
                 <table>
 
                     <tr>
-                        <td style="vertical-align: top"><label class="nowrap">Předmět:</label></td>
-                        <td style="vertical-align: top"><label>{{detail.PREDMET}}</label></td>
+                        <td><label class="label">Předmět:</label></td>
+                        <td><label class="value">{{detail.PREDMET}}</label></td>
                     </tr>
 
                     <tr>
-                        <td style="vertical-align: top"><label class="nowrap">Téma:</label></td>
-                        <td style="vertical-align: top"><label>{{detail.TEMA}}</label></td>
+                        <td><label class="label">Téma:</label></td>
+                        <td><label class="value">{{detail.TEMA}}</label></td>
                     </tr>
 
                     <tr>
-                        <td style="vertical-align: top"><label class="nowrap">Druh hodnocení (váha):</label></td>
-                        <td style="vertical-align: top"><label>{{detail.DRUH_VAHA}}</label></td>
+                        <td><label class="label">Druh hodnocení (váha):</label></td>
+                        <td><label class="value">{{detail.DRUH_VAHA}}</label></td>
                     </tr>
 
                     <tr>
-                        <td style="vertical-align: top"><label class="nowrap">Hodnocení:</label></td>
-                        <td style="vertical-align: top"><label>{{detail.HODNOCENI}}</label></td>
+                        <td><label class="label">Hodnocení:</label></td>
+                        <td><label class="value">{{detail.HODNOCENI}}</label></td>
                     </tr>
 
                     <tr ng-show="detail.SLOVNI_HODNOCENI">
-                        <td style="vertical-align: top"><label class="nowrap">Slovní hodnocení:</label></td>
-                        <td style="vertical-align: top"><label>{{detail.SLOVNI_HODNOCENI}}</label></td>
+                        <td><label class="label">Slovní hodnocení:</label></td>
+                        <td><label class="value">{{detail.SLOVNI_HODNOCENI}}</label></td>
                     </tr>
 
                     <tr ng-show="detail.KOMENTAR">
-                        <td style="vertical-align: top"><label class="nowrap">Komentář:</label></td>
-                        <td style="vertical-align: top"><label>{{detail.KOMENTAR}}</label>
+                        <td><label class="label">Komentář:</label></td>
+                        <td><label class="value">{{detail.KOMENTAR}}</label>
                         <td>
                     </tr>
 
                     <tr>
-                        <td style="vertical-align: top"><label class="nowrap">Datum hodnocení:</label></td>
-                        <td style="vertical-align: top"><label>{{detail.DATUM_HODNOCENI | date:dateFormat}}</label></td>
+                        <td><label class="label">Datum hodnocení:</label></td>
+                        <td><label class="value">{{detail.DATUM_HODNOCENI | date:dateFormat}}</label></td>
                     </tr>
 
                     <tr>
-                        <td style="vertical-align: top"><label class="nowrap">Vyučovací hodina:</label></td>
-                        <td style="vertical-align: top"><label>{{detail.VYUCOVACI_HODINA}}</label></td>
+                        <td><label class="label">Vyučovací hodina:</label></td>
+                        <td><label class="value">{{detail.VYUCOVACI_HODINA}}</label></td>
                     </tr>
 
                     <tr>
-                        <td style="vertical-align: top"><label class="nowrap">Učitel:</label></td>
-                        <td style="vertical-align: top"><label>{{detail.UCITEL}}</label></td>
+                        <td><label class="label">Učitel:</label></td>
+                        <td><label class="value">{{detail.UCITEL}}</label></td>
                     </tr>
                     <tr>
-                        <td style="vertical-align: top"><label class="nowrap">Započítává se do období:</label></td>
-                        <td style="vertical-align: top"><label>{{detail.OBDOBI}}</label></td>
+                        <td><label class="label">Započítává se do období:</label></td>
+                        <td><label class="value">{{detail.OBDOBI}}</label></td>
                     </tr>
 
                 </table>
@@ -1067,27 +1067,27 @@
 
 
             <div class="ui-field-contain">
-                <label class="nowrap">Předmět:</label>
+                <label class='nic'>Předmět:</label>
                 <label>{{hodnoceni.PREDMET}}</label>
             </div>
 
             <div class="ui-field-contain">
-                <label class="nowrap">Téma:</label>
+                <label>Téma:</label>
                 <label>{{hodnoceni.TEMA}}</label>
             </div>
 
             <div class="ui-field-contain">
-                <label class="nowrap">Druh hodnocení (váha):</label>
+                <label>Druh hodnocení (váha):</label>
                 <label>{{hodnoceni.DRUH_VAHA}}</label>
             </div>
 
             <div class="ui-field-contain">
-                <label class="nowrap">Hodnocení:</label>
+                <label>Hodnocení:</label>
                 <label>{{hodnoceni.HODNOCENI}}</label>
             </div>
 
             <div class="ui-field-contain">
-                <label class="nowrap">Slovní hodnocení:</label>
+                <label>Slovní hodnocení:</label>
                 <label>{{hodnoceni.SLOVNI_HODNOCENI}}</label>
             </div>
 
