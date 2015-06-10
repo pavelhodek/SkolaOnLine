@@ -19,7 +19,7 @@
 
 
     <!-- Android - aplikace NESMÍ byt fullscreen - zlobi scrolovani (klavesnice zakryva formular) -->
-    <preference name="fullscreen" value="false" />
+    <preference name="fullscreen" value="true" />
     <!--
     <preference gap:platform="android" name="fullscreen" value="false" />
     <platform name="android">
