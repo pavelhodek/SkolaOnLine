@@ -13,7 +13,8 @@
     <!-- PREFERENCES -->
     <preference name="permissions" value="none" />
     <!--<preference name="phonegap-version" value="3.6.3" />-->
-    <preference name="phonegap-version" value="3.7.0" />
+    <!--<preference name="phonegap-version" value="3.7.0" />-->
+    <preference name="phonegap-version" value="5.2.0" />
     <preference name="orientation" value="default" />
     <preference name="target-device" value="universal" />
 
