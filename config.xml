@@ -23,7 +23,7 @@
     <!-- Android  - aplikace NESMÍ byt fullscreen - zlobi scrolovani (klavesnice zakryva formular) -->
     <!-- iOS      - aplikace NESMÍ byt fullscreen -->
     <!-- winphone - aplikace MUSÍ byt fullscreen -->
-    <preference name="fullscreen" value="false" />
+    <preference name="fullscreen" value="true" />
 
     <!--
     <preference gap:platform="android" name="fullscreen" value="false" />
